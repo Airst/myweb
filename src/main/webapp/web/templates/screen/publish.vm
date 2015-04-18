@@ -1,0 +1,33 @@
+$page.setTitle("发帖子")
+<script type="text/javascript" src="resources/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        language: 'zh_CN',
+        relative_urls : false,
+        plugins: [
+            "advlist autolink lists link image charmap preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime nonbreaking save table contextmenu directionality",
+            "emoticons paste textcolor colorpicker textpattern jbimages"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
+        toolbar2: "preview | forecolor backcolor emoticons",
+        image_advtab: true,
+        templates: [
+            {title: 'Test template 1', content: '<b>Test 1</b>'},
+            {title: 'Test template 2', content: '<em>Test 2</em>'}
+        ],
+        autosave_ask_before_unload: false
+    });
+
+</script>
+<div class="container">
+    <div class="publish">
+        <form action="" method="post">
+            <input type="hidden" name="action" value="publishAction"/>
+            <textarea name="content"></textarea>
+        </form>
+    </div>
+</div>

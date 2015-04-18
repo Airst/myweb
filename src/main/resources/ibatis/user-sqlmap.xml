@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ 	"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap> 
+	<typeAlias alias="UserDO" type="com.ziqi.myweb.dal.model.UserDO"/> 
+	<select id="UserDAO.select" resultClass="UserDO" parameterClass="java.util.HashMap"> 
+		select * from user where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="account" prepend="and">
+				<![CDATA[ account = #account# ]]>
+			</isNotNull>
+			<isNotNull property="password" prepend="and">
+				<![CDATA[ password = #password# ]]>
+			</isNotNull>
+			<isNotNull property="name" prepend="and">
+				<![CDATA[ name = #name# ]]>
+			</isNotNull>
+			<isNotNull property="email" prepend="and">
+				<![CDATA[ email = #email# ]]>
+			</isNotNull>
+			<isNotNull property="phone" prepend="and">
+				<![CDATA[ phone = #phone# ]]>
+			</isNotNull>
+			<isNotNull property="age" prepend="and">
+				<![CDATA[ age = #age# ]]>
+			</isNotNull>
+			<isNotNull property="gender" prepend="and">
+				<![CDATA[ gender = #gender# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="groupField">
+				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+		</dynamic> 
+		limit #start#,#limit#
+	</select> 
+	<select id="UserDAO.selectById" resultClass="UserDO" parameterClass="int"> 
+		select * from user where 
+		is_deleted = 0 and id = #id# limit 1 
+	</select> 
+	<select id="UserDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from user where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="account" prepend="and">
+				<![CDATA[ account = #account# ]]>
+			</isNotNull>
+			<isNotNull property="password" prepend="and">
+				<![CDATA[ password = #password# ]]>
+			</isNotNull>
+			<isNotNull property="name" prepend="and">
+				<![CDATA[ name = #name# ]]>
+			</isNotNull>
+			<isNotNull property="email" prepend="and">
+				<![CDATA[ email = #email# ]]>
+			</isNotNull>
+			<isNotNull property="phone" prepend="and">
+				<![CDATA[ phone = #phone# ]]>
+			</isNotNull>
+			<isNotNull property="age" prepend="and">
+				<![CDATA[ age = #age# ]]>
+			</isNotNull>
+			<isNotNull property="gender" prepend="and">
+				<![CDATA[ gender = #gender# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+	</select> 
+	<insert id="UserDAO.insert" parameterClass="UserDO"> 
+		insert into user 
+		(			feature,
+			options,
+			is_deleted,
+			gmt_create,
+			gmt_modified,
+			version,
+			account,
+			password,
+			name,
+			email,
+			phone,
+			age,
+			gender,
+			level
+		)
+		VALUES
+		(			#feature#,
+			#options#,
+			0,
+			now(),
+			now(),
+			#version#,
+			#account#,
+			#password#,
+			#name#,
+			#email#,
+			#phone#,
+			#age#,
+			#gender#,
+			#level#
+		)
+		<selectKey resultClass="int" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  
+	</insert> 
+	<update id="UserDAO.update" parameterClass="UserDO"> 
+		update user set version = version + 1 and gmt_modified = now()
+		<dynamic> 
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="account" prepend="and">
+				<![CDATA[ account = #account# ]]>
+			</isNotNull>
+			<isNotNull property="password" prepend="and">
+				<![CDATA[ password = #password# ]]>
+			</isNotNull>
+			<isNotNull property="name" prepend="and">
+				<![CDATA[ name = #name# ]]>
+			</isNotNull>
+			<isNotNull property="email" prepend="and">
+				<![CDATA[ email = #email# ]]>
+			</isNotNull>
+			<isNotNull property="phone" prepend="and">
+				<![CDATA[ phone = #phone# ]]>
+			</isNotNull>
+			<isNotNull property="age" prepend="and">
+				<![CDATA[ age = #age# ]]>
+			</isNotNull>
+			<isNotNull property="gender" prepend="and">
+				<![CDATA[ gender = #gender# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+		</dynamic> 
+		where id = #id# and version = #version# 
+	</update> 
+	<delete id="UserDAO.delete" parameterClass="int"> 
+		update user set is_deleted = 1 where id = #id# 
+	</delete> 
+</sqlMap> 

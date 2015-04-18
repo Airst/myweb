@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+       <import resource="dao.xml" />
+
+       <bean id="contentService" class="com.ziqi.myweb.core.service.ContentService" >
+              <property name="baseDAO" ref="contentDAO" />
+       </bean>
+       <bean id="replyService" class="com.ziqi.myweb.core.service.ReplyService" >
+              <property name="baseDAO" ref="replyDAO" />
+       </bean>
+       <bean id="threadService" class="com.ziqi.myweb.core.service.ThreadService" >
+              <property name="baseDAO" ref="threadDAO" />
+       </bean>
+       <bean id="userService" class="com.ziqi.myweb.core.service.UserService" >
+              <property name="baseDAO" ref="userDAO" />
+       </bean>
+       
+</beans>

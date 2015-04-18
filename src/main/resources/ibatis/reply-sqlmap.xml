@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ 	"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap> 
+	<typeAlias alias="ReplyDO" type="com.ziqi.myweb.dal.model.ReplyDO"/> 
+	<select id="ReplyDAO.select" resultClass="ReplyDO" parameterClass="java.util.HashMap"> 
+		select * from reply where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="floor" prepend="and">
+				<![CDATA[ floor = #floor# ]]>
+			</isNotNull>
+			<isNotNull property="parentId" prepend="and">
+				<![CDATA[ parent_id = #parentId# ]]>
+			</isNotNull>
+			<isNotNull property="replyType" prepend="and">
+				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="groupField">
+				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+		</dynamic> 
+		limit #start#,#limit#
+	</select> 
+	<select id="ReplyDAO.selectById" resultClass="ReplyDO" parameterClass="int"> 
+		select * from reply where 
+		is_deleted = 0 and id = #id# limit 1 
+	</select> 
+	<select id="ReplyDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from reply where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="floor" prepend="and">
+				<![CDATA[ floor = #floor# ]]>
+			</isNotNull>
+			<isNotNull property="parentId" prepend="and">
+				<![CDATA[ parent_id = #parentId# ]]>
+			</isNotNull>
+			<isNotNull property="replyType" prepend="and">
+				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+	</select> 
+	<insert id="ReplyDAO.insert" parameterClass="ReplyDO"> 
+		insert into reply 
+		(			feature,
+			options,
+			is_deleted,
+			gmt_create,
+			gmt_modified,
+			version,
+			content_id,
+			author_id,
+			floor,
+			parent_id,
+			reply_type
+		)
+		VALUES
+		(			#feature#,
+			#options#,
+			0,
+			now(),
+			now(),
+			#version#,
+			#contentId#,
+			#authorId#,
+			#floor#,
+			#parentId#,
+			#replyType#
+		)
+		<selectKey resultClass="int" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  
+	</insert> 
+	<update id="ReplyDAO.update" parameterClass="ReplyDO"> 
+		update reply set version = version + 1 and gmt_modified = now()
+		<dynamic> 
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="floor" prepend="and">
+				<![CDATA[ floor = #floor# ]]>
+			</isNotNull>
+			<isNotNull property="parentId" prepend="and">
+				<![CDATA[ parent_id = #parentId# ]]>
+			</isNotNull>
+			<isNotNull property="replyType" prepend="and">
+				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+		</dynamic> 
+		where id = #id# and version = #version# 
+	</update> 
+	<delete id="ReplyDAO.delete" parameterClass="int"> 
+		update reply set is_deleted = 1 where id = #id# 
+	</delete> 
+</sqlMap> 

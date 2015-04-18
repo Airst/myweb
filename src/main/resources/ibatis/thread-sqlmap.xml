@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ 	"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap> 
+	<typeAlias alias="ThreadDO" type="com.ziqi.myweb.dal.model.ThreadDO"/> 
+	<select id="ThreadDAO.select" resultClass="ThreadDO" parameterClass="java.util.HashMap"> 
+		select * from thread where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="title" prepend="and">
+				<![CDATA[ title = #title# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="hit" prepend="and">
+				<![CDATA[ hit = #hit# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
+			</isNotNull>
+			<isNotNull property="likeCount" prepend="and">
+				<![CDATA[ like_count = #likeCount# ]]>
+			</isNotNull>
+			<isNotNull property="lastReplyDate" prepend="and">
+				<![CDATA[ last_reply_date = #lastReplyDate# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+			<isNotNull property="tags" prepend="and">
+				<![CDATA[ tags = #tags# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="groupField">
+				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+		</dynamic> 
+		limit #start#,#limit#
+	</select> 
+	<select id="ThreadDAO.selectById" resultClass="ThreadDO" parameterClass="int"> 
+		select * from thread where 
+		is_deleted = 0 and id = #id# limit 1 
+	</select> 
+	<select id="ThreadDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from thread where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="title" prepend="and">
+				<![CDATA[ title = #title# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="hit" prepend="and">
+				<![CDATA[ hit = #hit# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
+			</isNotNull>
+			<isNotNull property="likeCount" prepend="and">
+				<![CDATA[ like_count = #likeCount# ]]>
+			</isNotNull>
+			<isNotNull property="lastReplyDate" prepend="and">
+				<![CDATA[ last_reply_date = #lastReplyDate# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+			<isNotNull property="tags" prepend="and">
+				<![CDATA[ tags = #tags# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+	</select> 
+	<insert id="ThreadDAO.insert" parameterClass="ThreadDO"> 
+		insert into thread 
+		(			feature,
+			options,
+			is_deleted,
+			gmt_create,
+			gmt_modified,
+			version,
+			title,
+			content_id,
+			author_id,
+			hit,
+			reply_count,
+			like_count,
+			last_reply_date,
+			level,
+			tags
+		)
+		VALUES
+		(			#feature#,
+			#options#,
+			0,
+			now(),
+			now(),
+			#version#,
+			#title#,
+			#contentId#,
+			#authorId#,
+			#hit#,
+			#replyCount#,
+			#likeCount#,
+			#lastReplyDate#,
+			#level#,
+			#tags#
+		)
+		<selectKey resultClass="int" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  
+	</insert> 
+	<update id="ThreadDAO.update" parameterClass="ThreadDO"> 
+		update thread set version = version + 1 and gmt_modified = now()
+		<dynamic> 
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="title" prepend="and">
+				<![CDATA[ title = #title# ]]>
+			</isNotNull>
+			<isNotNull property="contentId" prepend="and">
+				<![CDATA[ content_id = #contentId# ]]>
+			</isNotNull>
+			<isNotNull property="authorId" prepend="and">
+				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="hit" prepend="and">
+				<![CDATA[ hit = #hit# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
+			</isNotNull>
+			<isNotNull property="likeCount" prepend="and">
+				<![CDATA[ like_count = #likeCount# ]]>
+			</isNotNull>
+			<isNotNull property="lastReplyDate" prepend="and">
+				<![CDATA[ last_reply_date = #lastReplyDate# ]]>
+			</isNotNull>
+			<isNotNull property="level" prepend="and">
+				<![CDATA[ level = #level# ]]>
+			</isNotNull>
+			<isNotNull property="tags" prepend="and">
+				<![CDATA[ tags = #tags# ]]>
+			</isNotNull>
+		</dynamic> 
+		where id = #id# and version = #version# 
+	</update> 
+	<delete id="ThreadDAO.delete" parameterClass="int"> 
+		update thread set is_deleted = 1 where id = #id# 
+	</delete> 
+</sqlMap> 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+       <import resource="data-source.xml"/>
+
+       <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+              <property name="dataSource" ref="basicDataSource" />
+              <property name="configLocation" value="classpath:/ibatis/mysql.xml"/>
+       </bean>
+       <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+              <property name="sqlMapClient" ref="sqlMapClient"/>
+       </bean>
+
+       <bean id="contentDAO" class="com.ziqi.myweb.dal.dao.ContentDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+       <bean id="replyDAO" class="com.ziqi.myweb.dal.dao.ReplyDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+       <bean id="threadDAO" class="com.ziqi.myweb.dal.dao.ThreadDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+       <bean id="userDAO" class="com.ziqi.myweb.dal.dao.UserDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+</beans>

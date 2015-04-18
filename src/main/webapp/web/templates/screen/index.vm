@@ -1,0 +1,8 @@
+$page.setTitle("首页")
+
+<ol style="margin-top: 50px">
+    <li>
+        #set($url = "$app1Link.setTarget('login.htm')")
+        <a href="$url">$url</a>
+    </li>
+</ol>

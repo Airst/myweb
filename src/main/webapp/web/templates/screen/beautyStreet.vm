@@ -1,0 +1,91 @@
+$page.setTitle("美人街")
+<div class="column_center">
+    <div class="container">
+        <div class="search">
+            <div class="stay">搜索</div>
+            <div class="stay_right">
+                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                <input type="submit" value="">
+            </div>
+            <a href="publish.htm" class="btn_a">发帖子</a>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="container">
+    <ul class="beauty_list">
+        #foreach($foo in [0..5])
+        <li class="top">
+            <div class="head_pic">
+                <img src="resources/images/icon_top.png" alt="" width="34" height="18">
+            </div>
+            <div class="content">
+                <p class="title">
+                    <a href="/p14574" class="t" target="_blank">
+                        【新氧社区版规集合】一、论坛总则新氧社区自上线以来，得到氧气们的大力支持，社区人气日渐兴旺，为更好的给大家提供一个真实客观公...
+                    </a>
+                    <span class="data" style="margin-top: -20px;">
+                        <span class="font_icon">浏览</span><a href="/p14574" target="_blank">20703</a>
+                        <span class="font_icon">回复</span><a href="/p14574" target="_blank">191</a>
+                        <span class="font_icon">点赞</span><a href="/p14574" target="_blank">49</a>
+                    </span>
+                </p>
+
+            </div>
+        </li>
+        #end
+        <li class="normal">
+            <div class="head_pic head_pic_pop_show" uid="162791">
+                <a href="http://www.soyoung.com/u162791" target="_blank">
+                    <img src="http://tp3.sinaimg.cn/2531410362/180/5629004733/0" alt="dengjianmei--" width="46" height="46">
+                </a>
+                <div class="data_pop" id="data_pop_162791_1463893" uid_s="1463893"></div>
+            </div>
+            <div class="content">
+                <p class="title">
+                    <a href="/p1463893" class="t" target="_blank">【ACE整形医院涅槃重生眼鼻脂肪填充模特】我来做脸颊和鼻梁二次脂肪填充和眼皮提肌！手术已经完成了！回恢复院休息了！                        </a>
+                        <span class="data" style="margin-top: -20px;">
+                            <span class="font_icon">浏览</span><a href="/p1463893" target="_blank">0</a>
+                            <span class="font_icon">回复</span><a href="/p1463893" target="_blank">0</a>
+                            <span class="font_icon">点赞</span><a href="/p1463893" target="_blank">0</a>
+                        </span>
+                </p>
+                <div class="pic_box">
+                    <ul style="width: 676px;">
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                        <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>
+                    </ul>
+                </div>
+                <div class="tag_box">
+                    <div class="tag">
+                        <span class="font_icon">标签</span>
+                        <a href="/post311">韩国整形</a>
+                        <a href="/post524">南通同城</a>
+                    </div>
+                    <span class="date">2015-04-17 16:41:31</span>
+                </div>
+            </div>
+        </li>
+        <div id="yw0" class="pages">
+            <div id="yw0" class="pages">
+                <a class="hidden" href="/post/index">&lt;</a>
+                <a class="on" href="/post/index">1</a>
+                <a href="/post/index/page/2">2</a>
+                <a href="/post/index/page/3">3</a>
+                <a href="/post/index/page/4">4</a>
+                <a href="/post/index/page/5">5</a>
+                <a href="/post/index/page/6">6</a>
+                <a href="/post/index/page/7">7</a>
+                <a href="/post/index/page/8">8</a>
+                <a href="/post/index/page/9">9</a>
+                <a href="/post/index/page/10">10</a>
+                <a href="/post/index/page/2">&gt;</a>
+            </div>
+        </div>
+    </ul>
+</div>
