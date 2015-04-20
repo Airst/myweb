@@ -101,6 +101,7 @@ public class CreatorUtils {
     public static Set<String> insertSkip = new HashSet<String>(){
         {
             add("id");
+            add("version");
         }
     };
 
@@ -216,7 +217,7 @@ public class CreatorUtils {
             condition.append("\t\t\t</isNotNull>\n");
         }
 
-        return  "\t<select id=\"" + getDAOName(clazz) + ".select\" resultClass=\"" + getSimpleName(clazz) + "\" parameterClass=\"java.util.HashMap\"> \n" +
+        return  "\t<select id=\"" + getDAOName(clazz) + ".select\" resultMap=\"" + getSimpleName(clazz) + "Result\" parameterClass=\"java.util.HashMap\"> \n" +
                 "\t\tselect * from " + toTableName(clazz) + " where is_deleted = 0 \n" +
                 "\t\t<dynamic prepend=\"and\"> \n" +
 
@@ -234,19 +235,20 @@ public class CreatorUtils {
                 "\t\t\t<isNotEmpty property=\"toModified\" prepend=\"and\">\n" +
                 "\t\t\t\t<![CDATA[ gmt_modified < #toModified# ]]>\n" +
                 "\t\t\t</isNotEmpty>\n" +
+                "\t\t</dynamic> \n" +
 
+                "\t\t<dynamic> \n" +
                 "\t\t\t<isNotEmpty property=\"orderField\">\n" +
                 "\t\t\t\t<![CDATA[ order by $orderField$ ]]>\n" +
                 "\t\t\t</isNotEmpty>\n" +
                 "\t\t\t<isNotEmpty property=\"groupField\">\n" +
                 "\t\t\t\t<![CDATA[ group by $groupField$ ]]>\n" +
                 "\t\t\t</isNotEmpty>\n" +
-
                 "\t\t</dynamic> \n" +
                 "\t\tlimit #start#,#limit#\n" +
                 "\t</select> \n" +
 
-                "\t<select id=\"" + getDAOName(clazz) + ".selectById\" resultClass=\"" + getSimpleName(clazz) + "\" parameterClass=\"int\"> \n" +
+                "\t<select id=\"" + getDAOName(clazz) + ".selectById\" resultMap=\"" + getSimpleName(clazz) + "Result\" parameterClass=\"int\"> \n" +
                 "\t\tselect * from " + toTableName(clazz) + " where \n" +
                 "\t\tis_deleted = 0 and id = #id# limit 1 \n" +
                 "\t</select> \n"+
@@ -314,6 +316,8 @@ public class CreatorUtils {
             for (Field field : superClazz.getDeclaredFields()) {
                 if(field.getName().equals("id")) {
                     item += "\t" + toColumnName(field.getName()) + " " + getDataType(field) + " not null auto_increment primary key,\n";
+                } else if(field.getName().equals("version")) {
+                    item += "\t" + toColumnName(field.getName()) + " " + getDataType(field) + " not null default '0',\n";
                 } else {
                     item += "\t" + toColumnName(field.getName()) + " " + getDataType(field) + ",\n";
                 }
@@ -411,37 +415,22 @@ public class CreatorUtils {
     }
 
     public static void buildConstantsClass(Class[] classes) throws IOException {
-        String path = "myweb/src/main/java/com/ziqi/myweb/common/constants/QueryConstants.java";
+        String path = "myweb/src/main/java/com/ziqi/myweb/common/constants/TableConstants.java";
         FileWriter writer = new FileWriter(path);
         writer.write("package com.ziqi.myweb.common.constants;\n" +
                     "\n" +
                     "/**\n" +
-                    " * Description: QueryConstants\n" +
+                    " * Description: TableConstants\n" +
                     " * User: qige\n" +
                     " * Date: 15/4/11\n" +
                     " * Time: 01:22\n" +
                     " */\n" +
-                    "public class QueryConstants {\n" +
-                    "    public static class Base {\n" +
-                    "        public static String id = \"id\";\n" +
-                    "        public static String feature = \"feature\";\n" +
-                    "        public static String options = \"options\";\n" +
-                    "        public static String isDeleted = \"isDeleted\";\n" +
-                    "        public static String version = \"version\";\n" +
-                    "        public static String fromCreate = \"fromCreate\";\n" +
-                    "        public static String toCreate = \"toCreate\";\n" +
-                    "        public static String fromModified = \"fromModified\";\n" +
-                    "        public static String toModified = \"toModified\";\n" +
-                    "        public static String start = \"start\";\n" +
-                    "        public static String limit = \"limit\";\n" +
-                    "        public static String orderField = \"orderField\";\n" +
-                    "        public static String groupField = \"groupField\";\n" +
-                    "    }\n" +
+                    "public class TableConstants {\n" +
                     "\n");
         for(Class clazz : classes) {
             writer.write("    public static class " + getSimpleName(clazz).replace("DO", "") + " {\n");
             for(Field field : clazz.getDeclaredFields()) {
-                writer.write("      public static String " + field.getName() + " = \"" + field.getName() + "\";\n");
+                writer.write("      public static String " + field.getName() + " = \"" + toColumnName(field.getName()) + "\";\n");
             }
             writer.write("    }\n");
         }
@@ -538,6 +527,7 @@ public class CreatorUtils {
             writer.write(buildHeader());
             writer.write("<sqlMap> \n");
             writer.write(buildTypeAlias(clazz));
+            writer.write(buildResultMap(clazz));
             writer.write(buildSelect(clazz));
             writer.write(buildInsert(clazz));
             writer.write(buildUpdate(clazz));

@@ -12,7 +12,9 @@ public class ThreadDTO extends BaseDTO {
 
     private String title;
 
-    private Integer contentId;
+    private String contentPath;
+
+    private String content;
 
     private Integer authorId;
 
@@ -36,12 +38,20 @@ public class ThreadDTO extends BaseDTO {
         this.title = title;
     }
 
-    public Integer getContentId() {
-        return contentId;
+    public String getContentPath() {
+        return contentPath;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setContentPath(String contentPath) {
+        this.contentPath = contentPath;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getAuthorId() {

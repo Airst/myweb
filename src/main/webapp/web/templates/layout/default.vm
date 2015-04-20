@@ -4,10 +4,10 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="resources/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    <link href="/resources/css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Custom Theme files -->
-    <link href="resources/css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="/resources/css/style.css" rel='stylesheet' type='text/css'/>
     <!-- Custom Theme files -->
     <!--webfont-->
     <link href='http://fonts.useso.com/css?family=Lato:100,200,300,400,500,600,700,800,900' rel='stylesheet'
@@ -23,7 +23,7 @@
     <div class="header_top">
         <div class="container">
             <div class="logo">
-                <a href="index.htm"><img src="resources/images/logo.png" alt=""/></a>
+                <a href="index.htm"><img src="/resources/images/logo.png" alt=""/></a>
             </div>
             <ul class="shopping_grid">
                 #if(!$userId)
@@ -37,7 +37,7 @@
                     <a href="#">
                         <li>$!account</li>
                     </a>
-                    <a href="logout.htm">
+                    <a href="logout.act?action=logoutAction">
                         <li>注销</li>
                     </a>
                 #end
@@ -69,7 +69,7 @@
     <div class="container">
         <div class="col-md-3 f_grid1">
             <h3>About</h3>
-            <a href="#"><img src="resources/images/logo.png" alt=""/></a>
+            <a href="#"><img src="/resources/images/logo.png" alt=""/></a>
 
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industry's standard dummy text ever since the 1500s,</p>

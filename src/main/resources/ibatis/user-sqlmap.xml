@@ -3,7 +3,24 @@
  	"http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap> 
 	<typeAlias alias="UserDO" type="com.ziqi.myweb.dal.model.UserDO"/> 
-	<select id="UserDAO.select" resultClass="UserDO" parameterClass="java.util.HashMap"> 
+	<resultMap id="UserDOResult" class="UserDO"> 
+		<result property="id" column="id"/> 
+		<result property="feature" column="feature"/> 
+		<result property="options" column="options"/> 
+		<result property="isDeleted" column="is_deleted"/> 
+		<result property="gmtCreate" column="gmt_create"/> 
+		<result property="gmtModified" column="gmt_modified"/> 
+		<result property="version" column="version"/> 
+		<result property="account" column="account"/> 
+		<result property="password" column="password"/> 
+		<result property="name" column="name"/> 
+		<result property="email" column="email"/> 
+		<result property="phone" column="phone"/> 
+		<result property="age" column="age"/> 
+		<result property="gender" column="gender"/> 
+		<result property="level" column="level"/> 
+	</resultMap> 
+	<select id="UserDAO.select" resultMap="UserDOResult" parameterClass="java.util.HashMap"> 
 		select * from user where is_deleted = 0 
 		<dynamic prepend="and"> 
 			<isNotNull property="id" prepend="and">
@@ -54,6 +71,8 @@
 			<isNotEmpty property="toModified" prepend="and">
 				<![CDATA[ gmt_modified < #toModified# ]]>
 			</isNotEmpty>
+		</dynamic> 
+		<dynamic> 
 			<isNotEmpty property="orderField">
 				<![CDATA[ order by $orderField$ ]]>
 			</isNotEmpty>
@@ -63,7 +82,7 @@
 		</dynamic> 
 		limit #start#,#limit#
 	</select> 
-	<select id="UserDAO.selectById" resultClass="UserDO" parameterClass="int"> 
+	<select id="UserDAO.selectById" resultMap="UserDOResult" parameterClass="int"> 
 		select * from user where 
 		is_deleted = 0 and id = #id# limit 1 
 	</select> 
@@ -127,7 +146,6 @@
 			is_deleted,
 			gmt_create,
 			gmt_modified,
-			version,
 			account,
 			password,
 			name,
@@ -143,7 +161,6 @@
 			0,
 			now(),
 			now(),
-			#version#,
 			#account#,
 			#password#,
 			#name#,

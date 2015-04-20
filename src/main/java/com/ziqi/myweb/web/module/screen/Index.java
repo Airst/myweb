@@ -1,16 +1,9 @@
 package com.ziqi.myweb.web.module.screen;
 
 import com.alibaba.citrus.turbine.Context;
-import com.ziqi.myweb.web.constants.ContextConstants;
 import com.ziqi.myweb.web.module.BaseModule;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Description: Index
@@ -24,7 +17,7 @@ public class Index extends BaseModule {
 
     public void execute(Context context) {
         try {
-            defaultExecute(context, logger, "index");
+            defaultExecute(context);
         } catch (Exception e) {
             onException(context, logger, e);
         }

@@ -58,7 +58,7 @@
         <request-contexts:lazy-commit />
         <request-contexts:parser />
         <request-contexts:set-locale defaultLocale="zh_CN" defaultCharset="UTF-8" />
-        <request-contexts:session>
+        <request-contexts:session maxInactiveInterval="0" forceExpirationPeriod="14400">
             <id>
                 <cookie path="/" maxAge="0" httpOnly="true" />
             </id>

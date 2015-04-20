@@ -6,8 +6,8 @@
 
        <import resource="dao.xml" />
 
-       <bean id="contentService" class="com.ziqi.myweb.core.service.ContentService" >
-              <property name="baseDAO" ref="contentDAO" />
+       <bean id="imageService" class="com.ziqi.myweb.core.service.ImageService" >
+              <property name="baseDAO" ref="imageDAO" />
        </bean>
        <bean id="replyService" class="com.ziqi.myweb.core.service.ReplyService" >
               <property name="baseDAO" ref="replyDAO" />

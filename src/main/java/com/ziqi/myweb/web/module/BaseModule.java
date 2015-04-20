@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -29,9 +30,8 @@ public class BaseModule {
     @Resource
     protected HttpSession session;
 
-    protected void defaultExecute(Context context, Logger logger, String name) {
+    protected void defaultExecute(Context context) {
         flushUserId(context);
-        context.put("active", name);
     }
 
     public void onException(Context context, Logger logger, Exception e) {
@@ -40,18 +40,35 @@ public class BaseModule {
     }
 
     public boolean checkLogin(String url) throws Exception {
-        Integer userId = (Integer) session.getAttribute(ContextConstants.USER_ID);
+        Integer userId = getUserId();
 
         if(userId == null) {
-            response.sendRedirect(request.getContextPath() + "/login.htm?url=" + url);
+            response.sendRedirect(getHostUrl() + "/login.htm?url=" + url);
             return false;
         }
         return true;
     }
 
+    public String getHostUrl() {
+        return request.getContextPath();
+    }
+
+    public Integer getUserId() {
+        return (Integer) session.getAttribute(ContextConstants.USER_ID);
+    }
+
+    public String getAccount() {
+        return (String) session.getAttribute(ContextConstants.ACCOUNT);
+    }
+
+    public void logout() {
+        session.removeAttribute(ContextConstants.USER_ID);
+        session.removeAttribute(ContextConstants.ACCOUNT);
+    }
+
     public void flushUserId(Context context) {
-        Integer userId = (Integer) session.getAttribute(ContextConstants.USER_ID);
-        String account = (String) session.getAttribute(ContextConstants.ACCOUNT);
+        Integer userId = getUserId();
+        String account = getAccount();
 
         if(userId != null) {
             context.put(ContextConstants.USER_ID, userId);
@@ -64,4 +81,14 @@ public class BaseModule {
     public boolean hasError(Context context) {
         return context.containsKey(ContextConstants.ERROR_MSG);
     }
+
+    public String getServerRoot() {
+        return request.getServletContext().getRealPath("/");
+    }
+
+    public String getFilesRoot() {
+        File file = new File(request.getServletContext().getRealPath("/")).getParentFile();
+        return file.getPath() + "/files";
+    }
+
 }

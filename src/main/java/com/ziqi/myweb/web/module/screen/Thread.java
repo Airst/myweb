@@ -9,32 +9,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
- * Description: BeautyStreet
+ * Description: Thread
  * User: qige
  * Date: 15/4/19
- * Time: 00:12
+ * Time: 23:40
  */
-public class BeautyStreet extends BaseModule {
+public class Thread extends BaseModule {
 
     @Resource
     private ThreadBiz threadBiz;
 
-    private Logger logger = LoggerFactory.getLogger(BeautyStreet.class);
+    private Logger logger = LoggerFactory.getLogger(Thread.class);
 
     public void execute(Context context) {
         try {
-            String pageIndex = request.getParameter("pageIndex");
-            if(StringUtils.isBlank(pageIndex)) {
-                pageIndex = "1";
+            String id = request.getParameter("id");
+            if(StringUtils.isBlank(id)) {
+                response.sendRedirect(getHostUrl() + "/beautyStreet.htm");
+            } else {
+                ThreadDTO threadDTO = threadBiz.queryById(Integer.parseInt(id), context);
+                context.put("threadDTO", threadDTO);
             }
-            List<ThreadDTO> threadDTOs = threadBiz.listThread(Integer.parseInt(pageIndex), 20, context);
-            context.put("threadDTOs", threadDTOs);
             defaultExecute(context);
         } catch (Exception e) {
             onException(context, logger, e);
         }
     }
+
 }

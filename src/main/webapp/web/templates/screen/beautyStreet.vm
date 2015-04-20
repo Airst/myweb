@@ -1,4 +1,5 @@
 $page.setTitle("美人街")
+#set($active = "beautyStreet")
 <div class="column_center">
     <div class="container">
         <div class="search">
@@ -15,42 +16,46 @@ $page.setTitle("美人街")
 </div>
 <div class="container">
     <ul class="beauty_list">
-        #foreach($foo in [0..5])
+        #foreach($threadDTO in $threadDTOs)
         <li class="top">
             <div class="head_pic">
-                <img src="resources/images/icon_top.png" alt="" width="34" height="18">
+                <img src="/resources/images/icon_top.png" alt="" width="34" height="18">
             </div>
-            <div class="content">
+            <div class="content" style="height: 47px">
                 <p class="title">
-                    <a href="/p14574" class="t" target="_blank">
-                        【新氧社区版规集合】一、论坛总则新氧社区自上线以来，得到氧气们的大力支持，社区人气日渐兴旺，为更好的给大家提供一个真实
+                    <a href="thread.htm?id=$!threadDTO.id" class="t" target="_blank">
+                        $!threadDTO.title
                     </a>
-                    <span class="data" style="margin-top: -20px;">
-                        <span class="font_icon">浏览</span><a href="/p14574" target="_blank">20703</a>
-                        <span class="font_icon">回复</span><a href="/p14574" target="_blank">191</a>
-                        <span class="font_icon">点赞</span><a href="/p14574" target="_blank">49</a>
-                    </span>
                 </p>
-
             </div>
+            <span class="data" style="margin-top: -20px;">
+                <span class="font_icon">浏览</span>
+                <a href="thread.htm?id=$!threadDTO.id" target="_blank">$!threadDTO.hit</a>
+                <span class="font_icon">回复</span>
+                <a href="thread.htm?id=$!threadDTO.id" target="_blank">$!threadDTO.replyCount</a>
+                <span class="font_icon">点赞</span>
+                <a href="thread.htm?id=$!threadDTO.id" target="_blank">$!threadDTO.likeCount</a>
+            </span>
         </li>
         #end
-        <li class="normal">
+        <li class="normal" style="overflow: auto">
             <div class="head_pic head_pic_pop_show" uid="162791">
                 <a href="http://www.soyoung.com/u162791" target="_blank">
                     <img src="http://tp3.sinaimg.cn/2531410362/180/5629004733/0" alt="dengjianmei--" width="46" height="46">
                 </a>
                 <div class="data_pop" id="data_pop_162791_1463893" uid_s="1463893"></div>
             </div>
-            <div class="content">
+            <div class="content" style="height: 47px">
                 <p class="title">
                     <a href="/p1463893" class="t" target="_blank">【ACE整形医院涅槃重生眼鼻脂肪填充模特】我来做脸颊和鼻梁二次脂肪填充和眼皮提肌！手术已经完成了！回恢复院休息了！                        </a>
-                        <span class="data" style="margin-top: -20px;">
-                            <span class="font_icon">浏览</span><a href="/p1463893" target="_blank">0</a>
-                            <span class="font_icon">回复</span><a href="/p1463893" target="_blank">0</a>
-                            <span class="font_icon">点赞</span><a href="/p1463893" target="_blank">0</a>
-                        </span>
                 </p>
+            </div>
+            <span class="data" style="margin-top: -20px;">
+                <span class="font_icon">浏览</span><a href="/p1463893" target="_blank">0</a>
+                <span class="font_icon">回复</span><a href="/p1463893" target="_blank">0</a>
+                <span class="font_icon">点赞</span><a href="/p1463893" target="_blank">0</a>
+            </span>
+            <div class="content" style="margin-left: 54px">
                 <div class="pic_box">
                     <ul style="width: 676px;">
                         <li><a href="/p1463893" target="_blank"><img src="http://img1.soyoung.com/tieba/ios/20150417/3/20150417164129878_75.jpg" alt="" height="75"></a></li>

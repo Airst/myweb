@@ -90,7 +90,7 @@ var jbImagesDialog = {
 
 function doUpload(element) {
 	jbImagesDialog.inProgress();
-	upl.action = location.protocol + "//" + location.host + "/upload.do";
+	upl.action = location.protocol + "//" + location.host + "/upload.act";
 	upl.submit();
 }
 

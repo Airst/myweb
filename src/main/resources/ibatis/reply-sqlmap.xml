@@ -3,7 +3,21 @@
  	"http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap> 
 	<typeAlias alias="ReplyDO" type="com.ziqi.myweb.dal.model.ReplyDO"/> 
-	<select id="ReplyDAO.select" resultClass="ReplyDO" parameterClass="java.util.HashMap"> 
+	<resultMap id="ReplyDOResult" class="ReplyDO"> 
+		<result property="id" column="id"/> 
+		<result property="feature" column="feature"/> 
+		<result property="options" column="options"/> 
+		<result property="isDeleted" column="is_deleted"/> 
+		<result property="gmtCreate" column="gmt_create"/> 
+		<result property="gmtModified" column="gmt_modified"/> 
+		<result property="version" column="version"/> 
+		<result property="contentId" column="content_id"/> 
+		<result property="authorId" column="author_id"/> 
+		<result property="floor" column="floor"/> 
+		<result property="parentId" column="parent_id"/> 
+		<result property="replyType" column="reply_type"/> 
+	</resultMap> 
+	<select id="ReplyDAO.select" resultMap="ReplyDOResult" parameterClass="java.util.HashMap"> 
 		select * from reply where is_deleted = 0 
 		<dynamic prepend="and"> 
 			<isNotNull property="id" prepend="and">
@@ -45,6 +59,8 @@
 			<isNotEmpty property="toModified" prepend="and">
 				<![CDATA[ gmt_modified < #toModified# ]]>
 			</isNotEmpty>
+		</dynamic> 
+		<dynamic> 
 			<isNotEmpty property="orderField">
 				<![CDATA[ order by $orderField$ ]]>
 			</isNotEmpty>
@@ -54,7 +70,7 @@
 		</dynamic> 
 		limit #start#,#limit#
 	</select> 
-	<select id="ReplyDAO.selectById" resultClass="ReplyDO" parameterClass="int"> 
+	<select id="ReplyDAO.selectById" resultMap="ReplyDOResult" parameterClass="int"> 
 		select * from reply where 
 		is_deleted = 0 and id = #id# limit 1 
 	</select> 
@@ -109,7 +125,6 @@
 			is_deleted,
 			gmt_create,
 			gmt_modified,
-			version,
 			content_id,
 			author_id,
 			floor,
@@ -122,7 +137,6 @@
 			0,
 			now(),
 			now(),
-			#version#,
 			#contentId#,
 			#authorId#,
 			#floor#,

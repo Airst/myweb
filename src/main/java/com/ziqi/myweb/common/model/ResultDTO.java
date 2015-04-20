@@ -1,6 +1,7 @@
 package com.ziqi.myweb.common.model;
 
 import com.ziqi.myweb.common.constants.ErrorCode;
+import com.ziqi.myweb.common.exception.MyException;
 
 /**
  * Description: Result
@@ -22,24 +23,27 @@ public class ResultDTO<T> extends Pagination {
         return isSuccess;
     }
 
-    public void setIsSuccess(boolean isSuccess) {
+    public ResultDTO<T> setIsSuccess(boolean isSuccess) {
         this.isSuccess = isSuccess;
+        return this;
     }
 
     public T getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public ResultDTO<T> setResult(T result) {
         this.result = result;
+        return this;
     }
 
     public String getErrorCode() {
         return errorCode.getErrorCode();
     }
 
-    public void setErrorCode(ErrorCode errorCode) {
+    public ResultDTO<T> setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;
+        return this;
     }
 
     public String getErrorTips() {
@@ -50,7 +54,13 @@ public class ResultDTO<T> extends Pagination {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public ResultDTO<T> setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+        return this;
+    }
+
+    public ResultDTO<T> trySuccess() throws Exception{
+        if(!isSuccess) throw new MyException(errorCode, errorMessage);
+        return this;
     }
 }

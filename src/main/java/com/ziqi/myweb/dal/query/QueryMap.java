@@ -1,7 +1,5 @@
 package com.ziqi.myweb.dal.query;
 
-import com.ziqi.myweb.common.constants.QueryConstants;
-
 import java.util.HashMap;
 
 /**
@@ -12,9 +10,12 @@ import java.util.HashMap;
  */
 public class QueryMap extends HashMap<String, Object> {
 
+    public static String start = "start";
+    public static String limit = "limit";
+
     public QueryMap() {
-        this.put(QueryConstants.Base.start, 1);
-        this.put(QueryConstants.Base.limit, 20);
+        this.put(start, 1);
+        this.put(limit, 20);
     }
 
 }

@@ -1,5 +1,6 @@
 $page.setTitle("发帖子")
-<script type="text/javascript" src="resources/js/tinymce/tinymce.min.js"></script>
+#set($active = "beautyStreet")
+<script type="text/javascript" src="/resources/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea",
@@ -27,7 +28,13 @@ $page.setTitle("发帖子")
     <div class="publish">
         <form action="" method="post">
             <input type="hidden" name="action" value="publishAction"/>
+            <div class="header">
+                <span>标题*</span>
+                <input type="text" name="title" value="" />
+            </div>
+            <div class="clearfix"></div>
             <textarea name="content"></textarea>
+            <input type="submit" value="发布">
         </form>
     </div>
 </div>

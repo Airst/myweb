@@ -4,7 +4,6 @@ import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.UserQuery;
-import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -13,9 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Description: LoginAction
@@ -43,10 +39,8 @@ public class LoginAction extends BaseModule {
                 String url;
                 if(StringUtils.isNotBlank(request.getParameter("url"))) {
                     url = request.getParameter("url");
-                } else if(StringUtils.isNotBlank(request.getHeader("Referer")) && !request.getHeader("Referer").contains("login.htm")) {
-                    url = request.getHeader("Referer");
                 } else {
-                    url = request.getContextPath() + "/index.htm";
+                    url = getHostUrl() + "/index.htm";
                 }
                 response.sendRedirect(url);
             }

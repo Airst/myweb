@@ -5,7 +5,6 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.dataresolver.FormField;
 import com.alibaba.citrus.turbine.dataresolver.FormGroup;
 import com.ziqi.myweb.common.model.UserDTO;
-import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.model.RegisterVO;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -13,9 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +46,7 @@ public class RegisterAction extends BaseModule {
             UserDTO userDTO = toUserDTO(registerVO);
             //插入数据，成功后跳转到登陆
             if (userBiz.save(userDTO, context)) {
-                response.sendRedirect(request.getContextPath() + "/login.htm");
+                response.sendRedirect(getHostUrl() + "/login.htm");
             }
         } catch (Exception e) {
             onException(context, logger, e);

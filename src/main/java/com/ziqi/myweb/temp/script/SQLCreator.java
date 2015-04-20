@@ -1,9 +1,6 @@
 package com.ziqi.myweb.temp.script;
 
-import com.ziqi.myweb.dal.model.ContentDO;
-import com.ziqi.myweb.dal.model.ReplyDO;
-import com.ziqi.myweb.dal.model.ThreadDO;
-import com.ziqi.myweb.dal.model.UserDO;
+import com.ziqi.myweb.dal.model.*;
 
 /**
  * Description: SQLCreator
@@ -15,7 +12,7 @@ public class SQLCreator {
 
 
     public static void main(String[] args) throws Exception {
-        Class[] classes = {ContentDO.class, ReplyDO.class, ThreadDO.class, UserDO.class};
+        Class[] classes = {ReplyDO.class, ThreadDO.class, UserDO.class, ImageDO.class};
         CreatorUtils.buildSQL(classes);
         CreatorUtils.buildInitSQL(classes);
     }

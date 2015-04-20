@@ -3,7 +3,25 @@
  	"http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap> 
 	<typeAlias alias="ThreadDO" type="com.ziqi.myweb.dal.model.ThreadDO"/> 
-	<select id="ThreadDAO.select" resultClass="ThreadDO" parameterClass="java.util.HashMap"> 
+	<resultMap id="ThreadDOResult" class="ThreadDO"> 
+		<result property="id" column="id"/> 
+		<result property="feature" column="feature"/> 
+		<result property="options" column="options"/> 
+		<result property="isDeleted" column="is_deleted"/> 
+		<result property="gmtCreate" column="gmt_create"/> 
+		<result property="gmtModified" column="gmt_modified"/> 
+		<result property="version" column="version"/> 
+		<result property="title" column="title"/> 
+		<result property="contentPath" column="content_path"/> 
+		<result property="authorId" column="author_id"/> 
+		<result property="hit" column="hit"/> 
+		<result property="replyCount" column="reply_count"/> 
+		<result property="likeCount" column="like_count"/> 
+		<result property="lastReplyDate" column="last_reply_date"/> 
+		<result property="level" column="level"/> 
+		<result property="tags" column="tags"/> 
+	</resultMap> 
+	<select id="ThreadDAO.select" resultMap="ThreadDOResult" parameterClass="java.util.HashMap"> 
 		select * from thread where is_deleted = 0 
 		<dynamic prepend="and"> 
 			<isNotNull property="id" prepend="and">
@@ -21,8 +39,8 @@
 			<isNotNull property="title" prepend="and">
 				<![CDATA[ title = #title# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
@@ -57,6 +75,8 @@
 			<isNotEmpty property="toModified" prepend="and">
 				<![CDATA[ gmt_modified < #toModified# ]]>
 			</isNotEmpty>
+		</dynamic> 
+		<dynamic> 
 			<isNotEmpty property="orderField">
 				<![CDATA[ order by $orderField$ ]]>
 			</isNotEmpty>
@@ -66,7 +86,7 @@
 		</dynamic> 
 		limit #start#,#limit#
 	</select> 
-	<select id="ThreadDAO.selectById" resultClass="ThreadDO" parameterClass="int"> 
+	<select id="ThreadDAO.selectById" resultMap="ThreadDOResult" parameterClass="int"> 
 		select * from thread where 
 		is_deleted = 0 and id = #id# limit 1 
 	</select> 
@@ -88,8 +108,8 @@
 			<isNotNull property="title" prepend="and">
 				<![CDATA[ title = #title# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
@@ -133,9 +153,8 @@
 			is_deleted,
 			gmt_create,
 			gmt_modified,
-			version,
 			title,
-			content_id,
+			content_path,
 			author_id,
 			hit,
 			reply_count,
@@ -150,9 +169,8 @@
 			0,
 			now(),
 			now(),
-			#version#,
 			#title#,
-			#contentId#,
+			#contentPath#,
 			#authorId#,
 			#hit#,
 			#replyCount#,
@@ -177,8 +195,8 @@
 			<isNotNull property="title" prepend="and">
 				<![CDATA[ title = #title# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>

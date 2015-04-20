@@ -1,14 +1,3 @@
-drop table content;
-create table content(
-	id INTEGER not null auto_increment primary key,
-	feature VARCHAR(100),
-	options INTEGER,
-	is_deleted INTEGER,
-	gmt_create DATETIME,
-	gmt_modified DATETIME,
-	version INTEGER
-);
-
 drop table reply;
 create table reply(
 	id INTEGER not null auto_increment primary key,
@@ -17,7 +6,7 @@ create table reply(
 	is_deleted INTEGER,
 	gmt_create DATETIME,
 	gmt_modified DATETIME,
-	version INTEGER,
+	version INTEGER not null default '0',
 	content_id INTEGER,
 	author_id INTEGER,
 	floor INTEGER,
@@ -33,9 +22,9 @@ create table thread(
 	is_deleted INTEGER,
 	gmt_create DATETIME,
 	gmt_modified DATETIME,
-	version INTEGER,
+	version INTEGER not null default '0',
 	title VARCHAR(100),
-	content_id INTEGER,
+	content_path VARCHAR(100),
 	author_id INTEGER,
 	hit INTEGER,
 	reply_count INTEGER,
@@ -53,7 +42,7 @@ create table user(
 	is_deleted INTEGER,
 	gmt_create DATETIME,
 	gmt_modified DATETIME,
-	version INTEGER,
+	version INTEGER not null default '0',
 	account VARCHAR(100),
 	password VARCHAR(100),
 	name VARCHAR(100),
@@ -62,5 +51,20 @@ create table user(
 	age INTEGER,
 	gender INTEGER,
 	level INTEGER
+);
+
+drop table image;
+create table image(
+	id INTEGER not null auto_increment primary key,
+	feature VARCHAR(100),
+	options INTEGER,
+	is_deleted INTEGER,
+	gmt_create DATETIME,
+	gmt_modified DATETIME,
+	version INTEGER not null default '0',
+	filepath VARCHAR(100),
+	user_id INTEGER,
+	type INTEGER,
+	thread_id INTEGER
 );
 

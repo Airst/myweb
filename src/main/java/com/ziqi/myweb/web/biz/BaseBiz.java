@@ -10,6 +10,7 @@ import com.ziqi.myweb.dal.model.BaseDO;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,37 +21,30 @@ import java.util.List;
  */
 public class BaseBiz<DTO extends BaseDTO, DO extends BaseDO> {
 
-    public BaseService<DTO, DO> baseService;
+    protected BaseService<DTO, DO> baseService;
 
     public void setBaseService(BaseService<DTO, DO> baseService) {
         this.baseService = baseService;
     }
 
-    public boolean save(DTO t, Context context) {
-        ResultDTO<Integer> resultDTO = baseService.save(t);
+    public <T> boolean resultBoolean(ResultDTO<T> resultDTO, Context context) {
         if (!resultDTO.isSuccess()) {
             context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
             return false;
         }
         return true;
+    }
+
+    public boolean save(DTO t, Context context) {
+        return resultBoolean(baseService.saveBasic(t), context);
     }
 
     public boolean update(DTO t, Context context) {
-        ResultDTO<Integer> resultDTO = baseService.update(t);
-        if (!resultDTO.isSuccess()) {
-            context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
-            return false;
-        }
-        return true;
+        return resultBoolean(baseService.update(t), context);
     }
 
     public boolean delete(int id, Context context) {
-        ResultDTO<Integer> resultDTO = baseService.delete(id);
-        if (!resultDTO.isSuccess()) {
-            context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
-            return false;
-        }
-        return true;
+        return resultBoolean(baseService.delete(id), context);
     }
 
     public DTO queryById(int id, Context context) {
@@ -77,8 +71,12 @@ public class BaseBiz<DTO extends BaseDTO, DO extends BaseDO> {
         ResultDTO<List<DTO>> resultDTO = baseService.query(query);
         if (!resultDTO.isSuccess()) {
             context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
-            return null;
+            return new ArrayList<DTO>();
         }
+
+        context.put("pageIndex", resultDTO.getPageIndex());
+        context.put("totalPage", resultDTO.getTotalPage());
+        context.put("pageSize", resultDTO.getPageSize());
         return resultDTO.getResult();
     }
 

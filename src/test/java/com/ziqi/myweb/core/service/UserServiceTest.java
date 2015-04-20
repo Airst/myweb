@@ -4,7 +4,6 @@ import com.ziqi.myweb.BaseCase;
 import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.UserQuery;
-import com.ziqi.myweb.dal.model.UserDO;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -41,7 +40,7 @@ public class UserServiceTest extends BaseCase {
         userDTO.setAccount("ziqi.gzq");
         userDTO.setAge(21);
         userDTO.setGender(1);
-        ResultDTO<Integer> resultDTO = userService.save(userDTO);
+        ResultDTO<Integer> resultDTO = userService.saveBasic(userDTO);
         assertTrue(resultDTO.isSuccess());
         assertNotNull(resultDTO.getResult());
         assertTrue(resultDTO.getResult() > 0);

@@ -21,10 +21,6 @@ public class BaseQuery extends Pagination {
 
     private Integer isDeleted;
 
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
     private Integer version;
 
     public String orderField;
@@ -115,22 +111,6 @@ public class BaseQuery extends Pagination {
 
     public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     public Integer getVersion() {

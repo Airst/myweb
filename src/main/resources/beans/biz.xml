@@ -5,17 +5,16 @@
 
        <import resource="service.xml" />
 
-       <bean id="contentBiz" class="com.ziqi.myweb.web.biz.ContentBiz" >
-              <property name="baseService" ref="contentService" />
-       </bean>
        <bean id="replyBiz" class="com.ziqi.myweb.web.biz.ReplyBiz" >
               <property name="baseService" ref="replyService" />
        </bean>
-       <bean id="threadBiz" class="com.ziqi.myweb.web.biz.ThreadBiz" >
-              <property name="baseService" ref="threadService" />
-       </bean>
+
        <bean id="userBiz" class="com.ziqi.myweb.web.biz.UserBiz" >
               <property name="baseService" ref="userService" />
+       </bean>
+
+       <bean id="threadBiz" class="com.ziqi.myweb.web.biz.ThreadBiz" >
+              <property name="baseService" ref="threadService" />
        </bean>
 
 </beans>

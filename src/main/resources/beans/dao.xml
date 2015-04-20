@@ -14,10 +14,6 @@
               <property name="sqlMapClient" ref="sqlMapClient"/>
        </bean>
 
-       <bean id="contentDAO" class="com.ziqi.myweb.dal.dao.ContentDAO" >
-              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
-       </bean>
-
        <bean id="replyDAO" class="com.ziqi.myweb.dal.dao.ReplyDAO" >
               <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
        </bean>
@@ -27,6 +23,10 @@
        </bean>
 
        <bean id="userDAO" class="com.ziqi.myweb.dal.dao.UserDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+       <bean id="imageDAO" class="com.ziqi.myweb.dal.dao.ImageDAO" >
               <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
        </bean>
 

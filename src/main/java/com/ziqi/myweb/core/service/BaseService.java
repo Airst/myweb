@@ -1,7 +1,6 @@
 package com.ziqi.myweb.core.service;
 
 import com.ziqi.myweb.common.constants.ErrorCode;
-import com.ziqi.myweb.common.constants.QueryConstants;
 import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.BaseDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
 
-    private BaseDAO<DO> baseDAO;
+    protected BaseDAO<DO> baseDAO;
 
     private Logger logger = LoggerFactory.getLogger(BaseService.class);
 
@@ -44,22 +43,34 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
     public abstract List<DO> DTOsToDOs(List<DTO> baseDO);
     public abstract List<DTO> DOsToDTOs(List<DO> baseDO);
 
+    @SuppressWarnings("unchecked")
+    public ResultDTO<Integer> afterTransaction(Object result) {
+        if(result instanceof ResultDTO) {
+            return (ResultDTO<Integer>) result;
+        } else if(result instanceof MyException) {
+            return new ResultDTO<Integer>()
+                    .setErrorCode(((MyException) result).getErrorCode())
+                    .setErrorMessage(((MyException) result).getErrorMessage());
+        } else {
+            return new ResultDTO<Integer>();
+        }
+    }
+
     public static <T extends BaseQuery> QueryMap QueryToMap(T query) throws Exception {
         if(query == null) {
             return null;
         }
         QueryMap queryMap = new QueryMap();
-        queryMap.put(QueryConstants.Base.start, query.getStart());
-        queryMap.put(QueryConstants.Base.limit, query.getLimit());
-        queryMap.put(QueryConstants.Base.fromCreate, query.getFromCreate());
-        queryMap.put(QueryConstants.Base.fromModified, query.getFromModified());
-        queryMap.put(QueryConstants.Base.toCreate, query.getToCreate());
-        queryMap.put(QueryConstants.Base.toModified, query.getToModified());
-        queryMap.put(QueryConstants.Base.orderField, query.getOrderField());
-        queryMap.put(QueryConstants.Base.groupField, query.getGroupField());
+        queryMap.put(QueryMap.start, query.getStart());
+        queryMap.put(QueryMap.limit, query.getLimit());
 
         Class queryType = query.getClass();
         for(Field field : queryType.getDeclaredFields()) {
+            field.setAccessible(true);
+            queryMap.put(field.getName(), field.get(query));
+        }
+        Class superType = queryType.getSuperclass();
+        for(Field field : superType.getDeclaredFields()) {
             field.setAccessible(true);
             queryMap.put(field.getName(), field.get(query));
         }
@@ -100,7 +111,7 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
         return resultDTO;
     }
 
-    public ResultDTO<Integer> save(DTO t) {
+    public ResultDTO<Integer> saveBasic(DTO t) {
         ResultDTO<Integer> resultDTO = new ResultDTO<Integer>();
         try {
             if(t == null) {
