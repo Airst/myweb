@@ -107,9 +107,9 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             resultDTO.setStartLimitSize(query.getStart(), query.getLimit(), baseDAO.count(queryMap));
             resultDTO.setIsSuccess(true);
         } catch (MyException e) {
-            onMyException(e, resultDTO, query);
+            onMyException(e, "query", resultDTO, query);
         } catch (Exception e) {
-            onException(e, resultDTO, query);
+            onException(e, "query", resultDTO, query);
         }
         return resultDTO;
     }
@@ -123,9 +123,9 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             resultDTO.setResult(DOToDTO(baseDAO.selectById(id)));
             resultDTO.setIsSuccess(true);
         } catch (MyException e) {
-            onMyException(e, resultDTO, id);
+            onMyException(e, "queryById", resultDTO, id);
         } catch (Exception e) {
-            onException(e, resultDTO, id);
+            onException(e, "queryById", resultDTO, id);
         }
         return resultDTO;
     }
@@ -139,9 +139,9 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             resultDTO.setResult(baseDAO.insert(DTOToDO(t)));
             resultDTO.setIsSuccess(true);
         } catch (MyException e) {
-            onMyException(e, resultDTO, t);
+            onMyException(e, "saveBasic", resultDTO, t);
         } catch (Exception e) {
-            onException(e, resultDTO, t);
+            onException(e, "saveBasic", resultDTO, t);
         }
         return resultDTO;
     }
@@ -155,9 +155,9 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             resultDTO.setResult(baseDAO.delete(id));
             resultDTO.setIsSuccess(true);
         } catch (MyException e) {
-            onMyException(e, resultDTO, id);
+            onMyException(e, "delete", resultDTO, id);
         } catch (Exception e) {
-            onException(e, resultDTO, id);
+            onException(e, "delete", resultDTO, id);
         }
         return resultDTO;
     }
@@ -171,9 +171,9 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             resultDTO.setResult(baseDAO.update(DTOToDO(t)));
             resultDTO.setIsSuccess(true);
         } catch (MyException e) {
-            onMyException(e, resultDTO, t);
+            onMyException(e, "update", resultDTO, t);
         } catch (Exception e) {
-            onException(e, resultDTO, t);
+            onException(e, "update", resultDTO, t);
         }
         return resultDTO;
     }
@@ -189,14 +189,14 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
         return false;
     }
 
-    protected void onMyException(MyException e, ResultDTO resultDTO, Object... args) {
-        logger.error("failed@query, errorCode={}, errorMessage={}, args={}", e.getErrorCode(), e.getErrorMessage(), args, e);
+    protected void onMyException(MyException e, String name, ResultDTO resultDTO, Object... args) {
+        logger.error("failed@{}, errorCode={}, errorMessage={}, args={}", name, e.getErrorCode(), e.getErrorMessage(), args, e);
         resultDTO.setErrorCode(e.getErrorCode());
         resultDTO.setErrorMessage(e.getErrorMessage());
     }
 
-    protected void onException(Exception e, ResultDTO resultDTO, Object... args) {
-        logger.error("failed@query, errorCode={}, args={}", ErrorCode.ERR_UNKNOWN, args, e);
+    protected void onException(Exception e, String name, ResultDTO resultDTO, Object... args) {
+        logger.error("failed@{}, errorCode={}, args={}", name, ErrorCode.ERR_UNKNOWN, args, e);
         resultDTO.setErrorCode(ErrorCode.ERR_UNKNOWN);
         resultDTO.setErrorMessage("");
     }

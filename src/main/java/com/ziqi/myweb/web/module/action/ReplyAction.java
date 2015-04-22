@@ -33,8 +33,10 @@ public class ReplyAction extends BaseModule {
             String threadId = request.getParameter("threadId");
             String parentId = request.getParameter("parentId");
             if(StringUtils.isBlank(threadId) || StringUtils.isBlank(parentId)) {
+                response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);
                 return;
             }
+            if(!checkLogin("/thread.htm?threadId=" + threadId)) return;
 
             String content = "<!DOCTYPE html><html><head>" +
                     "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/></head>" +
@@ -42,26 +44,8 @@ public class ReplyAction extends BaseModule {
                     "<body>" + request.getParameter("reply") + "</body></html>";
             content = content.replace("<img", "\n<img");
 
-            //build path
-            String parentPath = getFilesRoot();
-            File threadsDir = new File(parentPath + "/threads");
-            if(!threadsDir.exists() && !threadsDir.mkdirs()) {
-                return;
-            }
-            String filename = UUID.randomUUID() + "_" + getUserId() + ".html";
-            String savePath = threadsDir.getAbsolutePath() + "/" + filename;
-            String contentPath = savePath.replace(parentPath, "");
-            //-
-
-            ReplyDTO replyDTO = new ReplyDTO();
-            replyDTO.setContent(content);
-            replyDTO.setAuthorId(getUserId());
-            replyDTO.setContentPath(contentPath);
-            replyDTO.setParentId(Integer.parseInt(parentId));
-            replyDTO.setReplyCount(0);
-            replyDTO.setThreadId(Integer.parseInt(threadId));
-            replyDTO.setReplyType(ReplyConstants.Type.REPLY_TOP);
-            replyBiz.publishReply(replyDTO, savePath, context);
+            replyBiz.publishReplyTop(content, getUserId(), Integer.parseInt(threadId),
+                    Integer.parseInt(parentId), getFilesRoot(), context);
             response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);
         } catch (Exception e) {
             onException(context, logger, e);

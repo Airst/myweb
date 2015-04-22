@@ -34,18 +34,19 @@ public class UserBiz extends BaseBiz<UserDTO, UserDO> {
 
     public String uploadImage(FileItem fileItem, String account, String parentPath) throws Exception{
         if (fileItem != null) {
-            File accountDir = new File(parentPath + "/images/" + account);
+            String filename = fileItem.getName();
+            String extention = filename.substring(filename.lastIndexOf(".")); //".jpg"
+            String accountPath = "/images/" + account;  //"/images/ziqi.gzq"
+            String contentPath = accountPath + "/" + UUID.randomUUID() + extention; //"/images/ziqi.gzq/1111.jpg"
+            String savePath = parentPath + contentPath; //"/xxx/images/ziqi.gzq/1111.jpg"
+            File accountDir = new File(parentPath + accountPath);
             if(accountDir.exists() || accountDir.mkdirs()) {
-                String filename = fileItem.getName();
-                String imageExt = filename.substring(filename.lastIndexOf("."));
-                String imageFile = UUID.randomUUID() + imageExt;
-                File file = new File(accountDir.getAbsolutePath() + "/" + imageFile);
+                File file = new File(savePath);
                 if(!file.createNewFile()) {
                     return "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
                 }
                 fileItem.write(file);
-                String fileUrl = file.getAbsolutePath().replace(parentPath, "");
-                return "<script>parent.callback('success', '" + fileUrl + "');</script>";
+                return "<script>parent.callback('success', '" + contentPath + "');</script>";
             } else {
                 return "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
             }

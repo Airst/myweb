@@ -51,13 +51,9 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
 
     public boolean publishThread(String title, String content, String parentPath, Integer userId, Context context) {
 
-        File threadsDir = new File(parentPath + "/threads");
-        if(!threadsDir.exists() && !threadsDir.mkdirs()) {
-            return false;
-        }
         String filename = UUID.randomUUID() + "_" + userId + ".html";
-        String savePath = threadsDir.getAbsolutePath() + "/" + filename;
-        String contentPath = savePath.replace(parentPath, "");
+        String contentPath =  "/threads/" + filename;
+        String savePath = parentPath + contentPath;
 
         ThreadDTO threadDTO = new ThreadDTO();
         threadDTO.setContent(content);

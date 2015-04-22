@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Description: BaseAction
@@ -88,7 +89,22 @@ public class BaseModule {
 
     public String getFilesRoot() {
         File file = new File(request.getServletContext().getRealPath("/")).getParentFile();
-        return file.getPath() + "/files";
+        return file.getPath();
+    }
+
+    public String buildSavePath(String dir) {
+
+        String parentPath = getFilesRoot();
+        File dirFile = new File(parentPath + "/" + dir);
+        if(!dirFile.exists() && !dirFile.mkdirs()) {
+            return null;
+        }
+        String filename = UUID.randomUUID() + "_" + getUserId() + ".html";
+        return parentPath + "/" + dir + "/" + filename;
+    }
+
+    public String buildContentPath(String savePath) {
+        return savePath.replace(getFilesRoot(), "");
     }
 
 }
