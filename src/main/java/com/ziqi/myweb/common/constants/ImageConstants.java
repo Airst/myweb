@@ -9,6 +9,9 @@ package com.ziqi.myweb.common.constants;
 public class ImageConstants {
 
     public static class Type {
-        public static Integer PUBLISH = 0;
+
+        public static Integer PUBLISH_THREAD = 0;
+
+        public static Integer PUBLISH_REPLY = 1;
     }
 }

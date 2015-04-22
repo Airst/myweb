@@ -1599,12 +1599,12 @@ i.mail {
 
 .register-top-grid input[type="text"], .register-top-grid input[type="password"],
 .register-bottom-grid input[type="text"], .register-bottom-grid input[type="password"] {
-    border: 1px solid #EEE;
+    border: 1px solid #9E9E9E;
     outline-color: #FF5B36;
     font-size: 1em;
     padding: 0.5em;
     width: 100%;
-    float: right;
+    border-radius: 10px;
 }
 
 .checkbox {
@@ -2001,7 +2001,6 @@ p.cart {
 }
 
 .beauty_list .content .date {
-    float: right;
     font-size: 12px;
     color: #cfcccc;
 }
@@ -2055,7 +2054,7 @@ a.btn_a {
     padding: 30px 0;
     display: block;
     height: auto;
-    width: 730px;
+    width: 763px;
 }
 
 .publish textarea {
@@ -2077,11 +2076,12 @@ a.btn_a {
 }
 
 .publish .header input[type="text"] {
-    border: 1px solid #EEE;
+    border: 1px solid #9E9E9E;
     outline-color: #FF5B36;
     font-size: 1em;
     padding: 0.5em;
     width: 50%;
+    border-radius: 10px;
 }
 
 /*thread*/
@@ -2089,7 +2089,7 @@ a.btn_a {
     padding: 15px 0;
     display: block;
     height: auto;
-    width: 730px;
+    width: 835px;
 }
 
 /*.beauty_content_list * { font-family: SimSun; }*/
@@ -2101,7 +2101,7 @@ a.btn_a {
     padding: 18px 0 15px;
     border-bottom: dotted 1px #ccc;
     width: 100%;
-    min-height: 205px;
+    /*min-height: 205px;*/
     height: auto;
     overflow: auto;
 }
@@ -2148,8 +2148,11 @@ a.btn_a {
 }
 
 .beauty_content_list .content {
-    width: 625px;
+    width: 730px;
     float: right;
+}
+.beauty_content_list .name {
+    font-size: 12px;
 }
 
 .beauty_content_list .content .c, .beauty_content_list .content .reply_c {
@@ -2175,14 +2178,12 @@ a.btn_a {
 }
 
 .beauty_content_list .content .reply_c {
-    min-height: 46px;
-    _height: 46px;
+    width: 100%;
 }
 
 .beauty_content_list .content .status {
     line-height: 25px;
     height: 26px;
-    padding-right: 10px;
 }
 
 .beauty_content_list .content .status .msg {

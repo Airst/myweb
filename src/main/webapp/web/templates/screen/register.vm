@@ -5,7 +5,7 @@
     #if (!$field.valid) $field.message #end
 #end
 #macro (validResult $field)
-    #if (!$field.valid) <font style="color: #FF0000">&nbsp;#registerMessage ($field)</font>#end
+    #if (!$field.valid) <font style="color: #FF0000">#registerMessage ($field)</font>#end
 #end
 <div class="about">
     <div class="container">
@@ -19,27 +19,27 @@
                 </div>
                 <div class="register-top-grid">
                     <div>
-                        <span>账号*#validResult($!group.account)</span>
+                        <span>账号*&nbsp;#validResult($!group.account)</span>
                         <input type="text" name="$!group.account.key" value="$!group.account.value" />
                     </div>
                     <div>
-                        <span>密码*#validResult($!group.password)</span>
+                        <span>密码*&nbsp;#validResult($!group.password)</span>
                         <input type="password" name="$!group.password.key" value="$!group.password.value" />
                     </div>
                     <div>
-                        <span>确认密码*#validResult($!group.rePassword)</span>
+                        <span>确认密码*&nbsp;#validResult($!group.rePassword)</span>
                         <input type="password" name="$!group.rePassword.key" value="$!group.rePassword.value" />
                     </div>
                     <div>
-                        <span>真实姓名*#validResult($!group.name)</span>
+                        <span>真实姓名*&nbsp;#validResult($!group.name)</span>
                         <input type="text" name="$!group.name.key" value="$!group.name.value" />
                     </div>
                     <div>
-                        <span>电子邮箱*#validResult($!group.email)</span>
+                        <span>电子邮箱*&nbsp;#validResult($!group.email)</span>
                         <input type="text" name="$!group.email.key" value="$!group.email.value" />
                     </div>
                     <div>
-                        <span>联系电话*#validResult($!group.phone)</span>
+                        <span>联系电话*&nbsp;#validResult($!group.phone)</span>
                         <input type="text" name="$!group.phone.key" value="$!group.phone.value" />
                     </div>
 

@@ -14,7 +14,7 @@ public class ImageDTO extends BaseDTO {
 
     private Integer type;
 
-    private Integer threadId;
+    private Integer parentId;
 
     public String getFilepath() {
         return filepath;
@@ -40,11 +40,11 @@ public class ImageDTO extends BaseDTO {
         this.type = type;
     }
 
-    public Integer getThreadId() {
-        return threadId;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setThreadId(Integer threadId) {
-        this.threadId = threadId;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }

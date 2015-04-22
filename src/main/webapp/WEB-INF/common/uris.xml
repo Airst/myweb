@@ -16,7 +16,7 @@
         <uris:uri id="server" requestAware="true" />
 
         <uris:turbine-uri id="mywebLink" exposed="true" extends="server">
-            <componentPath>/myweb</componentPath>
+            <componentPath>/</componentPath>
         </uris:turbine-uri>
         <uris:turbine-content-uri id="mywebContent" exposed="true" extends="mywebLink" />
 

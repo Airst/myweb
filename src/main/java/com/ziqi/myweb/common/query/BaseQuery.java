@@ -2,6 +2,7 @@ package com.ziqi.myweb.common.query;
 
 import com.ziqi.myweb.common.model.BaseBean;
 import com.ziqi.myweb.common.model.Pagination;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 
@@ -23,22 +24,29 @@ public class BaseQuery extends Pagination {
 
     private Integer version;
 
-    public String orderField;
+    private String orderField;
 
-    public String groupField;
+    private String groupField;
 
-    public Date fromCreate;
-    public Date toCreate;
+    private Date fromCreate;
+    private Date toCreate;
 
-    public Date fromModified;
-    public Date toModified;
+    private Date fromModified;
+    private Date toModified;
+
+    public static String DESC = "desc";
+    public static String ASC = "asc";
 
     public String getOrderField() {
         return orderField;
     }
 
-    public void setOrderField(String orderField) {
-        this.orderField = orderField;
+    public void addOrderField(String orderField, boolean desc) {
+        if(StringUtils.isNotBlank(this.orderField)) {
+            this.orderField += ", " + orderField + " " + (desc ? DESC : ASC);
+        } else {
+            this.orderField = orderField + " " + (desc ? DESC : ASC);
+        }
     }
 
     public String getGroupField() {

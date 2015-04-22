@@ -19,6 +19,28 @@ public class ImageService extends BaseService<ImageDTO, ImageDO> {
         setLogger(LoggerFactory.getLogger(ImageService.class));
     }
 
+    public static List<String> findImagePaths(String data) {
+        List<String> imageSrcs = new ArrayList<String>();
+        String[] lines = data.split("\n");
+        for(String line : lines) {
+            line = line.trim();
+            if(line.contains("<img")) {
+                String[] items = line.split(" ");
+                for(String item : items) {
+                    if (item.startsWith("src")) {
+                        String path = item.substring(5, item.length() - 1);
+                        if(path.startsWith("/resources/js/")) {
+                            break;
+                        }
+                        imageSrcs.add(path);
+                        break;
+                    }
+                }
+            }
+        }
+        return imageSrcs;
+    }
+
     @Override
     public ImageDTO DOToDTO(ImageDO imageDO) {
         ImageDTO imageDTO = new ImageDTO();
@@ -32,7 +54,7 @@ public class ImageService extends BaseService<ImageDTO, ImageDO> {
         imageDTO.setFilepath(imageDO.getFilepath());
         imageDTO.setUserId(imageDO.getUserId());
         imageDTO.setType(imageDO.getType());
-        imageDTO.setThreadId(imageDO.getThreadId());
+        imageDTO.setParentId(imageDO.getParentId());
         return imageDTO;
     }
     @Override
@@ -48,23 +70,8 @@ public class ImageService extends BaseService<ImageDTO, ImageDO> {
         imageDO.setFilepath(imageDTO.getFilepath());
         imageDO.setUserId(imageDTO.getUserId());
         imageDO.setType(imageDTO.getType());
-        imageDO.setThreadId(imageDTO.getThreadId());
+        imageDO.setParentId(imageDTO.getParentId());
         return imageDO;
     }
-    @Override
-    public List<ImageDTO> DOsToDTOs(List<ImageDO> imageDOs) {
-        List<ImageDTO> imageDTOs = new ArrayList<ImageDTO>();
-        for(ImageDO imageDO : imageDOs) {
-            imageDTOs.add(DOToDTO(imageDO));
-        }
-        return imageDTOs;
-    }
-    @Override
-    public List<ImageDO> DTOsToDOs(List<ImageDTO> imageDTOs) {
-        List<ImageDO> imageDOs = new ArrayList<ImageDO>();
-        for(ImageDTO imageDTO : imageDTOs) {
-            imageDOs.add(DTOToDO(imageDTO));
-        }
-        return imageDOs;
-    }
+
 }

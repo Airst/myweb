@@ -2,6 +2,7 @@ package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
+import com.ziqi.myweb.common.model.ReplyDTO;
 import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.UserQuery;
@@ -12,6 +13,7 @@ import org.apache.commons.fileupload.FileItem;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -22,9 +24,6 @@ import java.util.UUID;
  * Time: 22:11
  */
 public class UserBiz extends BaseBiz<UserDTO, UserDO> {
-
-    @Resource
-    private ThreadService threadService;
 
     public boolean isAccountDuplicated(RegisterVO registerVO, Context context) {
         UserQuery query = new UserQuery();
@@ -52,28 +51,6 @@ public class UserBiz extends BaseBiz<UserDTO, UserDO> {
             }
         }
         return "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
-    }
-
-    public boolean publishThread(String title, String content, String parentPath, Integer userId, Context context) {
-
-        File threadsDir = new File(parentPath + "/threads");
-        if(!threadsDir.exists() && !threadsDir.mkdirs()) {
-            return false;
-        }
-        String filename = UUID.randomUUID() + "_" + userId + ".html";
-        String savePath = threadsDir.getAbsolutePath() + "/" + filename;
-        String contentPath = savePath.replace(parentPath, "");
-
-        ThreadDTO threadDTO = new ThreadDTO();
-        threadDTO.setContent(content);
-        threadDTO.setAuthorId(userId);
-        threadDTO.setContentPath(contentPath);
-        threadDTO.setHit(0);
-        threadDTO.setLikeCount(0);
-        threadDTO.setReplyCount(0);
-        threadDTO.setTitle(title);
-        return resultBoolean(threadService.publishThread(threadDTO, savePath), context);
-
     }
 
 }

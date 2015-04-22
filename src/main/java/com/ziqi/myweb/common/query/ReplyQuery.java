@@ -8,22 +8,26 @@ package com.ziqi.myweb.common.query;
  */
 public class ReplyQuery extends BaseQuery {
 
-    private Integer contentId;
+    private String contentPath;
 
     private Integer authorId;
 
     private Integer floor;
 
+    private Integer threadId;
+
     private Integer parentId;
 
     private Integer replyType;
 
-    public Integer getContentId() {
-        return contentId;
+    private Integer replyCount;
+
+    public String getContentPath() {
+        return contentPath;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setContentPath(String contentPath) {
+        this.contentPath = contentPath;
     }
 
     public Integer getAuthorId() {
@@ -42,6 +46,14 @@ public class ReplyQuery extends BaseQuery {
         this.floor = floor;
     }
 
+    public Integer getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(Integer threadId) {
+        this.threadId = threadId;
+    }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -58,4 +70,11 @@ public class ReplyQuery extends BaseQuery {
         this.replyType = replyType;
     }
 
+    public Integer getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
+    }
 }

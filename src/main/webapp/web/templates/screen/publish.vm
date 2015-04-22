@@ -13,27 +13,47 @@ $page.setTitle("发帖子")
             "insertdatetime nonbreaking save table contextmenu directionality",
             "emoticons paste textcolor colorpicker textpattern jbimages"
         ],
-        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
-        toolbar2: "preview | forecolor backcolor emoticons",
+        toolbar1: "insertfile undo redo | bold italic underline strikethrough | " +
+        "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
+        "styleselect formatselect fontselect fontsizeselect | link image jbimages |preview " +
+        "| forecolor backcolor emoticons",
         image_advtab: true,
-        templates: [
-            {title: 'Test template 1', content: '<b>Test 1</b>'},
-            {title: 'Test template 2', content: '<em>Test 2</em>'}
-        ],
-        autosave_ask_before_unload: false
+        autosave_ask_before_unload: false,
+        toolbar_items_size: 'small',
+        statusbar: false,
+        menubar: false,
+        scrollbar: true,
+        style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ]
     });
-
 </script>
+#macro (registerMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+#macro (validResult $field)
+    #if (!$field.valid) <font style="color: #FF0000">#registerMessage ($field)</font>#end
+#end
 <div class="container">
     <div class="publish">
         <form action="" method="post">
+            $csrfToken.hiddenField
+            #set ($group = $form.publish.defaultInstance)
             <input type="hidden" name="action" value="publishAction"/>
             <div class="header">
                 <span>标题*</span>
-                <input type="text" name="title" value="" />
+                <input type="text" name="$!group.title.key" value="$!group.title.value" />
+                <span>#validResult($!group.title)</span>
+                <span>#validResult($!group.content)</span>
             </div>
             <div class="clearfix"></div>
-            <textarea name="content"></textarea>
+            <textarea name="$!group.content.key" value="$!group.content.value"></textarea>
             <input type="submit" value="发布">
         </form>
     </div>

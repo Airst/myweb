@@ -62,20 +62,5 @@ public class UserService extends BaseService<UserDTO, UserDO> {
         userDO.setLevel(userDTO.getLevel());
         return userDO;
     }
-    @Override
-    public List<UserDTO> DOsToDTOs(List<UserDO> userDOs) {
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
-        for(UserDO userDO : userDOs) {
-            userDTOs.add(DOToDTO(userDO));
-        }
-        return userDTOs;
-    }
-    @Override
-    public List<UserDO> DTOsToDOs(List<UserDTO> userDTOs) {
-        List<UserDO> userDOs = new ArrayList<UserDO>();
-        for(UserDTO userDTO : userDTOs) {
-            userDOs.add(DTOToDO(userDTO));
-        }
-        return userDOs;
-    }
+
 }

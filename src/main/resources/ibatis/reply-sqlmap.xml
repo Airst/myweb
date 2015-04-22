@@ -11,11 +11,13 @@
 		<result property="gmtCreate" column="gmt_create"/> 
 		<result property="gmtModified" column="gmt_modified"/> 
 		<result property="version" column="version"/> 
-		<result property="contentId" column="content_id"/> 
+		<result property="contentPath" column="content_path"/> 
 		<result property="authorId" column="author_id"/> 
 		<result property="floor" column="floor"/> 
+		<result property="threadId" column="thread_id"/> 
 		<result property="parentId" column="parent_id"/> 
 		<result property="replyType" column="reply_type"/> 
+		<result property="replyCount" column="reply_count"/> 
 	</resultMap> 
 	<select id="ReplyDAO.select" resultMap="ReplyDOResult" parameterClass="java.util.HashMap"> 
 		select * from reply where is_deleted = 0 
@@ -32,8 +34,8 @@
 			<isNotNull property="version" prepend="and">
 				<![CDATA[ version = #version# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
@@ -41,11 +43,17 @@
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
 			</isNotNull>
+			<isNotNull property="threadId" prepend="and">
+				<![CDATA[ thread_id = #threadId# ]]>
+			</isNotNull>
 			<isNotNull property="parentId" prepend="and">
 				<![CDATA[ parent_id = #parentId# ]]>
 			</isNotNull>
 			<isNotNull property="replyType" prepend="and">
 				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
 			</isNotNull>
 			<isNotEmpty property="fromCreate" prepend="and">
 				<![CDATA[ gmt_create > #fromCreate# ]]>
@@ -89,8 +97,8 @@
 			<isNotNull property="version" prepend="and">
 				<![CDATA[ version = #version# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
@@ -98,11 +106,17 @@
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
 			</isNotNull>
+			<isNotNull property="threadId" prepend="and">
+				<![CDATA[ thread_id = #threadId# ]]>
+			</isNotNull>
 			<isNotNull property="parentId" prepend="and">
 				<![CDATA[ parent_id = #parentId# ]]>
 			</isNotNull>
 			<isNotNull property="replyType" prepend="and">
 				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
 			</isNotNull>
 			<isNotEmpty property="fromCreate" prepend="and">
 				<![CDATA[ gmt_create > #fromCreate# ]]>
@@ -118,18 +132,20 @@
 			</isNotEmpty>
 		</dynamic> 
 	</select> 
-	<insert id="ReplyDAO.insert" parameterClass="ReplyDO"> 
-		insert into reply 
+	<insert id="ReplyDAO.insert" parameterClass="ReplyDO">
+		insert into reply
 		(			feature,
 			options,
 			is_deleted,
 			gmt_create,
 			gmt_modified,
-			content_id,
+			content_path,
 			author_id,
 			floor,
+			thread_id,
 			parent_id,
-			reply_type
+			reply_type,
+			reply_count
 		)
 		VALUES
 		(			#feature#,
@@ -137,16 +153,31 @@
 			0,
 			now(),
 			now(),
-			#contentId#,
+			#contentPath#,
 			#authorId#,
-			#floor#,
+			<isEqual property="replyType" compareValue="0">
+				(select reply_count from thread where id = #parentId# for update) + 1,
+			</isEqual>
+			<isEqual property="replyType" compareValue="1">
+				(select reply_count from reply where id = #parentId# for update) + 1,
+			</isEqual>
+			#threadId#,
 			#parentId#,
-			#replyType#
+			#replyType#,
+			#replyCount#
 		)
-		<selectKey resultClass="int" keyProperty="id"> 
-			SELECT LAST_INSERT_ID() 
-		</selectKey>  
-	</insert> 
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="ReplyDAO.updateParent" parameterClass="ReplyDO">
+		<isEqual property="replyType" compareValue="0">
+			update thread set reply_count = reply_count + 1, last_reply_date = now() where id = #parentId#;
+		</isEqual>
+		<isEqual property="replyType" compareValue="1">
+			update reply set reply_count = reply_count + 1, last_reply_date = now() where id = #parentId#;
+		</isEqual>
+	</update>
 	<update id="ReplyDAO.update" parameterClass="ReplyDO"> 
 		update reply set version = version + 1 and gmt_modified = now()
 		<dynamic> 
@@ -156,8 +187,8 @@
 			<isNotNull property="options" prepend="and">
 				<![CDATA[ options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="contentId" prepend="and">
-				<![CDATA[ content_id = #contentId# ]]>
+			<isNotNull property="contentPath" prepend="and">
+				<![CDATA[ content_path = #contentPath# ]]>
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
@@ -165,11 +196,17 @@
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
 			</isNotNull>
+			<isNotNull property="threadId" prepend="and">
+				<![CDATA[ thread_id = #threadId# ]]>
+			</isNotNull>
 			<isNotNull property="parentId" prepend="and">
 				<![CDATA[ parent_id = #parentId# ]]>
 			</isNotNull>
 			<isNotNull property="replyType" prepend="and">
 				<![CDATA[ reply_type = #replyType# ]]>
+			</isNotNull>
+			<isNotNull property="replyCount" prepend="and">
+				<![CDATA[ reply_count = #replyCount# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 

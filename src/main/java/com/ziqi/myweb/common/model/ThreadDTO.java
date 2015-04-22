@@ -1,6 +1,8 @@
 package com.ziqi.myweb.common.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Description: ArticleDTO
@@ -29,6 +31,8 @@ public class ThreadDTO extends BaseDTO {
     private Integer level;
 
     private Integer tags;
+
+    private List<String> imagePaths = new ArrayList<String>();
 
     public String getTitle() {
         return title;
@@ -110,4 +114,11 @@ public class ThreadDTO extends BaseDTO {
         this.tags = tags;
     }
 
+    public List<String> getImagePaths() {
+        return imagePaths;
+    }
+
+    public void addImagePath(String imagePath) {
+        this.imagePaths.add(imagePath);
+    }
 }

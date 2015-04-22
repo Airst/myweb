@@ -8,22 +8,36 @@ package com.ziqi.myweb.common.model;
  */
 public class ReplyDTO extends BaseDTO {
 
-    private Integer contentId;
+    private String contentPath;
+
+    private String content;
 
     private Integer authorId;
 
     private Integer floor;
 
+    private Integer threadId;
+
     private Integer parentId;
 
     private Integer replyType;
 
-    public Integer getContentId() {
-        return contentId;
+    private Integer replyCount;
+
+    public String getContentPath() {
+        return contentPath;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setContentPath(String contentPath) {
+        this.contentPath = contentPath;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getAuthorId() {
@@ -42,6 +56,14 @@ public class ReplyDTO extends BaseDTO {
         this.floor = floor;
     }
 
+    public Integer getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(Integer threadId) {
+        this.threadId = threadId;
+    }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -58,4 +80,11 @@ public class ReplyDTO extends BaseDTO {
         this.replyType = replyType;
     }
 
+    public Integer getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
+    }
 }

@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class BaseDAO<T extends BaseDO> {
 
-    private SqlMapClientTemplate sqlMapClientTemplate;
+    protected SqlMapClientTemplate sqlMapClientTemplate;
 
-    private String namespace = "";
+    protected String namespace = "";
 
     public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
         this.sqlMapClientTemplate = sqlMapClientTemplate;

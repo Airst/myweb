@@ -3,15 +3,20 @@ package com.ziqi.myweb.core.service;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.BaseDTO;
+import com.ziqi.myweb.common.model.ReplyDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.query.BaseQuery;
 import com.ziqi.myweb.dal.model.BaseDO;
+import com.ziqi.myweb.dal.model.ReplyDO;
 import com.ziqi.myweb.dal.query.QueryMap;
 import com.ziqi.myweb.dal.dao.BaseDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,8 +45,22 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
 
     public abstract DTO DOToDTO(DO baseDO);
     public abstract DO DTOToDO(DTO baseDO);
-    public abstract List<DO> DTOsToDOs(List<DTO> baseDO);
-    public abstract List<DTO> DOsToDTOs(List<DO> baseDO);
+
+    public List<DO> DTOsToDOs(List<DTO> baseDTOs) {
+        List<DO> baseDOs = new ArrayList<DO>();
+        for(DTO baseDTO : baseDTOs) {
+            baseDOs.add(DTOToDO(baseDTO));
+        }
+        return baseDOs;
+    }
+
+    public List<DTO> DOsToDTOs(List<DO> baseDOs) {
+        List<DTO> baseDTOs = new ArrayList<DTO>();
+        for(DO baseDO : baseDOs) {
+            baseDTOs.add(DOToDTO(baseDO));
+        }
+        return baseDTOs;
+    }
 
     @SuppressWarnings("unchecked")
     public ResultDTO<Integer> afterTransaction(Object result) {
@@ -157,6 +176,17 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
             onException(e, resultDTO, t);
         }
         return resultDTO;
+    }
+
+    protected boolean saveContent(String content, String savePath) throws Exception {
+        File contentFile = new File(savePath);
+        if(contentFile.exists() || contentFile.createNewFile()) {
+            FileOutputStream outputStream = new FileOutputStream(contentFile);
+            outputStream.write(content.getBytes("utf-8"));
+            outputStream.close();
+            return true;
+        }
+        return false;
     }
 
     protected void onMyException(MyException e, ResultDTO resultDTO, Object... args) {

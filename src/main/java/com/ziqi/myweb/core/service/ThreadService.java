@@ -1,20 +1,25 @@
 package com.ziqi.myweb.core.service;
 
+import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.ImageConstants;
+import com.ziqi.myweb.common.constants.TableConstants;
+import com.ziqi.myweb.common.constants.ThreadConstants;
+import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.common.query.ImageQuery;
+import com.ziqi.myweb.common.query.ThreadQuery;
 import com.ziqi.myweb.dal.model.ThreadDO;
 import com.ziqi.myweb.common.model.ThreadDTO;
+import com.ziqi.myweb.dal.query.QueryMap;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Description: ThreadService
@@ -40,20 +45,21 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
             @Override
             public Object doInTransaction(TransactionStatus transactionStatus) {
                 try {
-
-                    saveContent(threadDTO.getContent(), savePath);
-
-                    List<String> imagePaths = findImagePaths(threadDTO.getContent());
-                    for (String imagePath : imagePaths) {
-                        ImageDTO imageDTO = new ImageDTO();
-                        imageDTO.setFilepath(imagePath);
-                        imageDTO.setThreadId(threadDTO.getId());
-                        imageDTO.setUserId(threadDTO.getAuthorId());
-                        imageDTO.setType(ImageConstants.Type.PUBLISH);
-                        imageService.saveBasic(imageDTO).trySuccess(); // auto throws
+                    ResultDTO<Integer> resultDTO = saveBasic(threadDTO).trySuccess();
+                    if(StringUtils.isNotBlank(threadDTO.getContent()) && StringUtils.isNotBlank(savePath)) {
+                        saveContent(threadDTO.getContent(), savePath);
+                        List<String> imagePaths = ImageService.findImagePaths(threadDTO.getContent());
+                        for (String imagePath : imagePaths) {
+                            ImageDTO imageDTO = new ImageDTO();
+                            imageDTO.setFilepath(imagePath);
+                            imageDTO.setParentId(resultDTO.getResult());
+                            imageDTO.setUserId(threadDTO.getAuthorId());
+                            imageDTO.setType(ImageConstants.Type.PUBLISH_THREAD);
+                            imageService.saveBasic(imageDTO).trySuccess(); // auto throws
+                        }
                     }
 
-                    return saveBasic(threadDTO).trySuccess(); // auto throws
+                    return resultDTO; // auto throws
                 } catch (Exception e) {
                     transactionStatus.setRollbackOnly();
                     return e;
@@ -64,30 +70,32 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         return afterTransaction(result);
     }
 
-    private boolean saveContent(String content, String savePath) throws Exception {
-        File contentFile = new File(savePath);
-        if(contentFile.exists() || contentFile.createNewFile()) {
-            FileOutputStream outputStream = new FileOutputStream(contentFile);
-            outputStream.write(content.getBytes());
-            outputStream.close();
-            return true;
-        }
-        return false;
-    }
+    public ResultDTO<List<ThreadDTO>> listThreadsWithImg(int pageIndex, int pageSize) {
 
-    private List<String> findImagePaths(String data) {
-        List<String> imageSrcs = new ArrayList<String>();
-        String[] lines = data.split("\n");
-        for(String line : lines) {
-            line = line.trim();
-            if(line.contains("<img")) {
-                String[] items = line.split(" ");
-                if(items[1].startsWith("src")) {
-                    imageSrcs.add(items[1].substring(5, items[1].length() - 1));
+        ThreadQuery threadQuery = new ThreadQuery();
+        threadQuery.setPageIndex(pageIndex);
+        threadQuery.setPageSize(pageSize);
+        threadQuery.setLevel(ThreadConstants.Level.NORMAL);
+        threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
+        ResultDTO<List<ThreadDTO>> threadResult = query(threadQuery);
+        if(!threadResult.isSuccess()) {
+            return threadResult;
+        }
+
+        List<ThreadDTO> threadDTOs = threadResult.getResult();
+        for(ThreadDTO threadDTO : threadDTOs) {
+            ImageQuery imageQuery = new ImageQuery();
+            imageQuery.setParentId(threadDTO.getId());
+            imageQuery.setType(ImageConstants.Type.PUBLISH_THREAD);
+            imageQuery.setPageSize(3);
+            ResultDTO<List<ImageDTO>> imageResult = imageService.query(imageQuery);
+            if(imageResult.isSuccess()) {
+                for(ImageDTO imageDTO : imageResult.getResult()) {
+                    threadDTO.addImagePath(imageDTO.getFilepath());
                 }
             }
         }
-        return imageSrcs;
+        return threadResult;
     }
 
     @Override
@@ -132,20 +140,5 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDO.setContentPath(threadDTO.getContentPath());
         return threadDO;
     }
-    @Override
-    public List<ThreadDTO> DOsToDTOs(List<ThreadDO> threadDOs) {
-        List<ThreadDTO> threadDTOs = new ArrayList<ThreadDTO>();
-        for(ThreadDO threadDO : threadDOs) {
-            threadDTOs.add(DOToDTO(threadDO));
-        }
-        return threadDTOs;
-    }
-    @Override
-    public List<ThreadDO> DTOsToDOs(List<ThreadDTO> threadDTOs) {
-        List<ThreadDO> threadDOs = new ArrayList<ThreadDO>();
-        for(ThreadDTO threadDTO : threadDTOs) {
-            threadDOs.add(DTOToDO(threadDTO));
-        }
-        return threadDOs;
-    }
+
 }

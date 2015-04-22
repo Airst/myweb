@@ -20,6 +20,9 @@ public enum ErrorCode {
     ERR_DAE_0005("ERR_DAE_0005", "update failed"),
     ERR_DAE_0006("ERR_DAE_0006", "delete failed"),
 
+    //ReplyDAO DataAccessException
+    ERR_DAE_0010("ERR_DAE_0010", "reply update parent failed"),
+
     //BaseService ArgsCheck
     ERR_AC_0001("ERR_AC_0001", "parameters can't be null"),
     ERR_AC_0002("ERR_AC_0002", "parameters illegal"),

@@ -18,7 +18,7 @@ public class ClassCreator {
         CreatorUtils.buildConstantsClass(new Class[] {BaseDO.class, ReplyDO.class, ThreadDO.class, UserDO.class, ImageDO.class});
 //        CreatorUtils.buildBizClass(classes);
 
-//        CreatorUtils.buildDTOClass(classes);
+//        CreatorUtils.buildDTOClass(new Class[] { ReplyDO.class });
     }
 
 }

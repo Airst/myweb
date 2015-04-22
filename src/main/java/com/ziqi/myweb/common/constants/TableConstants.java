@@ -18,11 +18,13 @@ public class TableConstants {
       public static String version = "version";
     }
     public static class Reply {
-      public static String contentId = "content_id";
+      public static String contentPath = "content_path";
       public static String authorId = "author_id";
       public static String floor = "floor";
+      public static String threadId = "thread_id";
       public static String parentId = "parent_id";
       public static String replyType = "reply_type";
+      public static String replyCount = "reply_count";
     }
     public static class Thread {
       public static String title = "title";
@@ -49,6 +51,6 @@ public class TableConstants {
       public static String filepath = "filepath";
       public static String userId = "user_id";
       public static String type = "type";
-      public static String threadId = "thread_id";
+      public static String parentId = "parent_id";
     }
 }

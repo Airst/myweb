@@ -26,7 +26,7 @@ public class ThreadServiceTest extends BaseCase {
         ThreadQuery threadQuery = new ThreadQuery();
         threadQuery.setPageIndex(1);
         threadQuery.setPageSize(20);
-        threadQuery.setOrderField(TableConstants.Base.gmtCreate);
+        threadQuery.addOrderField(TableConstants.Base.gmtCreate, true);
         assertTrue(threadService.query(threadQuery).isSuccess());
 
     }

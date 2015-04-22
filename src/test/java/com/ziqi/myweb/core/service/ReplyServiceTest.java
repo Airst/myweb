@@ -1,6 +1,8 @@
 package com.ziqi.myweb.core.service;
 
 import com.ziqi.myweb.BaseCase;
+import com.ziqi.myweb.common.constants.ReplyConstants;
+import com.ziqi.myweb.common.model.ReplyDTO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -25,7 +27,6 @@ public class ReplyServiceTest extends BaseCase {
 
     @Test
     public void testSave() throws Exception {
-
     }
 
     @Test

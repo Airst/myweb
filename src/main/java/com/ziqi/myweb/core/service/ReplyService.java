@@ -1,11 +1,19 @@
 package com.ziqi.myweb.core.service;
 
+import com.ziqi.myweb.common.constants.ImageConstants;
+import com.ziqi.myweb.common.model.ImageDTO;
+import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.dal.dao.ReplyDAO;
 import com.ziqi.myweb.dal.model.ReplyDO;
 import com.ziqi.myweb.common.model.ReplyDTO;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Description: ReplyService
@@ -15,8 +23,45 @@ import java.util.ArrayList;
  */
 public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
 
+    @Resource
+    private ImageService imageService;
+
+    @Resource
+    private TransactionTemplate transactionTemplate;
+
     public ReplyService() {
         setLogger(LoggerFactory.getLogger(ReplyService.class));
+    }
+    public ResultDTO<Integer> publishReply(final ReplyDTO replyDTO, final String savePath) {
+
+        Object result = transactionTemplate.execute(new TransactionCallback<Object>() {
+            @Override
+            public Object doInTransaction(TransactionStatus transactionStatus) {
+                try {
+                    //更新parent帖子的数据（回复量）
+                    ResultDTO<Integer> resultDTO = saveBasic(replyDTO).trySuccess();// auto throws
+                    if(StringUtils.isNotBlank(replyDTO.getContent()) && StringUtils.isNotBlank(savePath)) {
+                        saveContent(replyDTO.getContent(), savePath);
+                        List<String> imagePaths = ImageService.findImagePaths(replyDTO.getContent());
+                        for (String imagePath : imagePaths) {
+                            ImageDTO imageDTO = new ImageDTO();
+                            imageDTO.setFilepath(imagePath);
+                            imageDTO.setParentId(resultDTO.getResult());
+                            imageDTO.setUserId(replyDTO.getAuthorId());
+                            imageDTO.setType(ImageConstants.Type.PUBLISH_REPLY);
+                            imageService.saveBasic(imageDTO).trySuccess(); // auto throws
+                        }
+                    }
+                    ((ReplyDAO) baseDAO).updateParent(DTOToDO(replyDTO));
+                    return resultDTO;
+                } catch (Exception e) {
+                    transactionStatus.setRollbackOnly();
+                    return e;
+                }
+            }
+        });
+
+        return afterTransaction(result);
     }
 
     @Override
@@ -29,11 +74,13 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDTO.setGmtCreate(replyDO.getGmtCreate());
         replyDTO.setGmtModified(replyDO.getGmtModified());
         replyDTO.setVersion(replyDO.getVersion());
-        replyDTO.setContentId(replyDO.getContentId());
+        replyDTO.setContentPath(replyDO.getContentPath());
         replyDTO.setAuthorId(replyDO.getAuthorId());
         replyDTO.setFloor(replyDO.getFloor());
+        replyDTO.setThreadId(replyDO.getThreadId());
         replyDTO.setParentId(replyDO.getParentId());
         replyDTO.setReplyType(replyDO.getReplyType());
+        replyDTO.setReplyCount(replyDO.getReplyCount());
         return replyDTO;
     }
     @Override
@@ -46,27 +93,14 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDO.setGmtCreate(replyDTO.getGmtCreate());
         replyDO.setGmtModified(replyDTO.getGmtModified());
         replyDO.setVersion(replyDTO.getVersion());
-        replyDO.setContentId(replyDTO.getContentId());
+        replyDO.setContentPath(replyDTO.getContentPath());
         replyDO.setAuthorId(replyDTO.getAuthorId());
         replyDO.setFloor(replyDTO.getFloor());
+        replyDO.setThreadId(replyDTO.getThreadId());
         replyDO.setParentId(replyDTO.getParentId());
         replyDO.setReplyType(replyDTO.getReplyType());
+        replyDO.setReplyCount(replyDTO.getReplyCount());
         return replyDO;
     }
-    @Override
-    public List<ReplyDTO> DOsToDTOs(List<ReplyDO> replyDOs) {
-        List<ReplyDTO> replyDTOs = new ArrayList<ReplyDTO>();
-        for(ReplyDO replyDO : replyDOs) {
-            replyDTOs.add(DOToDTO(replyDO));
-        }
-        return replyDTOs;
-    }
-    @Override
-    public List<ReplyDO> DTOsToDOs(List<ReplyDTO> replyDTOs) {
-        List<ReplyDO> replyDOs = new ArrayList<ReplyDO>();
-        for(ReplyDTO replyDTO : replyDTOs) {
-            replyDOs.add(DTOToDO(replyDTO));
-        }
-        return replyDOs;
-    }
+
 }
