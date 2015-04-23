@@ -20,6 +20,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -99,8 +100,8 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
 
     private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
         for(ThreadDTO threadDTO : threadDTOs) {
-            File parentFile = new File(new File("").getAbsolutePath()).getParentFile();
-            File file = new File(parentFile.getAbsolutePath() + "/webapps" + threadDTO.getContentPath());
+            String classPath = this.getClass().getResource("").getPath();
+            File file = new File(classPath.substring(0, classPath.indexOf("/webapps") + 8) + threadDTO.getContentPath());
             InputStream inputStream = new FileInputStream(file);
             int count = (int) file.length();
             byte[] data = new byte[count];
