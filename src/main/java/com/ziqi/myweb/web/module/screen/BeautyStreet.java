@@ -30,7 +30,7 @@ public class BeautyStreet extends BaseModule {
             if(StringUtils.isBlank(pageIndex)) {
                 pageIndex = "1";
             }
-            List<ThreadDTO> threadDTOs = threadBiz.listThread(Integer.parseInt(pageIndex), 20, context);
+            List<ThreadDTO> threadDTOs = threadBiz.listThread(Integer.parseInt(pageIndex), 20, true, true, context);
             context.put("threadDTOs", threadDTOs);
 
             List<ThreadDTO> topThreads = threadBiz.listTopThread(1, 5, context);

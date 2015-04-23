@@ -6,7 +6,7 @@ $page.setTitle("$threadDTO.title")
         selector: "textarea",
         theme: "modern",
         language: 'zh_CN',
-        relative_urls : false,
+        relative_urls: false,
         plugins: [
             "advlist autolink lists link image charmap preview hr anchor pagebreak",
             "searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -48,7 +48,7 @@ $page.setTitle("$threadDTO.title")
     function checkContent(id) {
         tinymce.triggerSave(true);
         var element = document.getElementById(id);
-        if(element.value == "") {
+        if (element.value == "") {
             alert('请填写回复内容');
             return false;
         }
@@ -59,52 +59,127 @@ $page.setTitle("$threadDTO.title")
 <div class="container" style="direction:ltr; unicode-bidi: embed; -webkit-locale: en-US;">
     <ul class="beauty_content_list">
         #if($threadDTO)
-        <li class="first_f">
-            <div class="head_pic head_pic_pop_show">
-                <a href="http://www.soyoung.com/u654" class="pic" target="_blank">
-                    <img src="http://img1.soyoung.com/user/2013101815/20131018150204959_100_100.png"width="64" height="64">
-                </a>
-                <a href="http://www.soyoung.com/u654" class="name" target="_blank">$!author.account</a>
-            </div>
-            <div class="content">
-                <!-- 点评的内容 -->
-                <h1 style="font-size: 24px">$!threadDTO.title</h1>
-                <iframe id="threadpage" class="c" onload="iFrameHeight('threadpage')" frameborder="0" scrolling="no" src="$!threadDTO.contentPath">
-                </iframe>
-                <div class="status">
-                    <div class="msg">
-                        <span class="font_icon">浏览</span><a href="javascript:void(0)">$!threadDTO.hit</a>
-                        <span class="font_icon">点赞</span><a href="javascript:void(0)">$!threadDTO.likeCount</a>
-                    </div>
-                    <div class="date">
-                        <span class="floor">1楼</span> <span class="time">$!threadDTO.gmtCreate</span>
-                        <a href="javascript:void(0)" class="reply_btn" onclick=""><span class="font_icon">回复</span>$!threadDTO.replyCount</a>
+            <li class="first_f">
+                <div class="head_pic head_pic_pop_show">
+                    <a href="http://www.soyoung.com/u654" class="pic" target="_blank">
+                        <img src="http://img1.soyoung.com/user/2013101815/20131018150204959_100_100.png" width="64"
+                             height="64">
+                    </a>
+                    <a href="http://www.soyoung.com/u654" class="name" target="_blank">$!author.account</a>
+                </div>
+                <div class="content">
+                    <!-- 点评的内容 -->
+                    <h1 style="font-size: 24px">$!threadDTO.title</h1>
+                    <iframe id="threadpage" class="c" onload="iFrameHeight('threadpage')" frameborder="0" scrolling="no"
+                            src="$!threadDTO.contentPath">
+                    </iframe>
+                    <div class="status">
+                        <div class="msg">
+                            <span class="font_icon">浏览</span><a href="javascript:void(0)">$!threadDTO.hit</a>
+                            <span class="font_icon">点赞</span><a href="javascript:void(0)">$!threadDTO.likeCount</a>
+                        </div>
+                        <div class="date">
+                            <span class="floor">1楼</span> <span class="time">$!threadDTO.gmtCreate</span>
+                            <a href="#replybox" class="reply_btn">
+                                <span class="font_icon">回复</span>$!threadDTO.replyCount</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
         #end
         #foreach($replyDTO in $replyDTOs)
-        <li>
-            <div class="head_pic head_pic_pop_show">
-                <a href="http://www.soyoung.com/u220" class="pic" target="_blank">
-                    <img src="http://img1.soyoung.com/user/2013082815/20130828153624118_100_100.jpg" width="64" height="64"></a>
-                <a href="http://www.soyoung.com/u220" class="name" target="_blank">淋淋是我偶像</a>
-            </div>
-            <div class="content">
-                <iframe id="reply_c$!replyDTO.id" class="reply_c" onload="iFrameHeight('reply_c$!replyDTO.id')" frameborder="0" scrolling="no"
-                        src="$!replyDTO.contentPath">
-                </iframe>
-                <div class="status">
-                    <div class="date">
-                        #set($floor = $!replyDTO.floor + 1)
-                        <span class="floor">$!floor 楼</span>
-                        <span class="time">$!replyDTO.gmtCreate</span>
-                        <a href="javascript:void(0)" class="reply_btn"><span class="font_icon">回复</span>$!replyDTO.replyCount</a>
+            <li>
+                <div class="head_pic head_pic_pop_show">
+                    <a href="http://www.soyoung.com/u220" class="pic" target="_blank">
+                        <img src="http://img1.soyoung.com/user/2013082815/20130828153624118_100_100.jpg" width="64"
+                             height="64"></a>
+                    <a href="http://www.soyoung.com/u220" class="name" target="_blank">淋淋是我偶像</a>
+                </div>
+                <div class="content">
+                    <iframe id="reply_c$!replyDTO.id" class="reply_c" onload="iFrameHeight('reply_c$!replyDTO.id')"
+                            frameborder="0" scrolling="no"
+                            src="$!replyDTO.contentPath">
+                    </iframe>
+                    <div class="status">
+                        <div class="date">
+                            #set($floor = $!replyDTO.floor + 1)
+                            <span class="floor">$!floor 楼</span>
+                            <span class="time">$!replyDTO.gmtCreate</span>
+                            <a href="javascript:void(0)" class="reply_btn"><span
+                                    class="font_icon">回复</span>$!replyDTO.replyCount</a>
+                        </div>
+                    </div>
+                    <div class="reply_box " id="reply_box_125816">
+                        <ul class="list reply_comment_list_125816">
+                            <li>
+                                <div class="pic head_pic_pop_show" uid="1714481">
+                                    <a href="http://www.soyoung.com/u1714481" target="_blank"><span
+                                            class="font_icon">R</span></a>
+                                    <div class="data_pop" id="data_pop_1714481_c80553" uid_s="c80553"
+                                         style="display: none;"></div>
+                                </div>
+                                <div class="t">
+                                    <a target="_blank" href="http://www.soyoung.com/u1714481">金秀炫</a>:催胳膊
+                                    <p>2015-04-02 16:23:32<a href="javascript:void(0)" class="reply_link"
+                                                             onclick="showCommentDiv('reply', '125816', '金秀炫',80553);">回复</a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="pic head_pic_pop_show" uid="1736898">
+                                    <a href="http://www.soyoung.com/u1736898" target="_blank"> <img
+                                            src="http://ww1.sinaimg.cn/crop.0.0.168.168.1024/005ZGyOdjw8eojrbot6c6j304o04ojr8.jpg"
+                                            alt="" width="36" height="36"> </a>
+                                </div>
+                                <div class="t">
+                                    <a target="_blank" href="http://www.soyoung.com/u1736898">兼直咨询q826842554 </a>:看俄
+                                    <img class="img_motion"
+                                           src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">昵称<img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">感兴趣<img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">好友了解<img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
+                                        class="img_motion"
+                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">
+
+                                    <p>2015-04-17 16:57:18<a href="javascript:void(0)" class="reply_link" onclick="s">回复</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="import">
+                            <div class="page_box">
+                                <div class="r_page reply_comment_page_125816">
+                                </div>
+                                <a href="javascript:void(0)" class="link" onclick="showCommentDiv('reply', '125816');">我也说一句</a>
+                            </div>
+                            <div style="display: none;" class="relative reply_commment_125816">
+                                <textarea id="reply_commment_125816" name="reply_commment_125816" style="display: none;"
+                                          class="reply_commment_textarea"></textarea>
+
+                                <div class="btn_box reply_commment reply_commment_125816"
+                                     style="position: absolute; top: 46px; right: 0px;">
+                                    <a href="javascript:void(0)" class="blue_btn"
+                                       onclick="addComment('125816', 'reply', 'N');">回复</a>
+                                    <label style="display: inline-block; font-size: 12px; position: absolute; left: -120px; top: 8px;"><input
+                                            type="checkbox" style="vertical-align: middle; margin-top: -2px;"
+                                            name="anonymous" id="comment_ano_125816" value="1"> 匿名发帖</label>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
         #end
         <div id="pages" name="pages" class="pages">
             <div id="yw0" class="pages">
@@ -128,12 +203,12 @@ $page.setTitle("$threadDTO.title")
             </div>
         </div>
 
-        <div class="publish" style="float: right">
+        <div id="replybox" name="replybox" class="publish" style="float: right">
             <form action="" method="post" onsubmit="return checkContent('reply');">
                 $csrfToken.hiddenField
                 <input type="hidden" name="parentId" value="$!threadDTO.id">
                 <input type="hidden" name="action" value="replyAction">
-                <textarea id="reply" name="reply" style="height: 100px" ></textarea>
+                <textarea id="reply" name="reply" style="height: 100px"></textarea>
                 <input type="submit" value="发布">
             </form>
         </div>

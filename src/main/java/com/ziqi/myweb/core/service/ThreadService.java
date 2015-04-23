@@ -19,6 +19,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         return afterTransaction(result);
     }
 
-    public ResultDTO<List<ThreadDTO>> listThreadsWithImg(int pageIndex, int pageSize) {
+    public ResultDTO<List<ThreadDTO>> listThreads(int pageIndex, int pageSize, boolean imagePath, boolean content) {
 
         ThreadQuery threadQuery = new ThreadQuery();
         threadQuery.setPageIndex(pageIndex);
@@ -78,11 +79,42 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadQuery.setLevel(ThreadConstants.Level.NORMAL);
         threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
         ResultDTO<List<ThreadDTO>> threadResult = query(threadQuery);
-        if(!threadResult.isSuccess()) {
+
+        if (!threadResult.isSuccess()) {
             return threadResult;
         }
+        try {
+            if(imagePath) {
+                setImagePaths(threadResult.getResult());
+            }
 
-        List<ThreadDTO> threadDTOs = threadResult.getResult();
+            if(content) {
+                setThreadContent(threadResult.getResult());
+            }
+        } catch (Exception e) {
+            logger.error("failed@listThreads, ", e);
+        }
+        return threadResult;
+    }
+
+    private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
+        for(ThreadDTO threadDTO : threadDTOs) {
+            File parentFile = new File(new File("").getAbsolutePath()).getParentFile();
+            File file = new File(parentFile.getAbsolutePath() + "/webapps" + threadDTO.getContentPath());
+            InputStream inputStream = new FileInputStream(file);
+            int count = (int) file.length();
+            byte[] data = new byte[count];
+            int readCount = 0;
+            while (readCount < count) {
+                readCount += inputStream.read(data, readCount, count - readCount);
+
+            }
+            inputStream.close();
+            threadDTO.setContent(new String(data, "utf-8"));
+        }
+    }
+
+    private void setImagePaths(List<ThreadDTO> threadDTOs) {
         for(ThreadDTO threadDTO : threadDTOs) {
             ImageQuery imageQuery = new ImageQuery();
             imageQuery.setParentId(threadDTO.getId());
@@ -95,7 +127,6 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
                 }
             }
         }
-        return threadResult;
     }
 
     @Override

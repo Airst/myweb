@@ -29,7 +29,7 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
 
     protected BaseDAO<DO> baseDAO;
 
-    private Logger logger = LoggerFactory.getLogger(BaseService.class);
+    protected Logger logger = LoggerFactory.getLogger(BaseService.class);
 
     public void setBaseDAO(BaseDAO<DO> baseDAO) {
         this.baseDAO = baseDAO;
