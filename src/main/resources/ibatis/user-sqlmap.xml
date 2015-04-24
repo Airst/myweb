@@ -175,37 +175,37 @@
 		</selectKey>  
 	</insert> 
 	<update id="UserDAO.update" parameterClass="UserDO"> 
-		update user set version = version + 1 and gmt_modified = now()
+		update user set version = version + 1, gmt_modified = now()
 		<dynamic> 
-			<isNotNull property="feature" prepend="and">
-				<![CDATA[ feature = #feature# ]]>
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
 			</isNotNull>
-			<isNotNull property="options" prepend="and">
-				<![CDATA[ options = #options# ]]>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="account" prepend="and">
-				<![CDATA[ account = #account# ]]>
+			<isNotNull property="account">
+				<![CDATA[ , account = #account# ]]>
 			</isNotNull>
-			<isNotNull property="password" prepend="and">
-				<![CDATA[ password = #password# ]]>
+			<isNotNull property="password">
+				<![CDATA[ , password = #password# ]]>
 			</isNotNull>
-			<isNotNull property="name" prepend="and">
-				<![CDATA[ name = #name# ]]>
+			<isNotNull property="name">
+				<![CDATA[ , name = #name# ]]>
 			</isNotNull>
-			<isNotNull property="email" prepend="and">
-				<![CDATA[ email = #email# ]]>
+			<isNotNull property="email">
+				<![CDATA[ , email = #email# ]]>
 			</isNotNull>
-			<isNotNull property="phone" prepend="and">
-				<![CDATA[ phone = #phone# ]]>
+			<isNotNull property="phone">
+				<![CDATA[ , phone = #phone# ]]>
 			</isNotNull>
-			<isNotNull property="age" prepend="and">
-				<![CDATA[ age = #age# ]]>
+			<isNotNull property="age">
+				<![CDATA[ , age = #age# ]]>
 			</isNotNull>
-			<isNotNull property="gender" prepend="and">
-				<![CDATA[ gender = #gender# ]]>
+			<isNotNull property="gender">
+				<![CDATA[ , gender = #gender# ]]>
 			</isNotNull>
-			<isNotNull property="level" prepend="and">
-				<![CDATA[ level = #level# ]]>
+			<isNotNull property="level">
+				<![CDATA[ , level = #level# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 

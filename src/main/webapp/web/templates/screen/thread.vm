@@ -3,7 +3,7 @@ $page.setTitle("$threadDTO.title")
 <script type="text/javascript" src="/resources/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
+        selector: "textarea.replyText",
         theme: "modern",
         language: 'zh_CN',
         relative_urls: false,
@@ -109,14 +109,11 @@ $page.setTitle("$threadDTO.title")
                                     class="font_icon">回复</span>$!replyDTO.replyCount</a>
                         </div>
                     </div>
-                    <div class="reply_box " id="reply_box_125816">
-                        <ul class="list reply_comment_list_125816">
+                    <div class="reply_box">
+                        <ul class="list">
                             <li>
-                                <div class="pic head_pic_pop_show" uid="1714481">
-                                    <a href="http://www.soyoung.com/u1714481" target="_blank"><span
-                                            class="font_icon">R</span></a>
-                                    <div class="data_pop" id="data_pop_1714481_c80553" uid_s="c80553"
-                                         style="display: none;"></div>
+                                <div class="pic head_pic_pop_show">
+                                    <a href="http://www.soyoung.com/u1714481" target="_blank"><span class="font_icon">R</span></a>
                                 </div>
                                 <div class="t">
                                     <a target="_blank" href="http://www.soyoung.com/u1714481">金秀炫</a>:催胳膊
@@ -125,55 +122,15 @@ $page.setTitle("$threadDTO.title")
                                     </p>
                                 </div>
                             </li>
-                            <li>
-                                <div class="pic head_pic_pop_show" uid="1736898">
-                                    <a href="http://www.soyoung.com/u1736898" target="_blank"> <img
-                                            src="http://ww1.sinaimg.cn/crop.0.0.168.168.1024/005ZGyOdjw8eojrbot6c6j304o04ojr8.jpg"
-                                            alt="" width="36" height="36"> </a>
-                                </div>
-                                <div class="t">
-                                    <a target="_blank" href="http://www.soyoung.com/u1736898">兼直咨询q826842554 </a>:看俄
-                                    <img class="img_motion"
-                                           src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">昵称<img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">感兴趣<img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">好友了解<img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif"><img
-                                        class="img_motion"
-                                        src="http://static.soyoung.com/assets/editor/plugins/emoticons/images/0.gif">
-
-                                    <p>2015-04-17 16:57:18<a href="javascript:void(0)" class="reply_link" onclick="s">回复</a></p>
-                                </div>
-                            </li>
                         </ul>
                         <div class="import">
                             <div class="page_box">
-                                <div class="r_page reply_comment_page_125816">
-                                </div>
-                                <a href="javascript:void(0)" class="link" onclick="showCommentDiv('reply', '125816');">我也说一句</a>
+                                <a href="javascript:void(0)" class="link" onclick="showCommentDiv();">我也说一句</a>
                             </div>
-                            <div style="display: none;" class="relative reply_commment_125816">
-                                <textarea id="reply_commment_125816" name="reply_commment_125816" style="display: none;"
-                                          class="reply_commment_textarea"></textarea>
-
-                                <div class="btn_box reply_commment reply_commment_125816"
-                                     style="position: absolute; top: 46px; right: 0px;">
-                                    <a href="javascript:void(0)" class="blue_btn"
-                                       onclick="addComment('125816', 'reply', 'N');">回复</a>
-                                    <label style="display: inline-block; font-size: 12px; position: absolute; left: -120px; top: 8px;"><input
-                                            type="checkbox" style="vertical-align: middle; margin-top: -2px;"
-                                            name="anonymous" id="comment_ano_125816" value="1"> 匿名发帖</label>
-
+                            <div class="relative">
+                                <textarea id="commment" name="commment" class="reply_commment_textarea" style="resize: none;"></textarea>
+                                <div class="btn_box" style="position: absolute; top: 46px; right: 0px;">
+                                    <a href="javascript:void(0)" class="blue_btn" onclick="addComment('125816', 'reply', 'N');">回复</a>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +165,7 @@ $page.setTitle("$threadDTO.title")
                 $csrfToken.hiddenField
                 <input type="hidden" name="parentId" value="$!threadDTO.id">
                 <input type="hidden" name="action" value="replyAction">
-                <textarea id="reply" name="reply" style="height: 100px"></textarea>
+                <textarea id="reply" name="reply" class="replyText" style="height: 100px"></textarea>
                 <input type="submit" value="发布">
             </form>
         </div>

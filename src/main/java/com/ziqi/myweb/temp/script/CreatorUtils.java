@@ -282,18 +282,18 @@ public class CreatorUtils {
         for (Field field : superClass.getDeclaredFields()) {
             if(updateSkip.contains(field.getName()))
                 continue;
-            condition.append("\t\t\t<isNotNull property=\"").append(field.getName()).append("\" prepend=\"and\">\n");
-            condition.append("\t\t\t\t<![CDATA[ ").append(toColumnName(field.getName())).append(" = #").append(field.getName()).append("# ]]>\n");
+            condition.append("\t\t\t<isNotNull property=\"").append(field.getName()).append("\">\n");
+            condition.append("\t\t\t\t<![CDATA[ , ").append(toColumnName(field.getName())).append(" = #").append(field.getName()).append("# ]]>\n");
             condition.append("\t\t\t</isNotNull>\n");
         }
         for (Field field : clazz.getDeclaredFields()) {
-            condition.append("\t\t\t<isNotNull property=\"").append(field.getName()).append("\" prepend=\"and\">\n");
-            condition.append("\t\t\t\t<![CDATA[ ").append(toColumnName(field.getName())).append(" = #").append(field.getName()).append("# ]]>\n");
+            condition.append("\t\t\t<isNotNull property=\"").append(field.getName()).append("\">\n");
+            condition.append("\t\t\t\t<![CDATA[ , ").append(toColumnName(field.getName())).append(" = #").append(field.getName()).append("# ]]>\n");
             condition.append("\t\t\t</isNotNull>\n");
         }
 
         return  "\t<update id=\"" + getDAOName(clazz) + ".update\" parameterClass=\"" + getSimpleName(clazz) + "\"> \n" +
-                "\t\tupdate " + toTableName(clazz) + " set version = version + 1 and gmt_modified = now()\n" +
+                "\t\tupdate " + toTableName(clazz) + " set version = version + 1, gmt_modified = now()\n" +
                 "\t\t<dynamic> \n" +
                 condition.toString() +
                 "\t\t</dynamic> \n" +

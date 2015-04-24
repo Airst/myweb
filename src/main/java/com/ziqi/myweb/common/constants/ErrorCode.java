@@ -23,6 +23,9 @@ public enum ErrorCode {
     //ReplyDAO DataAccessException
     ERR_DAE_0010("ERR_DAE_0010", "reply update parent failed"),
 
+    //ThreadDAO DataAccessException
+    ERR_DAE_0030("ERR_DAE_0030", "update thread hit failed"),
+
     //BaseService ArgsCheck
     ERR_AC_0001("ERR_AC_0001", "parameters can't be null"),
     ERR_AC_0002("ERR_AC_0002", "parameters illegal"),

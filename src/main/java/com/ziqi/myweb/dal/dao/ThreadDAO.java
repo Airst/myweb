@@ -1,6 +1,9 @@
 package com.ziqi.myweb.dal.dao;
 
+import com.ziqi.myweb.common.constants.ErrorCode;
+import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.dal.model.ThreadDO;
+import org.springframework.dao.DataAccessException;
 
 /**
  * Description: ThreadDAO
@@ -11,5 +14,13 @@ import com.ziqi.myweb.dal.model.ThreadDO;
 public class ThreadDAO extends BaseDAO<ThreadDO> {
     public ThreadDAO() {
         super(ThreadDAO.class);
+    }
+
+    public Integer updateHit(int threadId) throws MyException {
+        try {
+            return sqlMapClientTemplate.update(namespace + ".updateHit", threadId);
+        } catch (DataAccessException e) {
+            throw new MyException(ErrorCode.ERR_DAE_0030, e);
+        }
     }
 }

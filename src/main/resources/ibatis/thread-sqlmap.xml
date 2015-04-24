@@ -182,42 +182,45 @@
 		<selectKey resultClass="int" keyProperty="id"> 
 			SELECT LAST_INSERT_ID() 
 		</selectKey>  
-	</insert> 
+	</insert>
+	<update id="ThreadDAO.updateHit" parameterClass="int">
+		update thread set version = version + 1, gmt_modified = now(), hit = hit + 1 where id = #thread#
+	</update>
 	<update id="ThreadDAO.update" parameterClass="ThreadDO"> 
-		update thread set version = version + 1 and gmt_modified = now()
+		update thread set version = version + 1, gmt_modified = now()
 		<dynamic> 
-			<isNotNull property="feature" prepend="and">
-				<![CDATA[ feature = #feature# ]]>
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
 			</isNotNull>
-			<isNotNull property="options" prepend="and">
-				<![CDATA[ options = #options# ]]>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="title" prepend="and">
-				<![CDATA[ title = #title# ]]>
+			<isNotNull property="title">
+				<![CDATA[ , title = #title# ]]>
 			</isNotNull>
-			<isNotNull property="contentPath" prepend="and">
-				<![CDATA[ content_path = #contentPath# ]]>
+			<isNotNull property="contentPath">
+				<![CDATA[ , content_path = #contentPath# ]]>
 			</isNotNull>
-			<isNotNull property="authorId" prepend="and">
-				<![CDATA[ author_id = #authorId# ]]>
+			<isNotNull property="authorId">
+				<![CDATA[ , author_id = #authorId# ]]>
 			</isNotNull>
-			<isNotNull property="hit" prepend="and">
-				<![CDATA[ hit = #hit# ]]>
+			<isNotNull property="hit">
+				<![CDATA[ , hit = #hit# ]]>
 			</isNotNull>
-			<isNotNull property="replyCount" prepend="and">
-				<![CDATA[ reply_count = #replyCount# ]]>
+			<isNotNull property="replyCount">
+				<![CDATA[ , reply_count = #replyCount# ]]>
 			</isNotNull>
-			<isNotNull property="likeCount" prepend="and">
-				<![CDATA[ like_count = #likeCount# ]]>
+			<isNotNull property="likeCount">
+				<![CDATA[ , like_count = #likeCount# ]]>
 			</isNotNull>
-			<isNotNull property="lastReplyDate" prepend="and">
-				<![CDATA[ last_reply_date = #lastReplyDate# ]]>
+			<isNotNull property="lastReplyDate">
+				<![CDATA[ , last_reply_date = #lastReplyDate# ]]>
 			</isNotNull>
-			<isNotNull property="level" prepend="and">
-				<![CDATA[ level = #level# ]]>
+			<isNotNull property="level">
+				<![CDATA[ , level = #level# ]]>
 			</isNotNull>
-			<isNotNull property="tags" prepend="and">
-				<![CDATA[ tags = #tags# ]]>
+			<isNotNull property="tags">
+				<![CDATA[ , tags = #tags# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 

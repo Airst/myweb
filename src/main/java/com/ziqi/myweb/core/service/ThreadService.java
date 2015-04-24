@@ -9,6 +9,7 @@ import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.query.ImageQuery;
 import com.ziqi.myweb.common.query.ThreadQuery;
+import com.ziqi.myweb.dal.dao.ThreadDAO;
 import com.ziqi.myweb.dal.model.ThreadDO;
 import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.dal.query.QueryMap;
@@ -70,6 +71,20 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         });
 
         return afterTransaction(result);
+    }
+
+    public ResultDTO<Integer> updateHit(int threadId) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<Integer>();
+        try {
+            Integer update = ((ThreadDAO) baseDAO).updateHit(threadId);
+            resultDTO.setIsSuccess(true);
+            resultDTO.setResult(update);
+        } catch (MyException e) {
+            onMyException(e, "updateHit", resultDTO, threadId);
+        } catch (Exception e) {
+            onException(e, "updateHit", resultDTO, threadId);
+        }
+        return resultDTO;
     }
 
     public ResultDTO<List<ThreadDTO>> listThreads(int pageIndex, int pageSize, boolean imagePath, boolean content) {

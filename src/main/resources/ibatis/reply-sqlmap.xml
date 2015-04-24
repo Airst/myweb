@@ -131,40 +131,40 @@
 				<![CDATA[ gmt_modified < #toModified# ]]>
 			</isNotEmpty>
 		</dynamic> 
-	</select> 
+	</select>
 	<insert id="ReplyDAO.insert" parameterClass="ReplyDO">
 		insert into reply
 		(			feature,
-			options,
-			is_deleted,
-			gmt_create,
-			gmt_modified,
-			content_path,
-			author_id,
-			floor,
-			thread_id,
-			parent_id,
-			reply_type,
-			reply_count
+		options,
+		is_deleted,
+		gmt_create,
+		gmt_modified,
+		content_path,
+		author_id,
+		floor,
+		thread_id,
+		parent_id,
+		reply_type,
+		reply_count
 		)
 		VALUES
 		(			#feature#,
-			#options#,
-			0,
-			now(),
-			now(),
-			#contentPath#,
-			#authorId#,
-			<isEqual property="replyType" compareValue="0">
-				(select reply_count from thread where id = #parentId# for update) + 1,
-			</isEqual>
-			<isEqual property="replyType" compareValue="1">
-				(select reply_count from reply where id = #parentId# for update) + 1,
-			</isEqual>
-			#threadId#,
-			#parentId#,
-			#replyType#,
-			#replyCount#
+		#options#,
+		0,
+		now(),
+		now(),
+		#contentPath#,
+		#authorId#,
+		<isEqual property="replyType" compareValue="0">
+			(select reply_count from thread where id = #parentId# for update) + 1,
+		</isEqual>
+		<isEqual property="replyType" compareValue="1">
+			(select reply_count from reply where id = #parentId# for update) + 1,
+		</isEqual>
+		#threadId#,
+		#parentId#,
+		#replyType#,
+		#replyCount#
 		)
 		<selectKey resultClass="int" keyProperty="id">
 			SELECT LAST_INSERT_ID()
@@ -179,34 +179,34 @@
 		</isEqual>
 	</update>
 	<update id="ReplyDAO.update" parameterClass="ReplyDO"> 
-		update reply set version = version + 1 and gmt_modified = now()
+		update reply set version = version + 1, gmt_modified = now()
 		<dynamic> 
-			<isNotNull property="feature" prepend="and">
-				<![CDATA[ feature = #feature# ]]>
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
 			</isNotNull>
-			<isNotNull property="options" prepend="and">
-				<![CDATA[ options = #options# ]]>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="contentPath" prepend="and">
-				<![CDATA[ content_path = #contentPath# ]]>
+			<isNotNull property="contentPath">
+				<![CDATA[ , content_path = #contentPath# ]]>
 			</isNotNull>
-			<isNotNull property="authorId" prepend="and">
-				<![CDATA[ author_id = #authorId# ]]>
+			<isNotNull property="authorId">
+				<![CDATA[ , author_id = #authorId# ]]>
 			</isNotNull>
-			<isNotNull property="floor" prepend="and">
-				<![CDATA[ floor = #floor# ]]>
+			<isNotNull property="floor">
+				<![CDATA[ , floor = #floor# ]]>
 			</isNotNull>
-			<isNotNull property="threadId" prepend="and">
-				<![CDATA[ thread_id = #threadId# ]]>
+			<isNotNull property="threadId">
+				<![CDATA[ , thread_id = #threadId# ]]>
 			</isNotNull>
-			<isNotNull property="parentId" prepend="and">
-				<![CDATA[ parent_id = #parentId# ]]>
+			<isNotNull property="parentId">
+				<![CDATA[ , parent_id = #parentId# ]]>
 			</isNotNull>
-			<isNotNull property="replyType" prepend="and">
-				<![CDATA[ reply_type = #replyType# ]]>
+			<isNotNull property="replyType">
+				<![CDATA[ , reply_type = #replyType# ]]>
 			</isNotNull>
-			<isNotNull property="replyCount" prepend="and">
-				<![CDATA[ reply_count = #replyCount# ]]>
+			<isNotNull property="replyCount">
+				<![CDATA[ , reply_count = #replyCount# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 

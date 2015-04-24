@@ -1,6 +1,7 @@
 package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.TableConstants;
 import com.ziqi.myweb.common.constants.ThreadConstants;
@@ -67,6 +68,10 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         threadDTO.setLastReplyDate(new Date());
         return resultBoolean(((ThreadService) baseService).publishThread(threadDTO, savePath), context);
 
+    }
+
+    public void updateHit(int threadId) {
+        ((ThreadService) baseService).updateHit(threadId);
     }
 
 }

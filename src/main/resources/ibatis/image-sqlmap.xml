@@ -139,25 +139,25 @@
 		</selectKey>  
 	</insert> 
 	<update id="ImageDAO.update" parameterClass="ImageDO"> 
-		update image set version = version + 1 and gmt_modified = now()
+		update image set version = version + 1, gmt_modified = now()
 		<dynamic> 
-			<isNotNull property="feature" prepend="and">
-				<![CDATA[ feature = #feature# ]]>
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
 			</isNotNull>
-			<isNotNull property="options" prepend="and">
-				<![CDATA[ options = #options# ]]>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="filepath" prepend="and">
-				<![CDATA[ filepath = #filepath# ]]>
+			<isNotNull property="filepath">
+				<![CDATA[ , filepath = #filepath# ]]>
 			</isNotNull>
-			<isNotNull property="userId" prepend="and">
-				<![CDATA[ user_id = #userId# ]]>
+			<isNotNull property="userId">
+				<![CDATA[ , user_id = #userId# ]]>
 			</isNotNull>
-			<isNotNull property="type" prepend="and">
-				<![CDATA[ type = #type# ]]>
+			<isNotNull property="type">
+				<![CDATA[ , type = #type# ]]>
 			</isNotNull>
-			<isNotNull property="parentId" prepend="and">
-				<![CDATA[ parent_id = #parentId# ]]>
+			<isNotNull property="parentId">
+				<![CDATA[ , parent_id = #parentId# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 

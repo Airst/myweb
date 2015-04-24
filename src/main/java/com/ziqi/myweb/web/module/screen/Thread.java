@@ -46,8 +46,9 @@ public class Thread extends BaseModule {
             if(StringUtils.isNotBlank(page)) {
                 pageIndex = Integer.valueOf(page);
             }
-
-            ThreadDTO threadDTO = threadBiz.queryById(Integer.parseInt(threadId), context);
+            int id = Integer.parseInt(threadId);
+            threadBiz.updateHit(id);
+            ThreadDTO threadDTO = threadBiz.queryById(id, context);
             if (threadDTO == null) {
                 response.sendRedirect(getHostUrl() + "/beautyStreet.htm");
                 return;
