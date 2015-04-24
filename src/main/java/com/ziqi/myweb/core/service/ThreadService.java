@@ -111,7 +111,22 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
 
             }
             inputStream.close();
-            threadDTO.setContent(new String(data, "utf-8"));
+            String content = new String(data, "utf-8").trim();
+            String str = "";
+            int start = content.indexOf("<body>"), end = 0;
+            for (int i=start; i<=content.indexOf("</body>"); ++i) {
+            	if(content.charAt(i) == '>')
+            	{
+            		start = i;
+            	}
+            	else if (content.charAt(i) == '<')
+            		end = i;
+            	if(start < end) {
+            		str += content.substring(start+1, end).trim();
+            		start = end = i;
+            	}
+            }
+            threadDTO.setContent(str);
         }
     }
 

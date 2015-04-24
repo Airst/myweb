@@ -1,11 +1,16 @@
 package com.ziqi.myweb.core.service;
 
+import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.ImageConstants;
+import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.dal.dao.ReplyDAO;
 import com.ziqi.myweb.dal.model.ReplyDO;
 import com.ziqi.myweb.common.model.ReplyDTO;
+import com.ziqi.myweb.common.query.ReplyQuery;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
@@ -13,6 +18,10 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -62,6 +71,58 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         });
 
         return afterTransaction(result);
+    }
+    
+    public ResultDTO<List<ReplyDTO>> selectReplyByThreadId(int threadId, int pageIndex) {
+    	ResultDTO<List<ReplyDTO>> resultDTO = new ResultDTO<List<ReplyDTO>>();
+        try {
+            if(threadId <= 0) {
+                throw new MyException(ErrorCode.ERR_AC_0002, "threadId <= 0");
+            }
+            ReplyQuery query = new ReplyQuery();
+        	query.setThreadId(threadId);
+        	query.setPageIndex(pageIndex);
+        	query.setPageSize(20);
+            resultDTO = query(query).trySuccess();
+            setReplyContent(resultDTO.getResult());
+        } catch (MyException e) {
+            onMyException(e, "queryByThreadId", resultDTO, threadId);
+        } catch (Exception e) {
+            onException(e, "queryByThreadId", resultDTO, threadId);
+        }
+        return resultDTO;
+    }
+    
+    private void setReplyContent(List<ReplyDTO> replyDTOs) throws Exception {
+        for(ReplyDTO replyDTO : replyDTOs) {
+            String classPath = this.getClass().getResource("").getPath();
+            File file = new File(classPath.substring(0, classPath.indexOf("/webapps") + 8) + replyDTO.getContentPath());
+            InputStream inputStream = new FileInputStream(file);
+            int count = (int) file.length();
+            byte[] data = new byte[count];
+            int readCount = 0;
+            while (readCount < count) {
+                readCount += inputStream.read(data, readCount, count - readCount);
+
+            }
+            inputStream.close();
+            String content = new String(data, "utf-8").trim();
+            String str = "";
+            int start = content.indexOf("<body>"), end = 0;
+            for (int i=start; i<=content.indexOf("</body>"); ++i) {
+            	if(content.charAt(i) == '>')
+            	{
+            		start = i;
+            	}
+            	else if (content.charAt(i) == '<')
+            		end = i;
+            	if(start < end) {
+            		str += content.substring(start+1, end).trim();
+            		start = end = i;
+            	}
+            }
+            replyDTO.setContent(str);
+        }
     }
 
     @Override
