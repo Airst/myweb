@@ -1,9 +1,5 @@
 package com.ziqi.myweb.common.constants;
 
-import java.beans.Encoder;
-import java.nio.charset.Charset;
-import java.util.Base64;
-
 /**
  * Description: ErrorCodeConstants
  * User: qige
