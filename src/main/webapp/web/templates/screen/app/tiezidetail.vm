@@ -1,0 +1,12 @@
+#set ($i=0)
+<tiezidetail>
+	#foreach($replyDTO in $!replyDTOs)
+	<item id="$replyDTO.id">
+		<userid>$userDTOs.get($i).id</userid>
+		<username>${userDTOs.get($i).name}，Lv${userDTOs.get($i).level}</username>
+		<content>$replyDTO.content</content>
+		<time>$replyDTO.gmtCreate</time>
+	</item>
+	#set ($i=$i+1)
+	#end
+</tiezidetail>
