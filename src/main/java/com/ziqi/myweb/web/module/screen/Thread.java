@@ -59,14 +59,8 @@ public class Thread extends BaseModule {
                 context.put("author", userBiz.queryById(threadDTO.getAuthorId(), context));
             }
 
-            ReplyQuery replyQuery = new ReplyQuery();
-            replyQuery.setThreadId(threadDTO.getId());
-            replyQuery.setParentId(threadDTO.getId());
-            replyQuery.setReplyType(ReplyConstants.Type.REPLY_TOP);
-            replyQuery.addOrderField(TableConstants.Reply.floor, false);
-            replyQuery.setPageSize(20);
-            replyQuery.setPageIndex(pageIndex);
-            context.put("replyDTOs", replyBiz.query(replyQuery, context));
+            context.put("replyDTOs", replyBiz.listReplyTop(threadDTO.getId(), threadDTO.getId(),
+                    pageIndex, true, context));
 
             defaultExecute(context);
         } catch (Exception e) {

@@ -20,6 +20,8 @@ public class ThreadDTO extends BaseDTO {
 
     private Integer authorId;
 
+    private String authorAccount;
+
     private Integer hit;
 
     private Integer replyCount;
@@ -64,6 +66,14 @@ public class ThreadDTO extends BaseDTO {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthorAccount() {
+        return authorAccount;
+    }
+
+    public void setAuthorAccount(String authorAccount) {
+        this.authorAccount = authorAccount;
     }
 
     public Integer getHit() {

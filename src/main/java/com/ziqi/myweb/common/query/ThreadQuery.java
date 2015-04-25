@@ -16,6 +16,8 @@ public class ThreadQuery extends BaseQuery {
 
     private Integer authorId;
 
+    private String authorAccount;
+
     private Integer hit;
 
     private Integer replyCount;
@@ -50,6 +52,14 @@ public class ThreadQuery extends BaseQuery {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthorAccount() {
+        return authorAccount;
+    }
+
+    public void setAuthorAccount(String authorAccount) {
+        this.authorAccount = authorAccount;
     }
 
     public Integer getHit() {

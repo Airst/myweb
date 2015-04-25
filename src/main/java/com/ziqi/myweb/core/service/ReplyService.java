@@ -41,7 +41,7 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
     public ReplyService() {
         setLogger(LoggerFactory.getLogger(ReplyService.class));
     }
-    public ResultDTO<Integer> publishReply(final ReplyDTO replyDTO, final String savePath) {
+    public ResultDTO<Integer> publishReplyTop(final ReplyDTO replyDTO, final String savePath) {
 
         Object result = transactionTemplate.execute(new TransactionCallback<Object>() {
             @Override
@@ -72,7 +72,7 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
 
         return afterTransaction(result);
     }
-    
+
     public ResultDTO<List<ReplyDTO>> selectReplyByThreadId(int threadId, int pageIndex) {
     	ResultDTO<List<ReplyDTO>> resultDTO = new ResultDTO<List<ReplyDTO>>();
         try {
@@ -137,6 +137,7 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDTO.setVersion(replyDO.getVersion());
         replyDTO.setContentPath(replyDO.getContentPath());
         replyDTO.setAuthorId(replyDO.getAuthorId());
+        replyDTO.setAuthorAccount(replyDO.getAuthorAccount());
         replyDTO.setFloor(replyDO.getFloor());
         replyDTO.setThreadId(replyDO.getThreadId());
         replyDTO.setParentId(replyDO.getParentId());
@@ -156,6 +157,7 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDO.setVersion(replyDTO.getVersion());
         replyDO.setContentPath(replyDTO.getContentPath());
         replyDO.setAuthorId(replyDTO.getAuthorId());
+        replyDO.setAuthorAccount(replyDTO.getAuthorAccount());
         replyDO.setFloor(replyDTO.getFloor());
         replyDO.setThreadId(replyDTO.getThreadId());
         replyDO.setParentId(replyDTO.getParentId());

@@ -46,7 +46,6 @@ $page.setTitle("$threadDTO.title")
     }
 
     function checkContent(id) {
-        tinymce.triggerSave(true);
         var element = document.getElementById(id);
         if (element.value == "") {
             alert('请填写回复内容');
@@ -54,8 +53,36 @@ $page.setTitle("$threadDTO.title")
         }
         return true;
     }
-</script>
 
+    function showCommentDiv(id, textid, name) {
+        var element = document.getElementById(id);
+        textarea = document.getElementById(textid);
+        if(name != null) {
+            element.style.display = "";
+            textarea.innerHTML = "回复 " + name + ":";
+            textarea.focus();
+        } else {
+            if(element.style.display == "none") {
+                element.style.display = "";
+                textarea.focus();
+            } else if(textarea.innerHTML == ""){
+                element.style.display = "none";
+            } else {
+                textarea.innerHTML = "";
+                textarea.focus();
+            }
+        }
+    }
+
+    function addComment(id) {
+        document.getElementById(id).submit();
+    }
+</script>
+#macro (displayList $field)
+    #if(!$field || $!field.size() == 0)
+        display : none;
+    #end
+#end
 <div class="container" style="direction:ltr; unicode-bidi: embed; -webkit-locale: en-US;">
     <ul class="beauty_content_list">
         #if($threadDTO)
@@ -93,7 +120,7 @@ $page.setTitle("$threadDTO.title")
                     <a href="http://www.soyoung.com/u220" class="pic" target="_blank">
                         <img src="http://img1.soyoung.com/user/2013082815/20130828153624118_100_100.jpg" width="64"
                              height="64"></a>
-                    <a href="http://www.soyoung.com/u220" class="name" target="_blank">淋淋是我偶像</a>
+                    <a href="http://www.soyoung.com/u220" class="name" target="_blank">$!replyDTO.authorAccount</a>
                 </div>
                 <div class="content">
                     <iframe id="reply_c$!replyDTO.id" class="reply_c" onload="iFrameHeight('reply_c$!replyDTO.id')"
@@ -105,32 +132,39 @@ $page.setTitle("$threadDTO.title")
                             #set($floor = $!replyDTO.floor + 1)
                             <span class="floor">$!floor 楼</span>
                             <span class="time">$!replyDTO.gmtCreate</span>
-                            <a href="javascript:void(0)" class="reply_btn"><span
-                                    class="font_icon">回复</span>$!replyDTO.replyCount</a>
+                            <a href="javascript:void(0)" class="reply_btn" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id')">
+                                <span class="font_icon">回复</span>$!replyDTO.replyCount</a>
                         </div>
                     </div>
                     <div class="reply_box">
-                        <ul class="list">
+                        <ul class="list" style="#displayList($replyDTO.subReplyDTOs)">
+                            #foreach($subReplyDTO in $!replyDTO.subReplyDTOs)
                             <li>
                                 <div class="pic head_pic_pop_show">
                                     <a href="http://www.soyoung.com/u1714481" target="_blank"><span class="font_icon">R</span></a>
                                 </div>
                                 <div class="t">
-                                    <a target="_blank" href="http://www.soyoung.com/u1714481">金秀炫</a>:催胳膊
-                                    <p>2015-04-02 16:23:32<a href="javascript:void(0)" class="reply_link"
-                                                             onclick="showCommentDiv('reply', '125816', '金秀炫',80553);">回复</a>
+                                    <a target="_blank" href="http://www.soyoung.com/u1714481">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
+                                    <p>$subReplyDTO.gmtCreate
+                                        <a href="javascript:void(0)" class="reply_link" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id', '$!subReplyDTO.authorAccount')">回复</a>
                                     </p>
                                 </div>
                             </li>
+                            #end
                         </ul>
                         <div class="import">
-                            <div class="page_box">
-                                <a href="javascript:void(0)" class="link" onclick="showCommentDiv();">我也说一句</a>
+                            <div class="page_box" style="#displayList($replyDTO.subReplyDTOs)">
+                                <a href="javascript:void(0)" class="link" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id')">我也说一句</a>
                             </div>
-                            <div class="relative">
-                                <textarea id="commment" name="commment" class="reply_commment_textarea" style="resize: none;"></textarea>
-                                <div class="btn_box" style="position: absolute; top: 46px; right: 0px;">
-                                    <a href="javascript:void(0)" class="blue_btn" onclick="addComment('125816', 'reply', 'N');">回复</a>
+                            <div id="replyarea$!replyDTO.id" class="relative" style="display: none">
+                                <form id="commentForm$!replyDTO.id" method="post" action="" onsubmit="return checkContent('comment$!replyDTO.id');">
+                                    <input type="hidden" name="action" value="replyAction">
+                                    <input type="hidden" name="replyType" value="replySub">
+                                    <input type="hidden" name="parentId" value="$!replyDTO.id">
+                                    <textarea id="comment$!replyDTO.id" name="comment" class="reply_commment_textarea" style="resize: none;"></textarea>
+                                </form>
+                                <div class="btn_box" style="">
+                                    <a href="javascript:void(0)" class="blue_btn" onclick="addComment('commentForm$!replyDTO.id');">回复</a>
                                 </div>
                             </div>
                         </div>
@@ -161,9 +195,10 @@ $page.setTitle("$threadDTO.title")
         </div>
 
         <div id="replybox" name="replybox" class="publish" style="float: right">
-            <form action="" method="post" onsubmit="return checkContent('reply');">
+            <form action="" method="post" onsubmit="tinymce.triggerSave(true);return checkContent('reply');">
                 $csrfToken.hiddenField
                 <input type="hidden" name="parentId" value="$!threadDTO.id">
+                <input type="hidden" name="replyType" value="replyTop">
                 <input type="hidden" name="action" value="replyAction">
                 <textarea id="reply" name="reply" class="replyText" style="height: 100px"></textarea>
                 <input type="submit" value="发布">

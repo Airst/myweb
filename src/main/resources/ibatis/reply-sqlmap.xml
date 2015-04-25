@@ -12,7 +12,8 @@
 		<result property="gmtModified" column="gmt_modified"/> 
 		<result property="version" column="version"/> 
 		<result property="contentPath" column="content_path"/> 
-		<result property="authorId" column="author_id"/> 
+		<result property="authorId" column="author_id"/>
+		<result property="authorAccount" column="author_account"/>
 		<result property="floor" column="floor"/> 
 		<result property="threadId" column="thread_id"/> 
 		<result property="parentId" column="parent_id"/> 
@@ -39,6 +40,9 @@
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="authorAccount" prepend="and">
+				<![CDATA[ author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
@@ -103,6 +107,9 @@
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
 			</isNotNull>
+			<isNotNull property="authorAccount" prepend="and">
+				<![CDATA[ author_account = #authorAccount# ]]>
+			</isNotNull>
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
 			</isNotNull>
@@ -141,6 +148,7 @@
 		gmt_modified,
 		content_path,
 		author_id,
+		author_account,
 		floor,
 		thread_id,
 		parent_id,
@@ -155,12 +163,13 @@
 		now(),
 		#contentPath#,
 		#authorId#,
+		#authorAccount#,
 		<isEqual property="replyType" compareValue="0">
 			(select reply_count from thread where id = #parentId# for update) + 1,
 		</isEqual>
-		<isEqual property="replyType" compareValue="1">
-			(select reply_count from reply where id = #parentId# for update) + 1,
-		</isEqual>
+		<isNotEqual property="replyType" compareValue="0">
+			0,
+		</isNotEqual>
 		#threadId#,
 		#parentId#,
 		#replyType#,
@@ -173,9 +182,6 @@
 	<update id="ReplyDAO.updateParent" parameterClass="ReplyDO">
 		<isEqual property="replyType" compareValue="0">
 			update thread set reply_count = reply_count + 1, last_reply_date = now() where id = #parentId#;
-		</isEqual>
-		<isEqual property="replyType" compareValue="1">
-			update reply set reply_count = reply_count + 1, last_reply_date = now() where id = #parentId#;
 		</isEqual>
 	</update>
 	<update id="ReplyDAO.update" parameterClass="ReplyDO"> 
@@ -192,6 +198,9 @@
 			</isNotNull>
 			<isNotNull property="authorId">
 				<![CDATA[ , author_id = #authorId# ]]>
+			</isNotNull>
+			<isNotNull property="authorAccount">
+				<![CDATA[ , author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="floor">
 				<![CDATA[ , floor = #floor# ]]>

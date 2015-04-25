@@ -1,5 +1,8 @@
 package com.ziqi.myweb.common.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Description: ReplyDTO
  * User: qige
@@ -14,6 +17,8 @@ public class ReplyDTO extends BaseDTO {
 
     private Integer authorId;
 
+    private String authorAccount;
+
     private Integer floor;
 
     private Integer threadId;
@@ -23,6 +28,8 @@ public class ReplyDTO extends BaseDTO {
     private Integer replyType;
 
     private Integer replyCount;
+
+    private List<ReplyDTO> subReplyDTOs = new ArrayList<ReplyDTO>(0);
 
     public String getContentPath() {
         return contentPath;
@@ -46,6 +53,14 @@ public class ReplyDTO extends BaseDTO {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthorAccount() {
+        return authorAccount;
+    }
+
+    public void setAuthorAccount(String authorAccount) {
+        this.authorAccount = authorAccount;
     }
 
     public Integer getFloor() {
@@ -86,5 +101,13 @@ public class ReplyDTO extends BaseDTO {
 
     public void setReplyCount(Integer replyCount) {
         this.replyCount = replyCount;
+    }
+
+    public List<ReplyDTO> getSubReplyDTOs() {
+        return subReplyDTOs;
+    }
+
+    public void setSubReplyDTOs(List<ReplyDTO> subReplyDTOs) {
+        this.subReplyDTOs = subReplyDTOs;
     }
 }

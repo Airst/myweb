@@ -1,20 +1,16 @@
 package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.TableConstants;
 import com.ziqi.myweb.common.constants.ThreadConstants;
 import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.common.query.ThreadQuery;
-import com.ziqi.myweb.core.service.ImageService;
 import com.ziqi.myweb.core.service.ThreadService;
 import com.ziqi.myweb.dal.model.ThreadDO;
 import com.ziqi.myweb.web.constants.ContextConstants;
 
-import javax.annotation.Resource;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +46,7 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         return query(threadQuery, context);
     }
 
-    public boolean publishThread(String title, String content, String parentPath, Integer userId, Context context) {
+    public boolean publishThread(String title, String content, String parentPath, Integer userId, String account, Context context) {
 
         String filename = UUID.randomUUID() + "_" + userId + ".html";
         String contentPath =  "/threads/" + filename;
@@ -59,6 +55,7 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         ThreadDTO threadDTO = new ThreadDTO();
         threadDTO.setContent(content);
         threadDTO.setAuthorId(userId);
+        threadDTO.setAuthorAccount(account);
         threadDTO.setContentPath(contentPath);
         threadDTO.setHit(0);
         threadDTO.setLikeCount(0);

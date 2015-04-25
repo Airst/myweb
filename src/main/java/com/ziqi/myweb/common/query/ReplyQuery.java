@@ -12,6 +12,8 @@ public class ReplyQuery extends BaseQuery {
 
     private Integer authorId;
 
+    private String authorAccount;
+
     private Integer floor;
 
     private Integer threadId;
@@ -36,6 +38,14 @@ public class ReplyQuery extends BaseQuery {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthorAccount() {
+        return authorAccount;
+    }
+
+    public void setAuthorAccount(String authorAccount) {
+        this.authorAccount = authorAccount;
     }
 
     public Integer getFloor() {

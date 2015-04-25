@@ -27,25 +27,37 @@ public class ReplyAction extends BaseModule {
 
     private Logger logger = LoggerFactory.getLogger(ReplyAction.class);
 
+    private static final String REPLY_TOP = "replyTop";
+    private static final String REPLY_SUB = "replySub";
+
     public void execute(Context context) {
         try {
             request.setCharacterEncoding("utf-8");
             String threadId = request.getParameter("threadId");
             String parentId = request.getParameter("parentId");
+            String replyType = request.getParameter("replyType");
             if(StringUtils.isBlank(threadId) || StringUtils.isBlank(parentId)) {
                 response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);
                 return;
             }
             if(!checkLogin("/thread.htm?threadId=" + threadId)) return;
+            if(StringUtils.isBlank(replyType)) {
+                replyType = REPLY_TOP;
+            }
+            if(replyType.equals(REPLY_TOP)) {
+                String content = "<!DOCTYPE html><html><head>" +
+                        "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/></head>" +
+                        "<style> img { max-width: 730px; } </style>" +
+                        "<body>" + request.getParameter("reply") + "</body></html>";
+                content = content.replace("<img", "\n<img");
 
-            String content = "<!DOCTYPE html><html><head>" +
-                    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/></head>" +
-                    "<style> img { max-width: 730px; } </style>" +
-                    "<body>" + request.getParameter("reply") + "</body></html>";
-            content = content.replace("<img", "\n<img");
-
-            replyBiz.publishReplyTop(content, getUserId(), Integer.parseInt(threadId),
-                    Integer.parseInt(parentId), getFilesRoot(), context);
+                replyBiz.publishReplyTop(content, getUserId(), getAccount(), Integer.parseInt(threadId),
+                        Integer.parseInt(parentId), getFilesRoot(), context);
+            } else if(replyType.equals(REPLY_SUB)) {
+                String content = request.getParameter("comment");
+                replyBiz.publishReplySub(content, getUserId(), getAccount(), Integer.parseInt(threadId),
+                        Integer.parseInt(parentId), context);
+            }
             response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);
         } catch (Exception e) {
             onException(context, logger, e);

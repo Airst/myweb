@@ -172,6 +172,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDTO.setVersion(threadDO.getVersion());
         threadDTO.setTitle(threadDO.getTitle());
         threadDTO.setAuthorId(threadDO.getAuthorId());
+        threadDTO.setAuthorAccount(threadDO.getAuthorAccount());
         threadDTO.setHit(threadDO.getHit());
         threadDTO.setReplyCount(threadDO.getReplyCount());
         threadDTO.setLikeCount(threadDO.getLikeCount());
@@ -193,6 +194,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDO.setVersion(threadDTO.getVersion());
         threadDO.setTitle(threadDTO.getTitle());
         threadDO.setAuthorId(threadDTO.getAuthorId());
+        threadDO.setAuthorAccount(threadDTO.getAuthorAccount());
         threadDO.setHit(threadDTO.getHit());
         threadDO.setReplyCount(threadDTO.getReplyCount());
         threadDO.setLikeCount(threadDTO.getLikeCount());
