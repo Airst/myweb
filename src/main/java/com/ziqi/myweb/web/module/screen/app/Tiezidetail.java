@@ -42,14 +42,14 @@ public class Tiezidetail extends BaseModule {
         try {
             defaultExecute(context);
             int threadId = Integer.parseInt(request.getParameter("threadId"));
-            List<ReplyDTO> replyDTOs = replyBiz.queryReplyByThreadId(threadId, 1, context);
+            //List<ReplyDTO> replyDTOs = replyBiz.queryReplyByThreadId(threadId, 1, true, context);
+            List<ReplyDTO> replyDTOs = replyBiz.listReplyTop(threadId, threadId, 1, true, true, context);
             List<UserDTO> userDTOs = new ArrayList<UserDTO>();
             for(ReplyDTO replyDTO : replyDTOs) {
             	userDTOs.add(userBiz.queryById(replyDTO.getAuthorId(), context));
             }
             context.put("userDTOs", userDTOs);
             context.put("replyDTOs", replyDTOs);
-            logger.info(replyDTOs.get(1).getContent());
         } catch (Exception e) {
             onException(context, logger, e);
         }

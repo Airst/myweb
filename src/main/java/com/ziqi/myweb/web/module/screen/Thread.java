@@ -60,7 +60,7 @@ public class Thread extends BaseModule {
             }
 
             context.put("replyDTOs", replyBiz.listReplyTop(threadDTO.getId(), threadDTO.getId(),
-                    pageIndex, true, context));
+                    pageIndex, true, false, context));
 
             defaultExecute(context);
         } catch (Exception e) {

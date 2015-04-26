@@ -93,7 +93,8 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         return resultDTO;
     }
     
-    private void setReplyContent(List<ReplyDTO> replyDTOs) throws Exception {
+    public void setReplyContent(List<ReplyDTO> replyDTOs) {
+    	try {
         for(ReplyDTO replyDTO : replyDTOs) {
             String classPath = this.getClass().getResource("").getPath();
             File file = new File(classPath.substring(0, classPath.indexOf("/webapps") + 8) + replyDTO.getContentPath());
@@ -123,6 +124,9 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
             }
             replyDTO.setContent(str);
         }
+    	} catch (Exception e) {
+    		logger.error("failed@setReplyContent, replyDTOs={}", replyDTOs, e);
+    	}
     }
 
     @Override
