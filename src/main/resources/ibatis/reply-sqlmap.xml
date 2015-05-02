@@ -72,12 +72,12 @@
 				<![CDATA[ gmt_modified < #toModified# ]]>
 			</isNotEmpty>
 		</dynamic> 
-		<dynamic> 
-			<isNotEmpty property="orderField">
-				<![CDATA[ order by $orderField$ ]]>
-			</isNotEmpty>
+		<dynamic>
 			<isNotEmpty property="groupField">
 				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
 			</isNotEmpty>
 		</dynamic> 
 		limit #start#,#limit#

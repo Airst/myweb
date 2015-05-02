@@ -60,7 +60,7 @@ public class RegisterAction extends BaseModule {
         userDTO.setName(registerVO.getName());
         userDTO.setPassword(registerVO.getPassword());
         userDTO.setPhone(registerVO.getPhone());
-
+        userDTO.setLevel(0);
         return userDTO;
     }
 

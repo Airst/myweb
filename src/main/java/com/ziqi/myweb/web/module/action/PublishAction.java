@@ -33,7 +33,7 @@ public class PublishAction extends BaseModule {
                     "<body>" + data + "</body></html>";
             content = content.replace("<img", "\n<img");
             threadBiz.publishThread(title, content, getFilesRoot(), getUserId(), getAccount(), context);
-            response. sendRedirect(request.getContextPath() + "beautyStreet.htm");
+            response.sendRedirect(getHostUrl() + "beautyStreet.htm");
         } catch (Exception e) {
             onException(context, logger, e);
         }

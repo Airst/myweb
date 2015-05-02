@@ -2,8 +2,8 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
  	"http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap> 
-	<typeAlias alias="ImageDO" type="com.ziqi.myweb.dal.model.ImageDO"/> 
-	<resultMap id="ImageDOResult" class="ImageDO"> 
+	<typeAlias alias="MessageDO" type="com.ziqi.myweb.dal.model.MessageDO"/> 
+	<resultMap id="MessageDOResult" class="MessageDO"> 
 		<result property="id" column="id"/> 
 		<result property="feature" column="feature"/> 
 		<result property="options" column="options"/> 
@@ -11,13 +11,16 @@
 		<result property="gmtCreate" column="gmt_create"/> 
 		<result property="gmtModified" column="gmt_modified"/> 
 		<result property="version" column="version"/> 
-		<result property="filepath" column="filepath"/> 
-		<result property="userId" column="user_id"/> 
+		<result property="fromUserId" column="from_user_id"/> 
+		<result property="fromAccount" column="from_account"/> 
+		<result property="toUserId" column="to_user_id"/> 
+		<result property="toAccount" column="to_account"/> 
+		<result property="content" column="content"/> 
 		<result property="type" column="type"/> 
-		<result property="parentId" column="parent_id"/> 
+		<result property="status" column="status"/> 
 	</resultMap> 
-	<select id="ImageDAO.select" resultMap="ImageDOResult" parameterClass="java.util.HashMap"> 
-		select * from image where is_deleted = 0 
+	<select id="MessageDAO.select" resultMap="MessageDOResult" parameterClass="java.util.HashMap"> 
+		select * from message where is_deleted = 0 
 		<dynamic prepend="and"> 
 			<isNotNull property="id" prepend="and">
 				<![CDATA[ id = #id# ]]>
@@ -31,17 +34,26 @@
 			<isNotNull property="version" prepend="and">
 				<![CDATA[ version = #version# ]]>
 			</isNotNull>
-			<isNotNull property="filepath" prepend="and">
-				<![CDATA[ filepath = #filepath# ]]>
+			<isNotNull property="fromUserId" prepend="and">
+				<![CDATA[ from_user_id = #fromUserId# ]]>
 			</isNotNull>
-			<isNotNull property="userId" prepend="and">
-				<![CDATA[ user_id = #userId# ]]>
+			<isNotNull property="fromAccount" prepend="and">
+				<![CDATA[ from_account = #fromAccount# ]]>
+			</isNotNull>
+			<isNotNull property="toUserId" prepend="and">
+				<![CDATA[ to_user_id = #toUserId# ]]>
+			</isNotNull>
+			<isNotNull property="toAccount" prepend="and">
+				<![CDATA[ to_account = #toAccount# ]]>
+			</isNotNull>
+			<isNotNull property="content" prepend="and">
+				<![CDATA[ content = #content# ]]>
 			</isNotNull>
 			<isNotNull property="type" prepend="and">
 				<![CDATA[ type = #type# ]]>
 			</isNotNull>
-			<isNotNull property="parentId" prepend="and">
-				<![CDATA[ parent_id = #parentId# ]]>
+			<isNotNull property="status" prepend="and">
+				<![CDATA[ status = #status# ]]>
 			</isNotNull>
 			<isNotEmpty property="fromCreate" prepend="and">
 				<![CDATA[ gmt_create > #fromCreate# ]]>
@@ -66,12 +78,17 @@
 		</dynamic> 
 		limit #start#,#limit#
 	</select> 
-	<select id="ImageDAO.selectById" resultMap="ImageDOResult" parameterClass="int"> 
-		select * from image where 
+	<select id="MessageDAO.selectById" resultMap="MessageDOResult" parameterClass="int"> 
+		select * from message where
 		is_deleted = 0 and id = #id# limit 1 
-	</select> 
-	<select id="ImageDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
-		select count(id) from image where is_deleted = 0 
+	</select>
+	<select id="MessageDAO.selectGroup" resultMap="MessageDOResult" parameterClass="java.util.HashMap">
+		select * from (select * from message where
+			type = #type# and to_user_id = #toUserId# and is_deleted = 0 order by status asc, gmt_create desc
+		) as t group by from_user_id
+	</select>
+	<select id="MessageDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from message where is_deleted = 0 
 		<dynamic prepend="and"> 
 			<isNotNull property="id" prepend="and">
 				<![CDATA[ id = #id# ]]>
@@ -85,17 +102,26 @@
 			<isNotNull property="version" prepend="and">
 				<![CDATA[ version = #version# ]]>
 			</isNotNull>
-			<isNotNull property="filepath" prepend="and">
-				<![CDATA[ filepath = #filepath# ]]>
+			<isNotNull property="fromUserId" prepend="and">
+				<![CDATA[ from_user_id = #fromUserId# ]]>
 			</isNotNull>
-			<isNotNull property="userId" prepend="and">
-				<![CDATA[ user_id = #userId# ]]>
+			<isNotNull property="fromAccount" prepend="and">
+				<![CDATA[ from_account = #fromAccount# ]]>
+			</isNotNull>
+			<isNotNull property="toUserId" prepend="and">
+				<![CDATA[ to_user_id = #toUserId# ]]>
+			</isNotNull>
+			<isNotNull property="toAccount" prepend="and">
+				<![CDATA[ to_account = #toAccount# ]]>
+			</isNotNull>
+			<isNotNull property="content" prepend="and">
+				<![CDATA[ content = #content# ]]>
 			</isNotNull>
 			<isNotNull property="type" prepend="and">
 				<![CDATA[ type = #type# ]]>
 			</isNotNull>
-			<isNotNull property="parentId" prepend="and">
-				<![CDATA[ parent_id = #parentId# ]]>
+			<isNotNull property="status" prepend="and">
+				<![CDATA[ status = #status# ]]>
 			</isNotNull>
 			<isNotEmpty property="fromCreate" prepend="and">
 				<![CDATA[ gmt_create > #fromCreate# ]]>
@@ -111,17 +137,20 @@
 			</isNotEmpty>
 		</dynamic> 
 	</select> 
-	<insert id="ImageDAO.insert" parameterClass="ImageDO"> 
-		insert into image 
+	<insert id="MessageDAO.insert" parameterClass="MessageDO"> 
+		insert into message 
 		(			feature,
 			options,
 			is_deleted,
 			gmt_create,
 			gmt_modified,
-			filepath,
-			user_id,
+			from_user_id,
+			from_account,
+			to_user_id,
+			to_account,
+			content,
 			type,
-			parent_id
+			status
 		)
 		VALUES
 		(			#feature#,
@@ -129,17 +158,20 @@
 			0,
 			now(),
 			now(),
-			#filepath#,
-			#userId#,
+			#fromUserId#,
+			#fromAccount#,
+			#toUserId#,
+			#toAccount#,
+			#content#,
 			#type#,
-			#parentId#
+			#status#
 		)
 		<selectKey resultClass="int" keyProperty="id"> 
 			SELECT LAST_INSERT_ID() 
 		</selectKey>  
 	</insert> 
-	<update id="ImageDAO.update" parameterClass="ImageDO"> 
-		update image set version = version + 1, gmt_modified = now()
+	<update id="MessageDAO.update" parameterClass="MessageDO"> 
+		update message set version = version + 1, gmt_modified = now()
 		<dynamic> 
 			<isNotNull property="feature">
 				<![CDATA[ , feature = #feature# ]]>
@@ -147,22 +179,35 @@
 			<isNotNull property="options">
 				<![CDATA[ , options = #options# ]]>
 			</isNotNull>
-			<isNotNull property="filepath">
-				<![CDATA[ , filepath = #filepath# ]]>
+			<isNotNull property="fromUserId">
+				<![CDATA[ , from_user_id = #fromUserId# ]]>
 			</isNotNull>
-			<isNotNull property="userId">
-				<![CDATA[ , user_id = #userId# ]]>
+			<isNotNull property="fromAccount">
+				<![CDATA[ , from_account = #fromAccount# ]]>
+			</isNotNull>
+			<isNotNull property="toUserId">
+				<![CDATA[ , to_user_id = #toUserId# ]]>
+			</isNotNull>
+			<isNotNull property="toAccount">
+				<![CDATA[ , to_account = #toAccount# ]]>
+			</isNotNull>
+			<isNotNull property="content">
+				<![CDATA[ , content = #content# ]]>
 			</isNotNull>
 			<isNotNull property="type">
 				<![CDATA[ , type = #type# ]]>
 			</isNotNull>
-			<isNotNull property="parentId">
-				<![CDATA[ , parent_id = #parentId# ]]>
+			<isNotNull property="status">
+				<![CDATA[ , status = #status# ]]>
 			</isNotNull>
 		</dynamic> 
 		where id = #id# and version = #version# 
-	</update> 
-	<delete id="ImageDAO.delete" parameterClass="int"> 
-		update image set is_deleted = 1 where id = #id# 
+	</update>
+	<update id="MessageDAO.updateRead" parameterClass="Map">
+		update message set version = version + 1, gmt_modified = now(), status = 1
+		where from_user_id = #fromUserId# and to_user_id = #toUserId# and type = 1
+	</update>
+	<delete id="MessageDAO.delete" parameterClass="int"> 
+		update message set is_deleted = 1 where id = #id# 
 	</delete> 
 </sqlMap> 

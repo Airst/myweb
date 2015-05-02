@@ -238,11 +238,11 @@ public class CreatorUtils {
                 "\t\t</dynamic> \n" +
 
                 "\t\t<dynamic> \n" +
-                "\t\t\t<isNotEmpty property=\"orderField\">\n" +
-                "\t\t\t\t<![CDATA[ order by $orderField$ ]]>\n" +
-                "\t\t\t</isNotEmpty>\n" +
                 "\t\t\t<isNotEmpty property=\"groupField\">\n" +
                 "\t\t\t\t<![CDATA[ group by $groupField$ ]]>\n" +
+                "\t\t\t</isNotEmpty>\n" +
+                "\t\t\t<isNotEmpty property=\"orderField\">\n" +
+                "\t\t\t\t<![CDATA[ order by $orderField$ ]]>\n" +
                 "\t\t\t</isNotEmpty>\n" +
                 "\t\t</dynamic> \n" +
                 "\t\tlimit #start#,#limit#\n" +
@@ -535,7 +535,6 @@ public class CreatorUtils {
             writer.write("</sqlMap> \n");
             writer.close();
         }
-        buildInitSQL(classes);
     }
 
     public static String buildConvertCode(Class clazz) {

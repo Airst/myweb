@@ -17,4 +17,9 @@
               <property name="baseService" ref="threadService" />
        </bean>
 
+       <bean id="messageBiz" class="com.ziqi.myweb.web.biz.MessageBiz" >
+              <property name="baseService" ref="messageService" />
+       </bean>
+
+
 </beans>

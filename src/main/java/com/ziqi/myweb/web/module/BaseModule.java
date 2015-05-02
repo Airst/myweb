@@ -31,10 +31,6 @@ public class BaseModule {
     @Resource
     protected HttpSession session;
 
-    protected void defaultExecute(Context context) {
-        flushUserId(context);
-    }
-
     public void onException(Context context, Logger logger, Exception e) {
         context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
         logger.error("failed@execute", e);

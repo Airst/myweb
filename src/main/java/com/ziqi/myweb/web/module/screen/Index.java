@@ -16,11 +16,6 @@ public class Index extends BaseModule {
     public Logger logger = LoggerFactory.getLogger(Index.class);
 
     public void execute(Context context) {
-        try {
-            defaultExecute(context);
-        } catch (Exception e) {
-            onException(context, logger, e);
-        }
     }
 
 }

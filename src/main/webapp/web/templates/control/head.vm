@@ -1,0 +1,26 @@
+<div class="header_top">
+    <div class="container">
+        <div class="logo">
+            <a href="index.htm"><img src="/resources/images/logo.png" alt=""/></a>
+        </div>
+        <ul class="shopping_grid">
+            #if(!$userId)
+                <a href="register.htm">
+                    <li>注册</li>
+                </a>
+                <a href="login.htm">
+                    <li>登陆</li>
+                </a>
+            #else
+                <a href="profile.htm?userId=$!userId">
+                    <li>$!account</li>
+                </a>
+                <a href="logout.act?action=logoutAction">
+                    <li>注销</li>
+                </a>
+            #end
+            <div class="clearfix"></div>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>

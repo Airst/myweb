@@ -72,3 +72,20 @@ create table image(
 	parent_id INTEGER not null
 );
 
+drop table message;
+create table message(
+	id INTEGER not null auto_increment primary key,
+	feature VARCHAR(100),
+	options INTEGER,
+	is_deleted INTEGER not null,
+	gmt_create DATETIME not null,
+	gmt_modified DATETIME not null,
+	version INTEGER not null default '0',
+	from_user_id INTEGER,
+	from_account VARCHAR(100),
+	to_user_id INTEGER not null,
+	to_account VARCHAR(100) not null,
+	content VARCHAR(100) not null,
+	type INTEGER not null,
+	status INTEGER not null
+);

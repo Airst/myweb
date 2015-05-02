@@ -2049,6 +2049,19 @@ a.btn_a {
     margin-left: 135px;
 }
 
+a.btn_b {
+    background: url("../images/footer_bg.png") left top no-repeat;
+    display: inline;
+    width: 95px;
+    height: 32px;
+    float: right;
+    margin-top: -32px;
+    padding-left: 40px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #fff;
+}
+
 /* publish */
 .publish {
     padding: 30px 0;
@@ -2290,15 +2303,6 @@ a.btn_a {
     z-index: 9;
 }
 
-.beauty_content_list .content .reply_box .list .pic .incognito {
-    background: url(/images/incognito_s.png) left top no-repeat;
-    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/incognito_s.png", sizingMethod="noscale");
-    _background: none;
-    width: 36px;
-    height: 36px;
-    display: inline-block;
-}
-
 .beauty_content_list .content .reply_box .list .pic img {
     border-radius: 18px;
     display: block;
@@ -2393,3 +2397,234 @@ a.btn_a {
 .beauty_content_list .content .import .blue_btn:hover {
     text-decoration: none;
 }
+
+/* dash */
+.dashboard {
+    margin-top: 30px;
+}
+
+.sidebar_l {
+    float: left;
+    width: 240px;
+}
+
+.sort_nav {
+    background: #fbfbfb;
+    line-height: 42px;
+    margin-bottom: 30px;
+}
+
+.sort_nav a {
+    font-size: 16px;
+    color: #666;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.sort_nav a:hover, .sort_nav .on a {
+    color: #3daeb6;
+    text-decoration: none;
+}
+
+.sort_nav .even {
+    background: #f1f6f6;
+}
+
+.sort_nav li {
+    position: relative;
+}
+
+.sort_nav li .tip {
+    background: #f00;
+    color: #fff;
+    position: absolute;
+    right: 50px;
+    top: 13px;
+    border-radius: 8px;
+    height: 16px;
+    line-height: 15px;
+    text-align: center;
+    padding: 0 5px;
+}
+
+.sort_nav .on {
+    background: #ddf3f1;
+}
+
+.sort_nav .on .icon {
+    display: block;
+}
+
+.sort_nav .icon {
+    display: inline-block;
+    background: url(http://www.soyoung.com/images/icon_arrow_blue.png);
+    width: 5px;
+    height: 9px;
+    overflow: hidden;
+    float: right;
+    display: none;
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    margin-top: 0;
+}
+
+.notice_list {
+    border-top: solid 6px #48c2b7;
+    min-height: 400px;
+}
+
+.notice_list li {
+    border-bottom: solid 1px #eee;
+    font-size: 14px;
+    line-height: 26px;
+    padding: 10px 18px 10px 30px;
+    cursor: pointer;
+}
+
+.notice_list .top {
+    background: #e9f8f7;
+}
+
+.notice_list .time {
+    float: right;
+    margin-top: -52px;
+    display: block;
+    font-size: 12px;
+    color: #b7b7b7;
+}
+
+.notice_list .name {
+    color: #3daeb6;
+}
+
+.notice_list .content_m {
+    float: left;
+    width: 528px;
+}
+
+.notice_list p {
+    color: #b7b7b7;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.notice_list p .font_icon {
+    font-size: 22px;
+}
+
+.notice_list p .color_a {
+    color: #ff8c8c;
+}
+
+.notice_list p .color_b {
+    color: #ffa365;
+}
+
+.notice_list .c {
+    color: #333;
+}
+
+.notice_list .head_pic {
+    float: left;
+    width: 46px;
+    height: 46px;
+    position: relative;
+    margin-right: 28px;
+}
+
+.notice_list .head_pic img {
+    border-radius: 23px;
+}
+
+.notice_list .head_pic span {
+    background: #f00;
+    display: inline-block;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    right: -6px;
+    top: 0;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff;
+    font-family: Arial;
+    padding: 0 4px;
+    border-radius: 8px;
+}
+
+.messenger_box {
+    border-top: solid 6px #48c2b7;
+    padding: 0 16px;
+    border-bottom: solid 1px #eee;
+}
+
+.messenger_box .head {
+    line-height: 50px;
+    height: 50px;
+    font-size: 14px;
+}
+
+.messenger_box .head .shield {
+    float: right;
+    display: inline-block;
+    color: #666;
+    cursor: pointer;
+}
+
+.messenger_box .head .shield span {
+    background-position: -147px 0;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    line-height: 16px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 18px 4px 0 0;
+}
+
+.messenger_box textarea {
+    border: solid 1px #dadada;
+    padding: 8px;
+    width: 680px;
+    height: 150px;
+    outline: none;
+    display: block;
+    resize: none;
+}
+
+.messenger_box .button {
+    padding: 10px 0 12px;
+    text-align: right;
+}
+
+.messenger_box .button span {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background-position: -95px 0;
+    cursor: pointer;
+    margin: 10px 10px 0 0;
+}
+
+.messenger_box .button .photo {
+    background-position: -121px 0;
+}
+
+.messenger_box .button input {
+    background: #ff8c26;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 6px;
+    padding: 0 22px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #d46d12;
+    outline: none;
+}
+
+/*topBeauty*/

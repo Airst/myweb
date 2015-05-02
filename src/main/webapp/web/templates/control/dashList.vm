@@ -1,0 +1,12 @@
+#macro (active $field)
+    #if($field == $dashName)
+    class="on"
+    #end
+#end
+<div class="sidebar_l">
+    <ul class="sort_nav">
+        <li #active("profile")><span class="icon"></span><a href="profile.htm">个人资料</a></li>
+        <li #active("notification")><span class="icon"></span><a href="notification.htm">系统通知</a></li>
+        <li #active("message")><span class="icon"></span><a href="message.htm">私信</a></li>
+    </ul>
+</div>

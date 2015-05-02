@@ -22,6 +22,10 @@ public enum ErrorCode {
     //ThreadDAO DataAccessException
     ERR_DAE_0030("ERR_DAE_0030", "update thread hit failed"),
 
+    //ThreadDAO DataAccessException
+    ERR_DAE_0050("ERR_DAE_0050", "update message for read failed"),
+    ERR_DAE_0051("ERR_DAE_0051", "select and group by fromUserId failed"),
+
     //BaseService ArgsCheck
     ERR_AC_0001("ERR_AC_0001", "parameters can't be null"),
     ERR_AC_0002("ERR_AC_0002", "parameters illegal"),

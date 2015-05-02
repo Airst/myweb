@@ -1,4 +1,4 @@
-package com.ziqi.myweb.web.module.screen;
+package com.ziqi.myweb.web.module.control;
 
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -6,18 +6,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Description: Publish
+ * Description: Head
  * User: qige
- * Date: 15/4/18
- * Time: 22:20
+ * Date: 15/4/26
+ * Time: 11:53
  */
-public class Publish extends BaseModule {
+public class Head extends BaseModule {
 
-    private Logger logger = LoggerFactory.getLogger(Publish.class);
+    private Logger logger = LoggerFactory.getLogger(Head.class);
 
     public void execute(Context context) {
         try {
-            checkLogin(request.getContextPath() + "/publish.htm");
+            flushUserId(context);
         } catch (Exception e) {
             onException(context, logger, e);
         }

@@ -35,7 +35,6 @@ public class Tiezi extends BaseModule {
 
     public void execute(Context context) {
         try {
-            defaultExecute(context);
             int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
 			List<ThreadDTO> threadDTOs = threadBiz.listThread(pageIndex, 10, true, true, context);
 			context.put("threadDTOs", threadDTOs);

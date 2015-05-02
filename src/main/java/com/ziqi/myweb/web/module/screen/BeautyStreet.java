@@ -35,7 +35,6 @@ public class BeautyStreet extends BaseModule {
 
             List<ThreadDTO> topThreads = threadBiz.listTopThread(1, 5, context);
             context.put("topThreads", topThreads);
-            defaultExecute(context);
         } catch (Exception e) {
             onException(context, logger, e);
         }

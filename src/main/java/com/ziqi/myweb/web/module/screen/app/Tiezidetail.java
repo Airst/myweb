@@ -40,7 +40,6 @@ public class Tiezidetail extends BaseModule {
 
     public void execute(Context context) {
         try {
-            defaultExecute(context);
             int threadId = Integer.parseInt(request.getParameter("threadId"));
             //List<ReplyDTO> replyDTOs = replyBiz.queryReplyByThreadId(threadId, 1, true, context);
             List<ReplyDTO> replyDTOs = replyBiz.listReplyTop(threadId, threadId, 1, true, true, context);

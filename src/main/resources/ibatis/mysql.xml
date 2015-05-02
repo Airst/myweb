@@ -9,5 +9,6 @@
     <sqlMap resource="ibatis/reply-sqlmap.xml"/>
     <sqlMap resource="ibatis/thread-sqlmap.xml"/>
     <sqlMap resource="ibatis/image-sqlmap.xml"/>
+    <sqlMap resource="ibatis/message-sqlmap.xml"/>
 
 </sqlMapConfig>

@@ -35,6 +35,14 @@ public class BaseBiz<DTO extends BaseDTO, DO extends BaseDO> {
         return true;
     }
 
+    public <T> T result(ResultDTO<T> resultDTO, Context context) {
+        if (!resultDTO.isSuccess()) {
+            context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
+            return null;
+        }
+        return resultDTO.getResult();
+    }
+
     public boolean save(DTO t, Context context) {
         return resultBoolean(baseService.saveBasic(t), context);
     }

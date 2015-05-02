@@ -23,29 +23,29 @@ $page.setTitle("美人街")
             </div>
             <div class="content" style="height: 47px">
                 <p class="title">
-                    <a href="thread.htm?threadId=$!threadDTO.id" class="t" target="_blank">$!threadDTO.title</a>
+                    <a href="thread.htm?threadId=$!threadDTO.id" class="t" target="_self">$!threadDTO.title</a>
                 </p>
             </div>
             <span class="data" style="margin-top: -20px;">
                 <span class="font_icon">浏览</span>
-                <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.hit</a>
+                <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.hit</a>
                 <span class="font_icon">回复</span>
-                <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.replyCount</a>
+                <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.replyCount</a>
                 <span class="font_icon">点赞</span>
-                <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.likeCount</a>
+                <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.likeCount</a>
             </span>
         </li>
         #end
         #foreach($threadDTO in $!threadDTOs)
         <li class="normal" style="overflow: auto">
             <div class="head_pic head_pic_pop_show">
-                <a href="http://www.soyoung.com/u162791" target="_blank">
+                <a href="http://www.soyoung.com/u162791" target="_self">
                     <img src="http://tp3.sinaimg.cn/2531410362/180/5629004733/0" width="46" height="46">
                 </a>
             </div>
             <div class="content" style="height: 47px">
                 <p class="title">
-                    <a href="thread.htm?threadId=$!threadDTO.id" class="t" target="_blank">$!threadDTO.title</a>
+                    <a href="thread.htm?threadId=$!threadDTO.id" class="t" target="_self">$!threadDTO.title</a>
                 </p>
             </div>
             <div class="content" style="margin-left: 54px">
@@ -53,7 +53,7 @@ $page.setTitle("美人街")
                 <div class="pic_box">
                     <ul style="width: 676px;">
                         #foreach($imagePath in $!threadDTO.imagePaths)
-                        <li><a href="thread.htm?threadId=$!threadDTO.id" target="_blank"><img src="$!imagePath" height="75"></a></li>
+                        <li><a href="thread.htm?threadId=$!threadDTO.id" target="_self"><img src="$!imagePath" height="75"></a></li>
                         #end
                     </ul>
                 </div>
@@ -61,11 +61,11 @@ $page.setTitle("美人街")
                 <div class="tag_box">
                     <span class="data">
                         <span class="font_icon">浏览</span>
-                        <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.hit</a>
+                        <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.hit</a>
                         <span class="font_icon">回复</span>
-                        <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.replyCount</a>
+                        <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.replyCount</a>
                         <span class="font_icon">点赞</span>
-                        <a href="thread.htm?threadId=$!threadDTO.id" target="_blank">$!threadDTO.likeCount</a>
+                        <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.likeCount</a>
                     </span>
                     <span class="date">$!threadDTO.lastReplyDate</span>
                 </div>

@@ -18,5 +18,8 @@
        <bean id="userService" class="com.ziqi.myweb.core.service.UserService" >
               <property name="baseDAO" ref="userDAO" />
        </bean>
+       <bean id="messageService" class="com.ziqi.myweb.core.service.MessageService" >
+              <property name="baseDAO" ref="messageDAO" />
+       </bean>
        
 </beans>

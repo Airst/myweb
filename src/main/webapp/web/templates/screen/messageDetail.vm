@@ -1,0 +1,50 @@
+#set($dashName = "message")
+<script type="text/javascript" language="javascript">
+    function checkContent(id) {
+        var element = document.getElementById(id);
+        if (element.value == "") {
+            alert('请填写内容');
+            return false;
+        }
+        return true;
+    }
+</script>
+<div class="container">
+    <div class="dashboard">
+        $control.setTemplate('dashList.vm')
+        <div style="width: 730px;float: left;margin-left: 50px;">
+            <div class="messenger_box">
+                <form onsubmit="return checkContent('content');" action="" method="post">
+                    <input type="hidden" name="action" value="sendMessageAction">
+                    <input type="hidden" name="toUserId" value="$!toUserId">
+                    <div class="head">
+                        与 <a href="/user?id=$toUserId">$toAccount</a> 的私信
+                    </div>
+                    <textarea id="content" name="content"></textarea>
+
+                    <div class="button after">
+                        <input id="submit_content" type="submit" value="发 送">
+                    </div>
+                </form>
+            </div>
+
+            <ul class="notice_list">
+                #foreach($messageDTO in $messageDTOs)
+                    <li class="top" style="background: rgb(255, 255, 255); overflow: auto"
+                        onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'">
+                        <div class="head_pic">
+                            <img src="http://img2.soyoung.com/user/20150422/0/20150422132020685_100_100.png" alt=""
+                                 width="46" height="46">
+                        </div>
+                        <div class="content_m">
+                            <p><span class="name">$!messageDTO.fromAccount</span></p>
+
+                            <p class="c">$!messageDTO.content</p>
+                        </div>
+                        <span class="time">$!messageDTO.gmtCreate</span>
+                    </li>
+                #end
+            </ul>
+        </div>
+    </div>
+</div>

@@ -88,11 +88,11 @@ $page.setTitle("$threadDTO.title")
         #if($threadDTO)
             <li class="first_f">
                 <div class="head_pic head_pic_pop_show">
-                    <a href="http://www.soyoung.com/u654" class="pic" target="_blank">
+                    <a href="http://www.soyoung.com/u654" class="pic" target="_self">
                         <img src="http://img1.soyoung.com/user/2013101815/20131018150204959_100_100.png" width="64"
                              height="64">
                     </a>
-                    <a href="http://www.soyoung.com/u654" class="name" target="_blank">$!author.account</a>
+                    <a href="http://www.soyoung.com/u654" class="name" target="_self">$!author.account</a>
                 </div>
                 <div class="content">
                     <!-- 点评的内容 -->
@@ -117,10 +117,10 @@ $page.setTitle("$threadDTO.title")
         #foreach($replyDTO in $replyDTOs)
             <li>
                 <div class="head_pic head_pic_pop_show">
-                    <a href="http://www.soyoung.com/u220" class="pic" target="_blank">
+                    <a href="http://www.soyoung.com/u220" class="pic" target="_self">
                         <img src="http://img1.soyoung.com/user/2013082815/20130828153624118_100_100.jpg" width="64"
                              height="64"></a>
-                    <a href="http://www.soyoung.com/u220" class="name" target="_blank">$!replyDTO.authorAccount</a>
+                    <a href="http://www.soyoung.com/u220" class="name" target="_self">$!replyDTO.authorAccount</a>
                 </div>
                 <div class="content">
                     <iframe id="reply_c$!replyDTO.id" class="reply_c" onload="iFrameHeight('reply_c$!replyDTO.id')"
@@ -133,7 +133,7 @@ $page.setTitle("$threadDTO.title")
                             <span class="floor">$!floor 楼</span>
                             <span class="time">$!replyDTO.gmtCreate</span>
                             <a href="javascript:void(0)" class="reply_btn" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id')">
-                                <span class="font_icon">回复</span>$!replyDTO.replyCount</a>
+                                <span class="font_icon">回复</span></a>
                         </div>
                     </div>
                     <div class="reply_box">
@@ -141,10 +141,10 @@ $page.setTitle("$threadDTO.title")
                             #foreach($subReplyDTO in $!replyDTO.subReplyDTOs)
                             <li>
                                 <div class="pic head_pic_pop_show">
-                                    <a href="http://www.soyoung.com/u1714481" target="_blank"><span class="font_icon">R</span></a>
+                                    <a href="http://www.soyoung.com/u1714481" target="_self"><span class="font_icon">R</span></a>
                                 </div>
                                 <div class="t">
-                                    <a target="_blank" href="http://www.soyoung.com/u1714481">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
+                                    <a target="_self" href="http://www.soyoung.com/u1714481">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
                                     <p>$subReplyDTO.gmtCreate
                                         <a href="javascript:void(0)" class="reply_link" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id', '$!subReplyDTO.authorAccount')">回复</a>
                                     </p>

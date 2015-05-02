@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -52,6 +53,13 @@ public class UserBiz extends BaseBiz<UserDTO, UserDO> {
             }
         }
         return "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
+    }
+
+    public List<UserDTO> listTopBeauty(int pageIndex, Context context) {
+        UserQuery query = new UserQuery();
+        query.setLevel(0);
+        query.setPageIndex(pageIndex);
+        return query(query, context);
     }
 
 }

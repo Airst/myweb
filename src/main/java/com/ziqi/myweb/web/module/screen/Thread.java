@@ -62,7 +62,6 @@ public class Thread extends BaseModule {
             context.put("replyDTOs", replyBiz.listReplyTop(threadDTO.getId(), threadDTO.getId(),
                     pageIndex, true, false, context));
 
-            defaultExecute(context);
         } catch (Exception e) {
             onException(context, logger, e);
         }
