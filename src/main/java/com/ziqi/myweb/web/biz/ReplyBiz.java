@@ -16,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
@@ -45,9 +44,7 @@ public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
         replyDTO.setReplyCount(0);
         replyDTO.setThreadId(threadId);
         replyDTO.setReplyType(ReplyConstants.Type.REPLY_TOP);
-        int replyId = ((ReplyService) baseService).publishReplyTop(replyDTO, savePath).getResult().intValue();
-        //return resultBoolean(((ReplyService) baseService).publishReplyTop(replyDTO, savePath), context);
-        return replyId;
+        return result(((ReplyService) baseService).publishReplyTop(replyDTO, savePath), context);
     }
 
     public boolean publishReplySub(String content, Integer userId, String account, Integer threadId,
@@ -151,11 +148,7 @@ public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
         replyQuery.addOrderField(TableConstants.Base.gmtCreate, false);
         replyQuery.setPageSize(20);
         replyQuery.setPageIndex(pageIndex);
-        ResultDTO<List<ReplyDTO>> resultDTO = baseService.query(replyQuery);
-        if(!resultDTO.isSuccess()) {
-            return new ArrayList<ReplyDTO>(0);
-        }
-        return resultDTO.getResult();
+        return result(baseService.query(replyQuery), context);
     }
 
 }
