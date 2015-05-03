@@ -28,7 +28,7 @@ import java.util.UUID;
  */
 public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
 
-    public boolean publishReplyTop(String content, Integer userId, String account,
+    public int publishReplyTop(String content, Integer userId, String account,
                                    Integer threadId, Integer parentId, String parentPath, Context context) {
         //build path
         String filename = UUID.randomUUID() + "_" + userId + ".html";
@@ -45,7 +45,9 @@ public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
         replyDTO.setReplyCount(0);
         replyDTO.setThreadId(threadId);
         replyDTO.setReplyType(ReplyConstants.Type.REPLY_TOP);
-        return resultBoolean(((ReplyService) baseService).publishReplyTop(replyDTO, savePath), context);
+        int replyId = ((ReplyService) baseService).publishReplyTop(replyDTO, savePath).getResult().intValue();
+        //return resultBoolean(((ReplyService) baseService).publishReplyTop(replyDTO, savePath), context);
+        return replyId;
     }
 
     public boolean publishReplySub(String content, Integer userId, String account, Integer threadId,

@@ -54,6 +54,28 @@ public class UserBiz extends BaseBiz<UserDTO, UserDO> {
         }
         return "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
     }
+    
+    public String uploadAppImage(FileItem fileItem, String account, String parentPath) throws Exception{
+        if (fileItem != null) {
+            String filename = fileItem.getName();
+            String extention = filename.substring(filename.lastIndexOf(".")); //".jpg"
+            String accountPath = "/images/" + account;  //"/images/ziqi.gzq"
+            String contentPath = accountPath + "/" + UUID.randomUUID() + extention; //"/images/ziqi.gzq/1111.jpg"
+            String savePath = parentPath + contentPath; //"/xxx/images/ziqi.gzq/1111.jpg"
+            File accountDir = new File(parentPath + accountPath);
+            if(accountDir.exists() || accountDir.mkdirs()) {
+                File file = new File(savePath);
+                if(!file.createNewFile()) {
+                    return "error";
+                }
+                fileItem.write(file);
+                return contentPath;
+            } else {
+                return "error";
+            }
+        }
+        return "error";
+    }
 
     public List<UserDTO> listTopBeauty(int pageIndex, Context context) {
         UserQuery query = new UserQuery();

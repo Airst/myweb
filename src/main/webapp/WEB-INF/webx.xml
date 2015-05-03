@@ -74,7 +74,7 @@
     </services:request-contexts>
 
     <!-- 支持上传文件。 -->
-    <services:upload sizeMax="2M" />
+    <services:upload sizeMax="10M" />
 
     <!-- 将beans暴露给模板。这里定义的tools可被所有components之间共享。 -->
     <services:pull>

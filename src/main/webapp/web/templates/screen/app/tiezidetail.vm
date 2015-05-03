@@ -2,8 +2,8 @@
 <tiezidetail>
 	#foreach($replyDTO in $!replyDTOs)
 	<item id="$replyDTO.id">
-		<userid>$userDTOs.get($i).id</userid>
-		<username>${userDTOs.get($i).name}，Lv${userDTOs.get($i).level}</username>
+		<userid>$replyDTO.authorId</userid>
+		<username>${replyDTO.authorAccount}</username>
 		<content>$replyDTO.content</content>
 		<time>$replyDTO.gmtCreate</time>
 		#foreach($subReplyDTO in $!replyDTO.subReplyDTOs)

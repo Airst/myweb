@@ -1,4 +1,3 @@
-drop table reply;
 create table reply(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -17,7 +16,6 @@ create table reply(
 	reply_count INTEGER not null default 0
 );
 
-drop table thread;
 create table thread(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -38,7 +36,6 @@ create table thread(
 	tags INTEGER
 );
 
-drop table user;
 create table user(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -57,7 +54,6 @@ create table user(
 	level INTEGER
 );
 
-drop table image;
 create table image(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),

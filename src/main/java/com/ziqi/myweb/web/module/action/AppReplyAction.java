@@ -52,11 +52,12 @@ public class AppReplyAction extends BaseModule {
                         "<body>" + request.getParameter("reply") + "</body></html>";
                 content = content.replace("<img", "\n<img");
 
-                replyBiz.publishReplyTop(content, Integer.parseInt(userId), account, Integer.parseInt(threadId),
+                int replyId = replyBiz.publishReplyTop(content, Integer.parseInt(userId), account, Integer.parseInt(threadId),
                         Integer.parseInt(parentId), getFilesRoot(), context);
+                response.getWriter().write("replyId:" + replyId);
             } else if(replyType.equals(REPLY_SUB)) {
                 String content = request.getParameter("comment");
-                replyBiz.publishReplySub(content, getUserId(), getAccount(), Integer.parseInt(threadId),
+                replyBiz.publishReplySub(content, Integer.parseInt(userId), account, Integer.parseInt(threadId),
                         Integer.parseInt(parentId), context);
             }
         } catch (Exception e) {
