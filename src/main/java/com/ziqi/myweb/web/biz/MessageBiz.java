@@ -8,7 +8,6 @@ import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.MessageQuery;
 import com.ziqi.myweb.core.service.MessageService;
 import com.ziqi.myweb.dal.model.MessageDO;
-import org.apache.commons.collections.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

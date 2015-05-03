@@ -2,18 +2,13 @@ package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
-import com.ziqi.myweb.common.model.ReplyDTO;
-import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.UserQuery;
-import com.ziqi.myweb.core.service.ThreadService;
 import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.web.model.RegisterVO;
 import org.apache.commons.fileupload.FileItem;
 
-import javax.annotation.Resource;
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

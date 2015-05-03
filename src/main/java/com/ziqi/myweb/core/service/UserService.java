@@ -1,14 +1,8 @@
 package com.ziqi.myweb.core.service;
 
-import com.ziqi.myweb.common.model.ResultDTO;
-import com.ziqi.myweb.common.model.ThreadDTO;
-import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.common.model.UserDTO;
+import com.ziqi.myweb.dal.model.UserDO;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Description: UserService

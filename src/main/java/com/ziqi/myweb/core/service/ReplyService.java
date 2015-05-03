@@ -1,16 +1,11 @@
 package com.ziqi.myweb.core.service;
 
-import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.ImageConstants;
-import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ImageDTO;
+import com.ziqi.myweb.common.model.ReplyDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
-import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.dal.dao.ReplyDAO;
 import com.ziqi.myweb.dal.model.ReplyDO;
-import com.ziqi.myweb.common.model.ReplyDTO;
-import com.ziqi.myweb.common.query.ReplyQuery;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
@@ -18,7 +13,6 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -73,26 +67,6 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         return afterTransaction(result);
     }
 
-    public ResultDTO<List<ReplyDTO>> selectReplyByThreadId(int threadId, int pageIndex) {
-    	ResultDTO<List<ReplyDTO>> resultDTO = new ResultDTO<List<ReplyDTO>>();
-        try {
-            if(threadId <= 0) {
-                throw new MyException(ErrorCode.ERR_AC_0002, "threadId <= 0");
-            }
-            ReplyQuery query = new ReplyQuery();
-        	query.setThreadId(threadId);
-        	query.setPageIndex(pageIndex);
-        	query.setPageSize(20);
-            resultDTO = query(query).trySuccess();
-            setReplyContent(resultDTO.getResult());
-        } catch (MyException e) {
-            onMyException(e, "queryByThreadId", resultDTO, threadId);
-        } catch (Exception e) {
-            onException(e, "queryByThreadId", resultDTO, threadId);
-        }
-        return resultDTO;
-    }
-    
     public void setReplyContent(List<ReplyDTO> replyDTOs) {
     	try {
         for(ReplyDTO replyDTO : replyDTOs) {

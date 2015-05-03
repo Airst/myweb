@@ -1,18 +1,16 @@
 package com.ziqi.myweb.core.service;
 
-import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.ImageConstants;
 import com.ziqi.myweb.common.constants.TableConstants;
 import com.ziqi.myweb.common.constants.ThreadConstants;
 import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.common.query.ImageQuery;
 import com.ziqi.myweb.common.query.ThreadQuery;
 import com.ziqi.myweb.dal.dao.ThreadDAO;
 import com.ziqi.myweb.dal.model.ThreadDO;
-import com.ziqi.myweb.common.model.ThreadDTO;
-import com.ziqi.myweb.dal.query.QueryMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
@@ -20,8 +18,9 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
-import java.io.*;
-import java.net.URL;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 /**

@@ -1,6 +1,5 @@
 package com.ziqi.myweb.common.query;
 
-import com.ziqi.myweb.common.model.BaseBean;
 import com.ziqi.myweb.common.model.Pagination;
 import org.apache.commons.lang.StringUtils;
 
