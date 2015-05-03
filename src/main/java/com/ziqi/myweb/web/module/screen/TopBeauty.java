@@ -34,6 +34,7 @@ public class TopBeauty extends BaseModule {
             List<UserDTO> userDTOs = userBiz.listTopBeauty(pageIndex, context);
 
             context.put("userDTOs", userDTOs);
+            context.put("selfId", getUserId());
         } catch (Exception e) {
             onException(context, logger, e);
         }

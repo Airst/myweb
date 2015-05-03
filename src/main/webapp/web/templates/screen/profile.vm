@@ -3,5 +3,8 @@
     <div class="dashboard">
         $control.setTemplate('dashList.vm')
     </div>
-    <a href="/messageDetail.htm?toUserId=$!userDTO.id">私信</a>
+    #if(!$!isSelf)
+        <a href="/messageDetail.htm?toUserId=$!userDTO.id">私信</a>
+    #end
+
 </div>

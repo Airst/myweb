@@ -28,10 +28,14 @@ public class Profile extends BaseModule {
             String userId = request.getParameter("userId");
             if(StringUtils.isBlank(userId)) {
                 response.sendRedirect(getHostUrl() + "/index.htm");
+                return;
             }
 
             UserDTO userDTO = userBiz.queryById(Integer.parseInt(userId), context);
             context.put("userDTO", userDTO);
+            if(userDTO.getId().equals(getUserId())) {
+                context.put("isSelf", true);
+            }
         } catch (Exception e) {
             onException(context, logger, e);
         }

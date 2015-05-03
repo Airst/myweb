@@ -4,6 +4,7 @@ $page.setTitle("播美人")
     <div style="width: 730px;margin-top: 30px;">
         <ul class="notice_list">
             #foreach($userDTO in $userDTOs)
+                #if($!selfId != $userDTO.id)
                 <li class="top" style="background: rgb(255, 255, 255); overflow: auto"
                     onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
                     onclick="window.open('/profile.htm?userId=$userDTO.id', '_self');">
@@ -18,6 +19,7 @@ $page.setTitle("播美人")
                     </div>
                     <a href="/messageDetail.htm?toUserId=$userDTO.id" class="btn_b">发私信</a>
                 </li>
+                #end
             #end
         </ul>
     </div>
