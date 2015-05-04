@@ -3,14 +3,15 @@ package com.ziqi.myweb.core.service;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.MessageQuery;
 import com.ziqi.myweb.dal.dao.MessageDAO;
 import com.ziqi.myweb.dal.model.MessageDO;
 import com.ziqi.myweb.common.model.MessageDTO;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Description: MessageService
@@ -19,6 +20,9 @@ import java.util.ArrayList;
  * Time: 01:22
  */
 public class MessageService extends BaseService<MessageDTO, MessageDO> {
+
+    @Resource
+    private UserService userService;
 
     public MessageService() {
         setLogger(LoggerFactory.getLogger(MessageService.class));
@@ -74,6 +78,10 @@ public class MessageService extends BaseService<MessageDTO, MessageDO> {
         messageDTO.setVersion(messageDO.getVersion());
         messageDTO.setFromUserId(messageDO.getFromUserId());
         messageDTO.setFromAccount(messageDO.getFromAccount());
+        ResultDTO<UserDTO> resultDTO = userService.queryById(messageDO.getFromUserId());
+        if(resultDTO.getResult() != null) {
+            messageDTO.setFromUserDTO(resultDTO.getResult());
+        }
         messageDTO.setToUserId(messageDO.getToUserId());
         messageDTO.setToAccount(messageDO.getToAccount());
         messageDTO.setContent(messageDO.getContent());
@@ -100,20 +108,5 @@ public class MessageService extends BaseService<MessageDTO, MessageDO> {
         messageDO.setStatus(messageDTO.getStatus());
         return messageDO;
     }
-    @Override
-    public List<MessageDTO> DOsToDTOs(List<MessageDO> messageDOs) {
-        List<MessageDTO> messageDTOs = new ArrayList<MessageDTO>();
-        for(MessageDO messageDO : messageDOs) {
-            messageDTOs.add(DOToDTO(messageDO));
-        }
-        return messageDTOs;
-    }
-    @Override
-    public List<MessageDO> DTOsToDOs(List<MessageDTO> messageDTOs) {
-        List<MessageDO> messageDOs = new ArrayList<MessageDO>();
-        for(MessageDTO messageDTO : messageDTOs) {
-            messageDOs.add(DTOToDO(messageDTO));
-        }
-        return messageDOs;
-    }
+
 }

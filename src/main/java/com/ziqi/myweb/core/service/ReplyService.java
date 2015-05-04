@@ -4,6 +4,7 @@ import com.ziqi.myweb.common.constants.ImageConstants;
 import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ReplyDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
+import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.dal.dao.ReplyDAO;
 import com.ziqi.myweb.dal.model.ReplyDO;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +29,9 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
 
     @Resource
     private ImageService imageService;
+
+    @Resource
+    private UserService userService;
 
     @Resource
     private TransactionTemplate transactionTemplate;
@@ -114,8 +118,10 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDTO.setGmtModified(replyDO.getGmtModified());
         replyDTO.setVersion(replyDO.getVersion());
         replyDTO.setContentPath(replyDO.getContentPath());
-        replyDTO.setAuthorId(replyDO.getAuthorId());
-        replyDTO.setAuthorAccount(replyDO.getAuthorAccount());
+        ResultDTO<UserDTO> resultDTO = userService.queryById(replyDO.getAuthorId());
+        if(resultDTO.getResult() != null) {
+            replyDTO.setUserDTO(resultDTO.getResult());
+        }
         replyDTO.setFloor(replyDO.getFloor());
         replyDTO.setThreadId(replyDO.getThreadId());
         replyDTO.setParentId(replyDO.getParentId());
@@ -135,7 +141,6 @@ public class ReplyService extends BaseService<ReplyDTO, ReplyDO> {
         replyDO.setVersion(replyDTO.getVersion());
         replyDO.setContentPath(replyDTO.getContentPath());
         replyDO.setAuthorId(replyDTO.getAuthorId());
-        replyDO.setAuthorAccount(replyDTO.getAuthorAccount());
         replyDO.setFloor(replyDTO.getFloor());
         replyDO.setThreadId(replyDTO.getThreadId());
         replyDO.setParentId(replyDTO.getParentId());

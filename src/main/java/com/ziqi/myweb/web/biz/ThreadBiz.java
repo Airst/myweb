@@ -46,7 +46,7 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         return query(threadQuery, context);
     }
 
-    public boolean publishThread(String title, String content, String parentPath, Integer userId, String account, Context context) {
+    public boolean publishThread(String title, String content, String parentPath, Integer userId, Context context) {
 
         String filename = UUID.randomUUID() + "_" + userId + ".html";
         String contentPath =  "/threads/" + filename;
@@ -55,7 +55,6 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         ThreadDTO threadDTO = new ThreadDTO();
         threadDTO.setContent(content);
         threadDTO.setAuthorId(userId);
-        threadDTO.setAuthorAccount(account);
         threadDTO.setContentPath(contentPath);
         threadDTO.setHit(0);
         threadDTO.setLikeCount(0);

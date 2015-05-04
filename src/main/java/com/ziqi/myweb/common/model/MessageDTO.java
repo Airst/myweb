@@ -12,6 +12,8 @@ public class MessageDTO extends BaseDTO {
 
     private String fromAccount;
 
+    private UserDTO fromUserDTO = new UserDTO();
+
     private Integer toUserId;
 
     private String toAccount;
@@ -36,6 +38,14 @@ public class MessageDTO extends BaseDTO {
 
     public void setFromAccount(String fromAccount) {
         this.fromAccount = fromAccount;
+    }
+
+    public UserDTO getFromUserDTO() {
+        return fromUserDTO;
+    }
+
+    public void setFromUserDTO(UserDTO fromUserDTO) {
+        this.fromUserDTO = fromUserDTO;
     }
 
     public Integer getToUserId() {

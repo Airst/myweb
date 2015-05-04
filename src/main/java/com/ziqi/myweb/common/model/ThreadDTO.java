@@ -18,9 +18,7 @@ public class ThreadDTO extends BaseDTO {
 
     private String content;
 
-    private Integer authorId;
-
-    private String authorAccount;
+    private UserDTO userDTO = new UserDTO();
 
     private Integer hit;
 
@@ -61,19 +59,23 @@ public class ThreadDTO extends BaseDTO {
     }
 
     public Integer getAuthorId() {
-        return authorId;
+        return userDTO.getId();
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void setAuthorId(Integer id) {
+        userDTO.setId(id);
     }
 
     public String getAuthorAccount() {
-        return authorAccount;
+        return userDTO.getAccount();
     }
 
-    public void setAuthorAccount(String authorAccount) {
-        this.authorAccount = authorAccount;
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public Integer getHit() {

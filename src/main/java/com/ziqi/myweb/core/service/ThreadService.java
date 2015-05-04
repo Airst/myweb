@@ -7,6 +7,7 @@ import com.ziqi.myweb.common.exception.MyException;
 import com.ziqi.myweb.common.model.ImageDTO;
 import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.model.ThreadDTO;
+import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.ImageQuery;
 import com.ziqi.myweb.common.query.ThreadQuery;
 import com.ziqi.myweb.dal.dao.ThreadDAO;
@@ -33,6 +34,9 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
 
     @Resource
     private ImageService imageService;
+
+    @Resource
+    private UserService userService;
 
     @Resource
     private TransactionTemplate transactionTemplate;
@@ -170,8 +174,10 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDTO.setGmtModified(threadDO.getGmtModified());
         threadDTO.setVersion(threadDO.getVersion());
         threadDTO.setTitle(threadDO.getTitle());
-        threadDTO.setAuthorId(threadDO.getAuthorId());
-        threadDTO.setAuthorAccount(threadDO.getAuthorAccount());
+        ResultDTO<UserDTO> resultDTO = userService.queryById(threadDO.getAuthorId());
+        if(resultDTO.getResult() != null) {
+            threadDTO.setUserDTO(resultDTO.getResult());
+        }
         threadDTO.setHit(threadDO.getHit());
         threadDTO.setReplyCount(threadDO.getReplyCount());
         threadDTO.setLikeCount(threadDO.getLikeCount());
@@ -184,16 +190,15 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
     @Override
     public ThreadDO DTOToDO(ThreadDTO threadDTO) {
         ThreadDO threadDO = new ThreadDO();
-        threadDO.setId(threadDTO.getId());
-        threadDO.setFeature(threadDTO.getFeature());
-        threadDO.setOptions(threadDTO.getOptions());
-        threadDO.setIsDeleted(threadDTO.getIsDeleted());
-        threadDO.setGmtCreate(threadDTO.getGmtCreate());
-        threadDO.setGmtModified(threadDTO.getGmtModified());
-        threadDO.setVersion(threadDTO.getVersion());
-        threadDO.setTitle(threadDTO.getTitle());
-        threadDO.setAuthorId(threadDTO.getAuthorId());
-        threadDO.setAuthorAccount(threadDTO.getAuthorAccount());
+            threadDO.setId(threadDTO.getId());
+            threadDO.setFeature(threadDTO.getFeature());
+            threadDO.setOptions(threadDTO.getOptions());
+            threadDO.setIsDeleted(threadDTO.getIsDeleted());
+            threadDO.setGmtCreate(threadDTO.getGmtCreate());
+            threadDO.setGmtModified(threadDTO.getGmtModified());
+            threadDO.setVersion(threadDTO.getVersion());
+            threadDO.setTitle(threadDTO.getTitle());
+            threadDO.setAuthorId(threadDTO.getAuthorId());
         threadDO.setHit(threadDTO.getHit());
         threadDO.setReplyCount(threadDTO.getReplyCount());
         threadDO.setLikeCount(threadDTO.getLikeCount());

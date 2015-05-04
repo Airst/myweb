@@ -24,6 +24,8 @@ public class UserDO extends BaseDO {
 
     private Integer level;
 
+    private String imagePath;
+
     public String getAccount() {
         return account;
     }
@@ -88,4 +90,11 @@ public class UserDO extends BaseDO {
         this.level = level;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

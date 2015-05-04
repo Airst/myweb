@@ -2,6 +2,8 @@ package com.ziqi.myweb.web.module;
 
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
+import com.ziqi.myweb.common.model.UserDTO;
+import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -31,15 +33,24 @@ public class BaseModule {
     @Resource
     protected HttpSession session;
 
+    @Resource
+    private UserBiz userBiz;
+
     public void onException(Context context, Logger logger, Exception e) {
         context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
         logger.error("failed@execute", e);
     }
 
-    public boolean checkLogin(String url) throws Exception {
+    public boolean checkLogin(String url, Context context) throws Exception {
         Integer userId = getUserId();
 
         if(userId == null) {
+            response.sendRedirect(getHostUrl() + "/login.htm?url=" + url);
+            return false;
+        }
+
+        UserDTO userDTO = userBiz.queryById(userId, context);
+        if(userDTO == null) {
             response.sendRedirect(getHostUrl() + "/login.htm?url=" + url);
             return false;
         }

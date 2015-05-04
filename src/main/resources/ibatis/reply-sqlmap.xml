@@ -13,8 +13,7 @@
 		<result property="version" column="version"/> 
 		<result property="contentPath" column="content_path"/> 
 		<result property="authorId" column="author_id"/>
-		<result property="authorAccount" column="author_account"/>
-		<result property="floor" column="floor"/> 
+		<result property="floor" column="floor"/>
 		<result property="threadId" column="thread_id"/> 
 		<result property="parentId" column="parent_id"/> 
 		<result property="replyType" column="reply_type"/> 
@@ -40,9 +39,6 @@
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
-			</isNotNull>
-			<isNotNull property="authorAccount" prepend="and">
-				<![CDATA[ author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
@@ -107,9 +103,6 @@
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
 			</isNotNull>
-			<isNotNull property="authorAccount" prepend="and">
-				<![CDATA[ author_account = #authorAccount# ]]>
-			</isNotNull>
 			<isNotNull property="floor" prepend="and">
 				<![CDATA[ floor = #floor# ]]>
 			</isNotNull>
@@ -148,7 +141,6 @@
 		gmt_modified,
 		content_path,
 		author_id,
-		author_account,
 		floor,
 		thread_id,
 		parent_id,
@@ -163,7 +155,6 @@
 		now(),
 		#contentPath#,
 		#authorId#,
-		#authorAccount#,
 		<isEqual property="replyType" compareValue="0">
 			(select reply_count from thread where id = #parentId# for update) + 1,
 		</isEqual>
@@ -198,9 +189,6 @@
 			</isNotNull>
 			<isNotNull property="authorId">
 				<![CDATA[ , author_id = #authorId# ]]>
-			</isNotNull>
-			<isNotNull property="authorAccount">
-				<![CDATA[ , author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="floor">
 				<![CDATA[ , floor = #floor# ]]>

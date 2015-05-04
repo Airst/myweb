@@ -40,7 +40,7 @@ public class ReplyAction extends BaseModule {
                 response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);
                 return;
             }
-            if(!checkLogin("/thread.htm?threadId=" + threadId)) return;
+            if(!checkLogin("/thread.htm?threadId=" + threadId, context)) return;
             if(StringUtils.isBlank(replyType)) {
                 replyType = REPLY_TOP;
             }
@@ -51,11 +51,11 @@ public class ReplyAction extends BaseModule {
                         "<body>" + request.getParameter("reply") + "</body></html>";
                 content = content.replace("<img", "\n<img");
 
-                replyBiz.publishReplyTop(content, getUserId(), getAccount(), Integer.parseInt(threadId),
+                replyBiz.publishReplyTop(content, getUserId(), Integer.parseInt(threadId),
                         Integer.parseInt(parentId), getFilesRoot(), context);
             } else if(replyType.equals(REPLY_SUB)) {
                 String content = request.getParameter("comment");
-                replyBiz.publishReplySub(content, getUserId(), getAccount(), Integer.parseInt(threadId),
+                replyBiz.publishReplySub(content, getUserId(), Integer.parseInt(threadId),
                         Integer.parseInt(parentId), context);
             }
             response.sendRedirect(getHostUrl() + "/thread.htm?threadId=" + threadId);

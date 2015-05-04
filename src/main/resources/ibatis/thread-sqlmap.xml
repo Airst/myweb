@@ -14,8 +14,7 @@
 		<result property="title" column="title"/> 
 		<result property="contentPath" column="content_path"/> 
 		<result property="authorId" column="author_id"/>
-		<result property="authorAccount" column="author_account"/>
-		<result property="hit" column="hit"/> 
+		<result property="hit" column="hit"/>
 		<result property="replyCount" column="reply_count"/> 
 		<result property="likeCount" column="like_count"/> 
 		<result property="lastReplyDate" column="last_reply_date"/> 
@@ -45,9 +44,6 @@
 			</isNotNull>
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
-			</isNotNull>
-			<isNotNull property="authorAccount" prepend="and">
-				<![CDATA[ author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="hit" prepend="and">
 				<![CDATA[ hit = #hit# ]]>
@@ -118,9 +114,6 @@
 			<isNotNull property="authorId" prepend="and">
 				<![CDATA[ author_id = #authorId# ]]>
 			</isNotNull>
-			<isNotNull property="authorAccount" prepend="and">
-				<![CDATA[ author_account = #authorAccount# ]]>
-			</isNotNull>
 			<isNotNull property="hit" prepend="and">
 				<![CDATA[ hit = #hit# ]]>
 			</isNotNull>
@@ -163,7 +156,6 @@
 			title,
 			content_path,
 			author_id,
-			author_account,
 			hit,
 			reply_count,
 			like_count,
@@ -180,7 +172,6 @@
 			#title#,
 			#contentPath#,
 			#authorId#,
-			#authorAccount#,
 			#hit#,
 			#replyCount#,
 			#likeCount#,
@@ -212,9 +203,6 @@
 			</isNotNull>
 			<isNotNull property="authorId">
 				<![CDATA[ , author_id = #authorId# ]]>
-			</isNotNull>
-			<isNotNull property="authorAccount">
-				<![CDATA[ , author_account = #authorAccount# ]]>
 			</isNotNull>
 			<isNotNull property="hit">
 				<![CDATA[ , hit = #hit# ]]>

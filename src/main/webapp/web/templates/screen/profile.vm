@@ -3,8 +3,35 @@
     <div class="dashboard">
         $control.setTemplate('dashList.vm')
     </div>
-    #if(!$!isSelf)
-        <a href="/messageDetail.htm?toUserId=$!userDTO.id">私信</a>
-    #end
+    <div style="width: 730px;float: left;margin-left: 50px;">
+        <ul class="profile_list">
+            <li>
+                <div class="col_a">当前头像：</div>
+                <div class="col_b">
+                    <div class="head_pic" style="background-image:url($!userDTO.imagePath);"
+                         id="avatar"></div>
+                </div>
+                <div class="col_c"></div>
+            </li>
+            <form id="myForm" name="myForm" action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="userImageAction">
+                <input type="hidden" name="userId" value="$!userDTO.id">
+                <li>
+                    <div class="col_a">替换头像：</div>
+                    <div class="col_b" style="position:relative;width:360px;">
+                        <div style="width:356px;height:50px;position:absolute;top:0;left:0;overflow:hidden;">
+                            <input type="file" name="userfile" id="upload_avatar" onchange="myForm.submit();"
+                                style=" height: 50px; opacity: 0;width: 355px;font-size:120px;filter:alpha(opacity=0);"
+                                size="40">
+                        </div>
+                        <input type="button" class="btn_b_blue" value="上 传">
+
+                        <p class="cue">建议使用正方形的图片，支持JPG、GIF、JPG格式，100K以内。</p>
+                    </div>
+                    <div class="col_c"></div>
+                </li>
+            </form>
+        </ul>
+    </div>
 
 </div>

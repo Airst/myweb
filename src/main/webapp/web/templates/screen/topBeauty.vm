@@ -7,7 +7,7 @@ $page.setTitle("播美人")
                 #if($!selfId != $userDTO.id)
                 <li class="top" style="background: rgb(255, 255, 255); overflow: auto"
                     onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
-                    onclick="window.open('/profile.htm?userId=$userDTO.id', '_self');">
+                    onclick="window.open('/viewBeauty.htm?userId=$userDTO.id', '_self');">
                     <div class="head_pic">
                         <img src="http://img2.soyoung.com/user/20150422/0/20150422132020685_100_100.png" alt=""
                              width="46" height="46">

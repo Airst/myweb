@@ -25,14 +25,14 @@ public class PublishAction extends BaseModule {
     public void execute(@FormField(name = "title", group = "publish") String title,
                         @FormField(name = "content", group = "publish") String data, Context context) {
         try {
-            if(!checkLogin("/publish.htm")) return;
+            if(!checkLogin("/publish.htm", context)) return;
             request.setCharacterEncoding("utf-8");
             String content = "<!DOCTYPE html><html><head>" +
                     "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/></head>" +
                     "<style> img { max-width: 730px; } </style>" +
                     "<body>" + data + "</body></html>";
             content = content.replace("<img", "\n<img");
-            threadBiz.publishThread(title, content, getFilesRoot(), getUserId(), getAccount(), context);
+            threadBiz.publishThread(title, content, getFilesRoot(), getUserId(), context);
             response.sendRedirect(getHostUrl() + "beautyStreet.htm");
         } catch (Exception e) {
             onException(context, logger, e);

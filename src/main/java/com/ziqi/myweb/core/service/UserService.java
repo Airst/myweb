@@ -1,8 +1,11 @@
 package com.ziqi.myweb.core.service;
 
-import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.dal.model.UserDO;
+import com.ziqi.myweb.common.model.UserDTO;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Description: UserService
@@ -34,6 +37,7 @@ public class UserService extends BaseService<UserDTO, UserDO> {
         userDTO.setAge(userDO.getAge());
         userDTO.setGender(userDO.getGender());
         userDTO.setLevel(userDO.getLevel());
+        userDTO.setImagePath(userDO.getImagePath());
         return userDTO;
     }
     @Override
@@ -54,7 +58,7 @@ public class UserService extends BaseService<UserDTO, UserDO> {
         userDO.setAge(userDTO.getAge());
         userDO.setGender(userDTO.getGender());
         userDO.setLevel(userDTO.getLevel());
+        userDO.setImagePath(userDTO.getImagePath());
         return userDO;
     }
-
 }

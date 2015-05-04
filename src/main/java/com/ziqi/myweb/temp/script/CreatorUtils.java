@@ -428,11 +428,11 @@ public class CreatorUtils {
                     "public class TableConstants {\n" +
                     "\n");
         for(Class clazz : classes) {
-            writer.write("    public static class " + getSimpleName(clazz).replace("DO", "") + " {\n");
+            writer.write("\tpublic static class " + getSimpleName(clazz).replace("DO", "") + " {\n");
             for(Field field : clazz.getDeclaredFields()) {
-                writer.write("      public static String " + field.getName() + " = \"" + toColumnName(field.getName()) + "\";\n");
+                writer.write("\t\tpublic static String " + field.getName() + " = \"" + toColumnName(field.getName()) + "\";\n");
             }
-            writer.write("    }\n");
+            writer.write("\t}\n");
         }
 
         writer.write("}\n");
@@ -560,22 +560,6 @@ public class CreatorUtils {
             code += "        " +  getVar(getSimpleName(clazz)) + ".set" + getFirstCharUp(field.getName()) + "(" +  getVar(getDTOName(clazz)) + ".get" + getFirstCharUp(field.getName()) + "());\n";
         }
         code += "        return " +  getVar(getSimpleName(clazz)) + ";\n";
-        code += "    }\n";
-        code += "    @Override\n";
-        code += "    public List<" + getDTOName(clazz) + "> DOsToDTOs(List<" + getSimpleName(clazz) + "> " + getVar(getSimpleName(clazz)) + "s) {\n";
-        code += "        List<" + getDTOName(clazz) + "> " +  getVar(getDTOName(clazz)) + "s = new ArrayList<" + getDTOName(clazz) + ">();\n";
-        code += "        for("+getSimpleName(clazz)+" "+getVar(getSimpleName(clazz))+" : " + getVar(getSimpleName(clazz)) + "s) {\n";
-        code += "            " + getVar(getDTOName(clazz)) + "s.add(DOToDTO("+getVar(getSimpleName(clazz))+"));\n";
-        code += "        }\n";
-        code += "        return " + getVar(getDTOName(clazz)) + "s;\n";
-        code += "    }\n";
-        code += "    @Override\n";
-        code += "    public List<" + getSimpleName(clazz) + "> DTOsToDOs(List<" + getDTOName(clazz) + "> " + getVar(getDTOName(clazz)) + "s) {\n";
-        code += "        List<" + getSimpleName(clazz) + "> " +  getVar(getSimpleName(clazz)) + "s = new ArrayList<" + getSimpleName(clazz) + ">();\n";
-        code += "        for("+getDTOName(clazz)+" "+getVar(getDTOName(clazz)) + " : " + getVar(getDTOName(clazz)) + "s) {\n";
-        code += "            " + getVar(getSimpleName(clazz)) + "s.add(DTOToDO("+getVar(getDTOName(clazz))+"));\n";
-        code += "        }\n";
-        code += "        return " + getVar(getSimpleName(clazz)) + "s;\n";
         code += "    }\n";
 
         return code;

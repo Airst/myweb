@@ -88,9 +88,8 @@ $page.setTitle("$threadDTO.title")
         #if($threadDTO)
             <li class="first_f">
                 <div class="head_pic head_pic_pop_show">
-                    <a href="http://www.soyoung.com/u654" class="pic" target="_self">
-                        <img src="http://img1.soyoung.com/user/2013101815/20131018150204959_100_100.png" width="64"
-                             height="64">
+                    <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="pic" target="_self">
+                        <img src="$threadDTO.userDTO.imagePath" width="64" height="64">
                     </a>
                     <a href="http://www.soyoung.com/u654" class="name" target="_self">$!author.account</a>
                 </div>
@@ -117,10 +116,10 @@ $page.setTitle("$threadDTO.title")
         #foreach($replyDTO in $replyDTOs)
             <li>
                 <div class="head_pic head_pic_pop_show">
-                    <a href="http://www.soyoung.com/u220" class="pic" target="_self">
-                        <img src="http://img1.soyoung.com/user/2013082815/20130828153624118_100_100.jpg" width="64"
+                    <a href="/viewBeauty.htm?userId=$replyDTO.authorId" class="pic" target="_self">
+                        <img src="$replyDTO.userDTO.imagePath" width="64"
                              height="64"></a>
-                    <a href="http://www.soyoung.com/u220" class="name" target="_self">$!replyDTO.authorAccount</a>
+                    <a href="/viewBeauty.htm?userId=$replyDTO.authorId" class="name" target="_self">$!replyDTO.authorAccount</a>
                 </div>
                 <div class="content">
                     <iframe id="reply_c$!replyDTO.id" class="reply_c" onload="iFrameHeight('reply_c$!replyDTO.id')"
@@ -141,10 +140,10 @@ $page.setTitle("$threadDTO.title")
                             #foreach($subReplyDTO in $!replyDTO.subReplyDTOs)
                             <li>
                                 <div class="pic head_pic_pop_show">
-                                    <a href="http://www.soyoung.com/u1714481" target="_self"><span class="font_icon">R</span></a>
+                                    <a href="/viewBeauty.htm?userId=$subReplyDTO.authorId" target="_self"><span class="font_icon">R</span></a>
                                 </div>
                                 <div class="t">
-                                    <a target="_self" href="http://www.soyoung.com/u1714481">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
+                                    <a target="_self" href="$subReplyDTO.userDTO.imagePath">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
                                     <p>$subReplyDTO.gmtCreate
                                         <a href="javascript:void(0)" class="reply_link" onclick="showCommentDiv('replyarea$!replyDTO.id', 'comment$!replyDTO.id', '$!subReplyDTO.authorAccount')">回复</a>
                                     </p>

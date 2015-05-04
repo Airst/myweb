@@ -17,7 +17,7 @@ public class Publish extends BaseModule {
 
     public void execute(Context context) {
         try {
-            checkLogin(request.getContextPath() + "/publish.htm");
+            checkLogin(request.getContextPath() + "/publish.htm", context);
         } catch (Exception e) {
             onException(context, logger, e);
         }

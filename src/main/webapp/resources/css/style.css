@@ -2627,4 +2627,101 @@ a.btn_b {
     outline: none;
 }
 
-/*topBeauty*/
+/*profile*/
+.profile_list {
+    padding-top: 30px;
+}
+
+.profile_list li {
+    overflow: auto;
+}
+
+.profile_list .col_a, .profile_list .col_b, .profile_list .col_c {
+    float: left;
+}
+
+.profile_list .title {
+    text-align: center;
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.profile_list input.text {
+    line-height: 30px;
+    border: solid 1px #dadada;
+    height: 30px;
+    background: #f8f8f8;
+    padding: 0 8px;
+    width: 210px;
+}
+
+.profile_list input.focus {
+    border: solid 2px #ff8c26;
+    line-height: 28px;
+    height: 28px;
+    padding: 0 7px;
+    background: #fff;
+}
+
+.profile_list .col_a {
+    line-height: 32px;
+    width: 100px;
+    font-size: 14px;
+    text-align: right;
+    padding: 11px 8px 11px 0;
+}
+
+.profile_list .col_b {
+    padding: 11px 0;
+}
+
+.profile_list .head_pic {
+    width: 64px;
+    height: 64px;
+    background: center no-repeat;
+    border-radius: 32px;
+    margin-bottom: 20px;
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
+}
+
+.btn_b_blue {
+    background: #81d8d0;
+    border-radius: 4px;
+    height: 32px;
+    font-size: 20px;
+    padding: 0 30px;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    border: 0;
+}
+
+a.btn_b_blue {
+    line-height: 32px;
+    text-decoration: none;
+}
+
+.profile_list .col_b .btn_b_blue {
+    margin: 0 0 0 12px;
+    vertical-align: top;
+}
+
+.profile_list .col_b .cue {
+    padding-top: 14px;
+    color: #666;
+    font-size: 12px;
+}
+
+.profile_list .btn_b {
+    padding: 0 80px;
+    margin-top: 20px;
+    background: #ff8c26;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    border: 0;
+}

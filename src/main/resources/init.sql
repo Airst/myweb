@@ -1,3 +1,4 @@
+drop table reply;
 create table reply(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -8,7 +9,6 @@ create table reply(
 	version INTEGER not null default 0,
 	content_path VARCHAR(100) not null,
 	author_id INTEGER not null,
-	author_account VARCHAR(100) not null,
 	floor INTEGER not null,
 	thread_id INTEGER not null,
 	parent_id INTEGER not null,
@@ -16,6 +16,7 @@ create table reply(
 	reply_count INTEGER not null default 0
 );
 
+drop table thread;
 create table thread(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -27,7 +28,6 @@ create table thread(
 	title VARCHAR(100) not null,
 	content_path VARCHAR(100) not null,
 	author_id INTEGER not null,
-	author_account VARCHAR(100) not null,
 	hit INTEGER not null default 0,
 	reply_count INTEGER not null default 0,
 	like_count INTEGER not null default 0,
@@ -36,6 +36,7 @@ create table thread(
 	tags INTEGER
 );
 
+drop table user;
 create table user(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),
@@ -51,9 +52,11 @@ create table user(
 	phone VARCHAR(100) not null,
 	age INTEGER,
 	gender INTEGER,
-	level INTEGER
+	level INTEGER,
+	image_path VARCHAR(100)
 );
 
+drop table image;
 create table image(
 	id INTEGER not null auto_increment primary key,
 	feature VARCHAR(100),

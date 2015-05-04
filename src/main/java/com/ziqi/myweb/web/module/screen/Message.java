@@ -27,7 +27,7 @@ public class Message extends BaseModule {
     public void execute(Context context) {
 
         try {
-            if(!checkLogin("/message.htm")) return;
+            if(!checkLogin("/message.htm", context)) return;
             String p = request.getParameter("pageIndex");
             int pageIndex = 1;
             if(StringUtils.isNotBlank(p)) {

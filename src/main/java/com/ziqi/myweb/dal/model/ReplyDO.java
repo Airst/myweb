@@ -12,8 +12,6 @@ public class ReplyDO extends BaseDO {
 
     private Integer authorId;
 
-    private String authorAccount;
-
     private Integer floor;
 
     private Integer threadId;
@@ -38,14 +36,6 @@ public class ReplyDO extends BaseDO {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
-    }
-
-    public String getAuthorAccount() {
-        return authorAccount;
-    }
-
-    public void setAuthorAccount(String authorAccount) {
-        this.authorAccount = authorAccount;
     }
 
     public Integer getFloor() {

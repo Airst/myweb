@@ -24,6 +24,8 @@ public class UserDTO extends BaseDTO {
 
     private Integer level;
 
+    private String imagePath = "/resources/images/void_user.png";
+
     public String getAccount() {
         return account;
     }
@@ -88,4 +90,11 @@ public class UserDTO extends BaseDTO {
         this.level = level;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

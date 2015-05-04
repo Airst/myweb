@@ -51,7 +51,7 @@ public class AppPublishAction extends BaseModule {
             	content += "<img src=\"" + result + "\" />";
             }
             content += data + "</p></body></html>";
-            threadBiz.publishThread(title, content, getFilesRoot(), Integer.parseInt(userId), account, context);
+            threadBiz.publishThread(title, content, getFilesRoot(), Integer.parseInt(userId), context);
             response.getWriter().write("upload ok");
         } catch (Exception e) {
             onException(context, logger, e);

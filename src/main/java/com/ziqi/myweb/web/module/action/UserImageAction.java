@@ -2,7 +2,7 @@ package com.ziqi.myweb.web.module.action;
 
 import com.alibaba.citrus.service.requestcontext.parser.ParserRequestContext;
 import com.alibaba.citrus.turbine.Context;
-import com.ziqi.myweb.common.constants.ErrorCode;
+import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Resource;
 
 /**
- * Description: UploadAction 用于编辑器上传图片
+ * Description: UserImageAction
  * User: qige
- * Date: 15/4/19
- * Time: 12:15
+ * Date: 15/5/4
+ * Time: 12:07
  */
-public class UploadAction extends BaseModule {
+public class UserImageAction extends BaseModule {
 
     @Resource
     private ParserRequestContext parse;
@@ -26,7 +26,7 @@ public class UploadAction extends BaseModule {
     @Resource
     private UserBiz userBiz;
 
-    private static Logger logger = LoggerFactory.getLogger(UploadAction.class);
+    private Logger logger = LoggerFactory.getLogger(UserImageAction.class);
 
     public void execute(Context context) {
         try {
@@ -34,19 +34,14 @@ public class UploadAction extends BaseModule {
             if (fileItem != null) {
                 String account = (String) session.getAttribute(ContextConstants.ACCOUNT);
                 String result = userBiz.uploadImage(fileItem, account, getFilesRoot());
-                if(result.equals("error")) {
-                    result = "<script>parent.callback('failed', '" + ErrorCode.ERR_WEB_0001 + "');</script>";
-                } else {
-                    result = "<script>parent.callback('success', '" + result + "');</script>";
+                if(!result.equals("error")) {
+                    UserDTO userDTO = userBiz.queryById(getUserId(), context);
+                    userDTO.setImagePath(result);
+                    userBiz.update(userDTO, context);
                 }
-
-                response.getOutputStream().println(result);
-                response.getOutputStream().close();
             }
         } catch (Exception e) {
             onException(context, logger, e);
         }
-
     }
-
 }

@@ -26,7 +26,7 @@ public class Notification extends BaseModule {
 
     public void execute(Context context) {
         try {
-            if(!checkLogin("notification.htm")) return;
+            if(!checkLogin("notification.htm", context)) return;
 
             String p = request.getParameter("pageIndex");
             int pageIndex = 1;

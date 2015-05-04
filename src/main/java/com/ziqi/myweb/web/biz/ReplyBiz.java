@@ -1,7 +1,6 @@
 package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
-import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.constants.ReplyConstants;
 import com.ziqi.myweb.common.constants.TableConstants;
 import com.ziqi.myweb.common.model.ReplyDTO;
@@ -9,11 +8,7 @@ import com.ziqi.myweb.common.model.ResultDTO;
 import com.ziqi.myweb.common.query.ReplyQuery;
 import com.ziqi.myweb.core.service.ReplyService;
 import com.ziqi.myweb.dal.model.ReplyDO;
-import com.ziqi.myweb.web.constants.ContextConstants;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +22,8 @@ import java.util.UUID;
  */
 public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
 
-    public int publishReplyTop(String content, Integer userId, String account,
-                                   Integer threadId, Integer parentId, String parentPath, Context context) {
+    public int publishReplyTop(String content, Integer userId, Integer threadId, Integer parentId,
+                               String parentPath, Context context) {
         //build path
         String filename = UUID.randomUUID() + "_" + userId + ".html";
         String contentPath = "/threads/" + filename;
@@ -38,7 +33,6 @@ public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
         ReplyDTO replyDTO = new ReplyDTO();
         replyDTO.setContent(content);
         replyDTO.setAuthorId(userId);
-        replyDTO.setAuthorAccount(account);
         replyDTO.setContentPath(contentPath);
         replyDTO.setParentId(parentId);
         replyDTO.setReplyCount(0);
@@ -47,13 +41,12 @@ public class ReplyBiz extends BaseBiz<ReplyDTO, ReplyDO> {
         return result(((ReplyService) baseService).publishReplyTop(replyDTO, savePath), context);
     }
 
-    public boolean publishReplySub(String content, Integer userId, String account, Integer threadId,
+    public boolean publishReplySub(String content, Integer userId, Integer threadId,
                                    Integer parentId, Context context) {
 
         ReplyDTO replyDTO = new ReplyDTO();
         replyDTO.setContent(content);
         replyDTO.setAuthorId(userId);
-        replyDTO.setAuthorAccount(account);
         replyDTO.setContentPath(content);
         replyDTO.setParentId(parentId);
         replyDTO.setReplyCount(0);

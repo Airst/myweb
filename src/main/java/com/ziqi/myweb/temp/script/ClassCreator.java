@@ -11,7 +11,7 @@ import com.ziqi.myweb.dal.model.*;
 public class ClassCreator {
 
     public static void main(String[] args) throws Exception {
-        Class[] classes = {MessageDO.class};
+        Class[] classes = {UserDO.class};
         CreatorUtils.buildQueryClass(classes);
         CreatorUtils.buildServiceClass(classes);
         CreatorUtils.buildDAOClass(classes);

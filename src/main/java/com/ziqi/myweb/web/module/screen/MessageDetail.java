@@ -33,7 +33,7 @@ public class MessageDetail extends BaseModule {
             String id = request.getParameter("id");//message id
             String toUserId = request.getParameter("toUserId");
             if(StringUtils.isNotBlank(id)) {
-                if (!checkLogin("/messageDetail.htm?id=m" + id)) return;
+                if (!checkLogin("/messageDetail.htm?id=m" + id, context)) return;
                 MessageDTO messageDTO = messageBiz.queryById(Integer.parseInt(id), context);//选定的消息，一定是登陆用户接收的
 
                 List<MessageDTO> messageDTOs = messageBiz.listChatMessages(getUserId(), messageDTO.getFromUserId(), 1, context);
@@ -43,7 +43,7 @@ public class MessageDetail extends BaseModule {
                 context.put("toAccount", messageDTO.getFromAccount());
                 //--
             } else if(StringUtils.isNotBlank(toUserId)) {
-                if (!checkLogin("/messageDetail.htm?toUserId=" + toUserId)) return;
+                if (!checkLogin("/messageDetail.htm?toUserId=" + toUserId, context)) return;
 
                 List<MessageDTO> messageDTOs = messageBiz.listChatMessages(getUserId(), Integer.parseInt(toUserId), 1, context);
                 context.put("messageDTOs", messageDTOs);

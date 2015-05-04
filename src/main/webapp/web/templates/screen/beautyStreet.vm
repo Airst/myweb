@@ -39,8 +39,8 @@ $page.setTitle("美人街")
         #foreach($threadDTO in $!threadDTOs)
         <li class="normal" style="overflow: auto">
             <div class="head_pic head_pic_pop_show">
-                <a href="http://www.soyoung.com/u162791" target="_self">
-                    <img src="http://tp3.sinaimg.cn/2531410362/180/5629004733/0" width="46" height="46">
+                <a href="/viewBeauty.htm?userId=$threadDTO.authorId" target="_self">
+                    <img src="$threadDTO.userDTO.imagePath" width="46" height="46">
                 </a>
             </div>
             <div class="content" style="height: 47px">
