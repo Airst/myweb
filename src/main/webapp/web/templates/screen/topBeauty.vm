@@ -5,20 +5,22 @@ $page.setTitle("播美人")
         <ul class="notice_list">
             #foreach($userDTO in $userDTOs)
                 #if($!selfId != $userDTO.id)
-                <li class="top" style="background: rgb(255, 255, 255); overflow: auto"
-                    onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
-                    onclick="window.open('/viewBeauty.htm?userId=$userDTO.id', '_self');">
-                    <div class="head_pic">
-                        <img src="http://img2.soyoung.com/user/20150422/0/20150422132020685_100_100.png" alt=""
-                             width="46" height="46">
-                    </div>
-                    <div class="content_m">
-                        <p><span class="name">$!userDTO.account</span></p>
+                    <li class="top" style="background: rgb(255, 255, 255); overflow: auto"
+                        onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+                        onclick="window.open('/viewBeauty.htm?userId=$userDTO.id', '_self');">
+                        <div class="head_pic">
+                            <img src="$!userDTO.imagePath" alt="" width="46" height="46">
+                        </div>
+                        <div class="content_m">
+                            <p><span class="name">$!userDTO.account</span></p>
 
-                        <p class="c">$!userDTO.email</p>
-                    </div>
-                    <a href="/messageDetail.htm?toUserId=$userDTO.id" class="btn_b">发私信</a>
-                </li>
+                            <p class="c">$!userDTO.email</p>
+                        </div>
+                        <div style="width: 200px; float: right; margin-top: -32px">
+                            <a href="/messageDetail.htm?toUserId=$userDTO.id" class="btn_b" style="float: left">发私信</a>
+                            <a href="/createActive.act?userId=$userDTO.id&action=createActiveAction" class="btn_b" style="float: right">面对面</a>
+                        </div>
+                    </li>
                 #end
             #end
         </ul>

@@ -34,4 +34,12 @@
               <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
        </bean>
 
+       <bean id="activeDAO" class="com.ziqi.myweb.dal.dao.ActiveDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
+       <bean id="activeRelationDAO" class="com.ziqi.myweb.dal.dao.ActiveRelationDAO" >
+              <property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+       </bean>
+
 </beans>

@@ -21,5 +21,9 @@
               <property name="baseService" ref="messageService" />
        </bean>
 
+       <bean id="activeBiz" class="com.ziqi.myweb.web.biz.ActiveBiz" >
+              <property name="baseService" ref="activeService" />
+       </bean>
+
 
 </beans>

@@ -21,5 +21,8 @@
        <bean id="messageService" class="com.ziqi.myweb.core.service.MessageService" >
               <property name="baseDAO" ref="messageDAO" />
        </bean>
+       <bean id="activeService" class="com.ziqi.myweb.core.service.ActiveService" >
+              <property name="baseDAO" ref="activeDAO" />
+       </bean>
        
 </beans>

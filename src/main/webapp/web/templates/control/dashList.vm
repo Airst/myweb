@@ -8,5 +8,6 @@
         <li #active("profile")><span class="icon"></span><a href="profile.htm?userId=$!userId">个人资料</a></li>
         <li #active("notification")><span class="icon"></span><a href="notification.htm">系统通知</a></li>
         <li #active("message")><span class="icon"></span><a href="message.htm">私信</a></li>
+        <li #active("myActive")><span class="icon"></span><a href="myActive.htm">我的面对面</a></li>
     </ul>
 </div>

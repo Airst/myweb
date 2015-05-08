@@ -2054,8 +2054,6 @@ a.btn_b {
     display: inline;
     width: 95px;
     height: 32px;
-    float: right;
-    margin-top: -32px;
     padding-left: 40px;
     line-height: 36px;
     font-size: 16px;
@@ -2503,7 +2501,7 @@ a.btn_b {
 
 .notice_list .content_m {
     float: left;
-    width: 528px;
+    width: 600px;
 }
 
 .notice_list p {
@@ -2681,8 +2679,8 @@ a.btn_b {
     background: center no-repeat;
     border-radius: 32px;
     margin-bottom: 20px;
-    -moz-background-size:100% 100%;
-    background-size:100% 100%;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 
 .btn_b_blue {
@@ -2724,4 +2722,118 @@ a.btn_b_blue {
     color: #fff;
     display: inline-block;
     border: 0;
+}
+
+/* active */
+.meeting {
+    border: solid 2px #eaf9f8;
+    padding: 12px 20px;
+    overflow: auto;
+    width: 730px;
+    margin-bottom: 20px;
+}
+
+.meeting h3 {
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.meeting .left {
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+.meeting .right {
+    float: right;
+    width: 100px;
+    text-align: center;
+}
+
+.meeting .head_pic {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto 10px;
+}
+
+.meeting .head_pic a {
+    display: block;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 4;
+}
+
+.meeting .link span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.meeting .list {
+    float: left;
+    width: 65%;
+    font-size: 14px;
+}
+
+.meeting .list li {
+    padding: 2px 0;
+    line-height: 30px;
+    overflow: auto;
+}
+
+.meeting .list .t {
+    float: left;
+    width: 100px;
+    text-align: right;
+    color: #999;
+    padding-right: 8px;
+}
+
+.meeting .list .con {
+    width: 432px;
+}
+
+.meeting input[type="submit"] {
+    text-align: center;
+    padding: 7px;
+    border: 0;
+    font: 600 15px/15px 'Lato', sans-serif;
+    height: 30px;
+    min-width: 70px;
+    background: #df1f26;
+    color: #FFF;
+    font-size: 0.8em;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    display: inline-block;
+    text-transform: uppercase;
+    outline: none;
+    margin-left: 200px;
+}
+
+.meeting input[type="submit"]:hover {
+    -webkit-transform: rotateY(15deg);
+    -moz-transform: rotateY(15deg);
+    -ms-transform: rotateY(15deg);
+    transform: rotateY(15deg);
+    text-decoration: none;
+    background: #000;
+}
+
+.meeting input[type="date"] {
+    border: 1px solid #9E9E9E;
+    outline-color: #FF5B36;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.meeting input[type="text"] {
+    border: 1px solid #9E9E9E;
+    outline-color: #FF5B36;
+    width: 60%;
+    border-radius: 10px;
 }

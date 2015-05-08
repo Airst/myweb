@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ 	"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap> 
+	<typeAlias alias="ActiveRelationDO" type="com.ziqi.myweb.dal.model.ActiveRelationDO"/> 
+	<resultMap id="ActiveRelationDOResult" class="ActiveRelationDO"> 
+		<result property="id" column="id"/> 
+		<result property="feature" column="feature"/> 
+		<result property="options" column="options"/> 
+		<result property="isDeleted" column="is_deleted"/> 
+		<result property="gmtCreate" column="gmt_create"/> 
+		<result property="gmtModified" column="gmt_modified"/> 
+		<result property="version" column="version"/> 
+		<result property="activeId" column="active_id"/> 
+		<result property="userId" column="user_id"/>
+	</resultMap>
+	<select id="ActiveRelationDAO.select" resultMap="ActiveRelationDOResult" parameterClass="java.util.HashMap"> 
+		select * from active_relation where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="activeId" prepend="and">
+				<![CDATA[ active_id = #activeId# ]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend="and">
+				<![CDATA[ user_id = #userId# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+		<dynamic> 
+			<isNotEmpty property="groupField">
+				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
+			</isNotEmpty>
+		</dynamic> 
+		limit #start#,#limit#
+	</select> 
+	<select id="ActiveRelationDAO.selectById" resultMap="ActiveRelationDOResult" parameterClass="int"> 
+		select * from active_relation where 
+		is_deleted = 0 and id = #id# limit 1 
+	</select> 
+	<select id="ActiveRelationDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from active_relation where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="activeId" prepend="and">
+				<![CDATA[ active_id = #activeId# ]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend="and">
+				<![CDATA[ user_id = #userId# ]]>
+			</isNotNull>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+	</select> 
+	<insert id="ActiveRelationDAO.insert" parameterClass="ActiveRelationDO"> 
+		insert into active_relation 
+		(			feature,
+			options,
+			is_deleted,
+			gmt_create,
+			gmt_modified,
+			active_id,
+			user_id
+		)
+		VALUES
+		(			#feature#,
+			#options#,
+			0,
+			now(),
+			now(),
+			#activeId#,
+			#userId#
+		)
+		<selectKey resultClass="int" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  
+	</insert> 
+	<update id="ActiveRelationDAO.update" parameterClass="ActiveRelationDO"> 
+		update active_relation set version = version + 1, gmt_modified = now()
+		<dynamic> 
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="activeId">
+				<![CDATA[ , active_id = #activeId# ]]>
+			</isNotNull>
+			<isNotNull property="userId">
+				<![CDATA[ , user_id = #userId# ]]>
+			</isNotNull>
+		</dynamic> 
+		where id = #id# and version = #version# 
+	</update> 
+	<delete id="ActiveRelationDAO.delete" parameterClass="int"> 
+		update active_relation set is_deleted = 1 where id = #id# 
+	</delete> 
+</sqlMap> 

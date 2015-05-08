@@ -63,4 +63,12 @@ public class TableConstants {
 		public static String type = "type";
 		public static String status = "status";
 	}
+	public static class Active {
+		public static String topBeautyId = "top_beauty_id";
+		public static String ownerId = "owner_id";
+		public static String count = "count";
+		public static String startTime = "start_time";
+		public static String address = "address";
+		public static String status = "status";
+	}
 }

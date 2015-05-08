@@ -26,6 +26,10 @@ public enum ErrorCode {
     ERR_DAE_0050("ERR_DAE_0050", "update message for read failed"),
     ERR_DAE_0051("ERR_DAE_0051", "select and group by fromUserId failed"),
 
+    //ActiveDAO DataAccessException
+    ERR_DAE_0070("ERR_DAE_0070", "update count failed"),
+    ERR_DAE_0071("ERR_DAE_0071", "select by relations failed"),
+
     //BaseService ArgsCheck
     ERR_AC_0001("ERR_AC_0001", "parameters can't be null"),
     ERR_AC_0002("ERR_AC_0002", "parameters illegal"),

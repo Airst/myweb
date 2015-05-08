@@ -52,7 +52,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
             public Object doInTransaction(TransactionStatus transactionStatus) {
                 try {
                     ResultDTO<Integer> resultDTO = saveBasic(threadDTO).trySuccess();
-                    if(StringUtils.isNotBlank(threadDTO.getContent()) && StringUtils.isNotBlank(savePath)) {
+                    if (StringUtils.isNotBlank(threadDTO.getContent()) && StringUtils.isNotBlank(savePath)) {
                         saveContent(threadDTO.getContent(), savePath);
                         List<String> imagePaths = ImageService.findImagePaths(threadDTO.getContent());
                         for (String imagePath : imagePaths) {
@@ -103,11 +103,11 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
             return threadResult;
         }
         try {
-            if(imagePath) {
+            if (imagePath) {
                 setImagePaths(threadResult.getResult());
             }
 
-            if(content) {
+            if (content) {
                 setThreadContent(threadResult.getResult());
             }
         } catch (Exception e) {
@@ -117,7 +117,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
     }
 
     private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
-        for(ThreadDTO threadDTO : threadDTOs) {
+        for (ThreadDTO threadDTO : threadDTOs) {
             String classPath = this.getClass().getResource("").getPath();
             File file = new File(classPath.substring(0, classPath.indexOf("/webapps") + 8) + threadDTO.getContentPath());
             InputStream inputStream = new FileInputStream(file);
@@ -132,31 +132,29 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
             String content = new String(data, "utf-8").trim();
             String str = "";
             int start = content.indexOf("<body>"), end = 0;
-            for (int i=start; i<=content.indexOf("</body>"); ++i) {
-            	if(content.charAt(i) == '>')
-            	{
-            		start = i;
-            	}
-            	else if (content.charAt(i) == '<')
-            		end = i;
-            	if(start < end) {
-            		str += content.substring(start+1, end).trim();
-            		start = end = i;
-            	}
+            for (int i = start; i <= content.indexOf("</body>"); ++i) {
+                if (content.charAt(i) == '>') {
+                    start = i;
+                } else if (content.charAt(i) == '<')
+                    end = i;
+                if (start < end) {
+                    str += content.substring(start + 1, end).trim();
+                    start = end = i;
+                }
             }
             threadDTO.setContent(str);
         }
     }
 
     private void setImagePaths(List<ThreadDTO> threadDTOs) {
-        for(ThreadDTO threadDTO : threadDTOs) {
+        for (ThreadDTO threadDTO : threadDTOs) {
             ImageQuery imageQuery = new ImageQuery();
             imageQuery.setParentId(threadDTO.getId());
             imageQuery.setType(ImageConstants.Type.PUBLISH_THREAD);
             imageQuery.setPageSize(3);
             ResultDTO<List<ImageDTO>> imageResult = imageService.query(imageQuery);
-            if(imageResult.isSuccess()) {
-                for(ImageDTO imageDTO : imageResult.getResult()) {
+            if (imageResult.isSuccess()) {
+                for (ImageDTO imageDTO : imageResult.getResult()) {
                     threadDTO.addImagePath(imageDTO.getFilepath());
                 }
             }
@@ -175,7 +173,7 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDTO.setVersion(threadDO.getVersion());
         threadDTO.setTitle(threadDO.getTitle());
         ResultDTO<UserDTO> resultDTO = userService.queryById(threadDO.getAuthorId());
-        if(resultDTO.getResult() != null) {
+        if (resultDTO.getResult() != null) {
             threadDTO.setUserDTO(resultDTO.getResult());
         }
         threadDTO.setHit(threadDO.getHit());
@@ -187,18 +185,19 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         threadDTO.setContentPath(threadDO.getContentPath());
         return threadDTO;
     }
+
     @Override
     public ThreadDO DTOToDO(ThreadDTO threadDTO) {
         ThreadDO threadDO = new ThreadDO();
-            threadDO.setId(threadDTO.getId());
-            threadDO.setFeature(threadDTO.getFeature());
-            threadDO.setOptions(threadDTO.getOptions());
-            threadDO.setIsDeleted(threadDTO.getIsDeleted());
-            threadDO.setGmtCreate(threadDTO.getGmtCreate());
-            threadDO.setGmtModified(threadDTO.getGmtModified());
-            threadDO.setVersion(threadDTO.getVersion());
-            threadDO.setTitle(threadDTO.getTitle());
-            threadDO.setAuthorId(threadDTO.getAuthorId());
+        threadDO.setId(threadDTO.getId());
+        threadDO.setFeature(threadDTO.getFeature());
+        threadDO.setOptions(threadDTO.getOptions());
+        threadDO.setIsDeleted(threadDTO.getIsDeleted());
+        threadDO.setGmtCreate(threadDTO.getGmtCreate());
+        threadDO.setGmtModified(threadDTO.getGmtModified());
+        threadDO.setVersion(threadDTO.getVersion());
+        threadDO.setTitle(threadDTO.getTitle());
+        threadDO.setAuthorId(threadDTO.getAuthorId());
         threadDO.setHit(threadDTO.getHit());
         threadDO.setReplyCount(threadDTO.getReplyCount());
         threadDO.setLikeCount(threadDTO.getLikeCount());

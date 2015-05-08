@@ -88,3 +88,34 @@ create table message(
 	type INTEGER not null,
 	status INTEGER not null
 );
+
+drop table active;
+create table active(
+	id INTEGER not null auto_increment primary key,
+	feature VARCHAR(100),
+	options INTEGER,
+	is_deleted INTEGER not null,
+	gmt_create DATETIME not null,
+	gmt_modified DATETIME not null,
+	version INTEGER not null default '0',
+	top_beauty_id INTEGER,
+	from_account VARCHAR(100),
+	owner_id INTEGER not null,
+	count INTEGER not null,
+	start_time DATETIME not null,
+	address VARCHAR(100) not null,
+	status INTEGER not null
+);
+
+drop table active_relation;
+create table active_relation(
+	id INTEGER not null auto_increment primary key,
+	feature VARCHAR(100),
+	options INTEGER,
+	is_deleted INTEGER not null,
+	gmt_create DATETIME not null,
+	gmt_modified DATETIME not null,
+	version INTEGER not null default '0',
+	active_id INTEGER not null,
+	user_id INTEGER not null
+);

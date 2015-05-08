@@ -12,9 +12,9 @@ public class SQLCreator {
 
 
     public static void main(String[] args) throws Exception {
-        Class[] classes = {UserDO.class};
+        Class[] classes = {ActiveRelationDO.class};
         CreatorUtils.buildSQL(classes);
-//        CreatorUtils.buildInitSQL(classes);
+        CreatorUtils.buildInitSQL(classes);
     }
 
 }

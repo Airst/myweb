@@ -1,0 +1,62 @@
+$page.setTitle("面对面")
+#set($active = "faceToFace")
+<div class="container">
+    <div class="meeting" style="margin-top: 50px">
+        <div class="left">
+            <div class="head_pic">
+                <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+            </div>
+            <a href="/home/person/uid/1578494" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+        </div>
+        <ul class="list">
+            <li>
+                #if($agreed)
+                #end
+                <div class="t">邀请播美人：</div>
+                <div class="con">
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="item">$!activeDTO.topBeauty.account
+                    #if($agreed)
+                        (已同意)
+                    #else
+                        (待同意)
+                    #end
+                    </a>
+
+                </div>
+            </li>
+            <li>
+                <div class="t">开始日期：</div>
+                <div class="con">$!activeDTO.startTime</div>
+            </li>
+            <li>
+                <div class="t">地点：</div>
+                <div class="con">$!activeDTO.address</div>
+            </li>
+            <li>
+                <div class="t">当前人数：</div>
+                <div class="con">$!activeDTO.count</div>
+            </li>
+            <li>
+                <form action="" method="post">
+                    <input type="hidden" name="id" value="$!activeDTO.id">
+                    #if($isTopBeauty)
+                        #if($needConfirm)
+                            <input type="hidden" name="action" value="agreeActiveAction">
+                            <input type="submit" value="同意">
+                        #else
+                            <input type="submit" disabled="disabled" value="已同意">
+                        #end
+                    #else
+                        #if($joined)
+                            <input type="submit" disabled="disabled" value="已加入">
+                        #else
+                            <input type="hidden" name="action" value="joinActiveAction">
+                            <input type="submit" value="加入">
+                        #end
+                    #end
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

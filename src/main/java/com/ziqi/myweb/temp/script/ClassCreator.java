@@ -11,12 +11,12 @@ import com.ziqi.myweb.dal.model.*;
 public class ClassCreator {
 
     public static void main(String[] args) throws Exception {
-        Class[] classes = {UserDO.class};
+        Class[] classes = {ActiveDO.class};
         CreatorUtils.buildQueryClass(classes);
         CreatorUtils.buildServiceClass(classes);
         CreatorUtils.buildDAOClass(classes);
-        CreatorUtils.buildConstantsClass(new Class[]{BaseDO.class, ReplyDO.class, ThreadDO.class, UserDO.class, ImageDO.class, MessageDO.class});
-//        CreatorUtils.buildBizClass(classes);
+//        CreatorUtils.buildConstantsClass(new Class[]{BaseDO.class, ReplyDO.class, ThreadDO.class, UserDO.class, ImageDO.class, MessageDO.class});
+        CreatorUtils.buildBizClass(classes);
 
         CreatorUtils.buildDTOClass(classes);
     }

@@ -1,6 +1,10 @@
 package com.ziqi.myweb.common.model;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description: BaseDO
@@ -12,7 +16,7 @@ public class BaseDTO extends BaseBean {
 
     private Integer id;
 
-    private String feature;
+    private String feature = "";
 
     private Integer options;
 
@@ -23,6 +27,8 @@ public class BaseDTO extends BaseBean {
     private Date gmtModified;
 
     private Integer version;
+
+    private Map<String, String> featureMap;
 
     public Integer getId() {
         return id;
@@ -78,5 +84,35 @@ public class BaseDTO extends BaseBean {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public void addFeature(String key, String value) {
+        buildFeatureMap();
+        featureMap.put(key, value);
+        flushFeature();
+    }
+
+    public String getFeature(String key) {
+        buildFeatureMap();
+        return featureMap.get(key);
+    }
+
+    private void buildFeatureMap() {
+        featureMap = new HashMap<String, String>();
+        if (StringUtils.isNotBlank(feature)) {
+            String[] lines = feature.split(";");
+            for(String line : lines) {
+                String[] items = line.split(":");
+                featureMap.put(items[0], items[1]);
+            }
+        }
+    }
+
+    private void flushFeature() {
+        if(featureMap == null || featureMap.isEmpty()) return;
+        feature = "";
+        for(Map.Entry<String, String> entrySet : featureMap.entrySet()) {
+            feature += entrySet.getKey() + ":" + entrySet.getValue() + ";";
+        }
     }
 }

@@ -1,0 +1,111 @@
+#set($dashName = "myActive")
+
+<div class="container">
+    <div class="dashboard">
+        $control.setTemplate('dashList.vm')
+        <div style="width: 730px;float: left;margin-left: 50px;">
+            <h5> 我发起的 </h5>
+            #foreach($activeDTO in $!ownActives)
+                <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+                     onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
+                    <div class="left">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                            <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+                    </div>
+                    <ul class="list">
+                        <li>
+                            <div class="t">当前人数：</div>
+                            <div class="con">$!activeDTO.count</div>
+                        </li>
+                        <li>
+                            <div class="t">开始日期：</div>
+                            <div class="con">$!activeDTO.startTime</div>
+                        </li>
+                        <li>
+                            <div class="t">地点：</div>
+                            <div class="con">$!activeDTO.address</div>
+                        </li>
+                    </ul>
+                    <div class="right">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                            <img src="$!activeDTO.topBeauty.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">$!activeDTO.topBeauty.account</a>
+                    </div>
+                </div>
+            #end
+            <h5> 作为播美人的 </h5>
+            #foreach($activeDTO in $!beautyActives)
+                <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+                     onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
+                    <div class="left">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                            <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+                    </div>
+                    <ul class="list">
+                        <li>
+                            <div class="t">当前人数：</div>
+                            <div class="con">$!activeDTO.count</div>
+                        </li>
+                        <li>
+                            <div class="t">开始日期：</div>
+                            <div class="con">$!activeDTO.startTime</div>
+                        </li>
+                        <li>
+                            <div class="t">地点：</div>
+                            <div class="con">$!activeDTO.address</div>
+                        </li>
+                    </ul>
+                    <div class="right">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                            <img src="$!activeDTO.topBeauty.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">$!activeDTO.topBeauty.account</a>
+                    </div>
+                </div>
+            #end
+            <h5> 我参加的 </h5>
+            #foreach($activeDTO in $!actorActives)
+                <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+                     onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
+                    <div class="left">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                            <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+                    </div>
+                    <ul class="list">
+                        <li>
+                            <div class="t">当前人数：</div>
+                            <div class="con">$!activeDTO.count</div>
+                        </li>
+                        <li>
+                            <div class="t">开始日期：</div>
+                            <div class="con">$!activeDTO.startTime</div>
+                        </li>
+                        <li>
+                            <div class="t">地点：</div>
+                            <div class="con">$!activeDTO.address</div>
+                        </li>
+                    </ul>
+                    <div class="right">
+                        <div class="head_pic">
+                            <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                            <img src="$!activeDTO.topBeauty.imagePath" alt="" width="100" height="100">
+                        </div>
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">$!activeDTO.topBeauty.account</a>
+                    </div>
+                </div>
+            #end
+        </div>
+    </div>
+</div>

@@ -78,9 +78,11 @@ public class MessageService extends BaseService<MessageDTO, MessageDO> {
         messageDTO.setVersion(messageDO.getVersion());
         messageDTO.setFromUserId(messageDO.getFromUserId());
         messageDTO.setFromAccount(messageDO.getFromAccount());
-        ResultDTO<UserDTO> resultDTO = userService.queryById(messageDO.getFromUserId());
-        if(resultDTO.getResult() != null) {
-            messageDTO.setFromUserDTO(resultDTO.getResult());
+        if(messageDO.getFromUserId() != 0) {
+            ResultDTO<UserDTO> resultDTO = userService.queryById(messageDO.getFromUserId());
+            if (resultDTO.getResult() != null) {
+                messageDTO.setFromUserDTO(resultDTO.getResult());
+            }
         }
         messageDTO.setToUserId(messageDO.getToUserId());
         messageDTO.setToAccount(messageDO.getToAccount());

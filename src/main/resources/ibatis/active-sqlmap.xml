@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ 	"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap> 
+	<typeAlias alias="ActiveDO" type="com.ziqi.myweb.dal.model.ActiveDO"/> 
+	<resultMap id="ActiveDOResult" class="ActiveDO"> 
+		<result property="id" column="id"/> 
+		<result property="feature" column="feature"/> 
+		<result property="options" column="options"/> 
+		<result property="isDeleted" column="is_deleted"/> 
+		<result property="gmtCreate" column="gmt_create"/> 
+		<result property="gmtModified" column="gmt_modified"/> 
+		<result property="version" column="version"/> 
+		<result property="topBeautyId" column="top_beauty_id"/> 
+		<result property="ownerId" column="owner_id"/> 
+		<result property="count" column="count"/> 
+		<result property="startTime" column="start_time"/>
+		<result property="address" column="address"/>
+		<result property="status" column="status"/>
+	</resultMap> 
+	<select id="ActiveDAO.select" resultMap="ActiveDOResult" parameterClass="java.util.HashMap"> 
+		select * from active where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="topBeautyId" prepend="and">
+				<![CDATA[ top_beauty_id = #topBeautyId# ]]>
+			</isNotNull>
+			<isNotNull property="ownerId" prepend="and">
+				<![CDATA[ owner_id = #ownerId# ]]>
+			</isNotNull>
+			<isNotNull property="count" prepend="and">
+				<![CDATA[ count = #count# ]]>
+			</isNotNull>
+			<isNotNull property="startTime" prepend="and">
+				<![CDATA[ start_time = #startTime# ]]>
+			</isNotNull>
+			<isNotEmpty property="address" prepend="and">
+				<![CDATA[ address = #address# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+				<![CDATA[ status = #status# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+		<dynamic> 
+			<isNotEmpty property="groupField">
+				<![CDATA[ group by $groupField$ ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderField">
+				<![CDATA[ order by $orderField$ ]]>
+			</isNotEmpty>
+		</dynamic> 
+		limit #start#,#limit#
+	</select> 
+	<select id="ActiveDAO.selectById" resultMap="ActiveDOResult" parameterClass="int"> 
+		select * from active where 
+		is_deleted = 0 and id = #id# limit 1 
+	</select>
+	<select id="ActiveDAO.selectByIds" resultMap="ActiveDOResult" parameterClass="List">
+		select * from active where is_deleted = 0 and id in
+		<iterate conjunction="," open="(" close=")">
+			#ids[]#
+		</iterate>
+	</select>
+	<select id="ActiveDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
+		select count(id) from active where is_deleted = 0 
+		<dynamic prepend="and"> 
+			<isNotNull property="id" prepend="and">
+				<![CDATA[ id = #id# ]]>
+			</isNotNull>
+			<isNotNull property="feature" prepend="and">
+				<![CDATA[ feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options" prepend="and">
+				<![CDATA[ options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="version" prepend="and">
+				<![CDATA[ version = #version# ]]>
+			</isNotNull>
+			<isNotNull property="topBeautyId" prepend="and">
+				<![CDATA[ top_beauty_id = #topBeautyId# ]]>
+			</isNotNull>
+			<isNotNull property="ownerId" prepend="and">
+				<![CDATA[ owner_id = #ownerId# ]]>
+			</isNotNull>
+			<isNotNull property="count" prepend="and">
+				<![CDATA[ count = #count# ]]>
+			</isNotNull>
+			<isNotNull property="startTime" prepend="and">
+				<![CDATA[ start_time = #startTime# ]]>
+			</isNotNull>
+			<isNotEmpty property="address" prepend="and">
+				<![CDATA[ address = #address# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+				<![CDATA[ status = #status# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromCreate" prepend="and">
+				<![CDATA[ gmt_create > #fromCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toCreate" prepend="and">
+				<![CDATA[ gmt_create < #toCreate# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="fromModified" prepend="and">
+				<![CDATA[ gmt_modified > #fromModified# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="toModified" prepend="and">
+				<![CDATA[ gmt_modified < #toModified# ]]>
+			</isNotEmpty>
+		</dynamic> 
+	</select> 
+	<insert id="ActiveDAO.insert" parameterClass="ActiveDO"> 
+		insert into active 
+		(			feature,
+			options,
+			is_deleted,
+			gmt_create,
+			gmt_modified,
+			top_beauty_id,
+			owner_id,
+			count,
+			start_time,
+			address,
+			status
+		)
+		VALUES
+		(			#feature#,
+			#options#,
+			0,
+			now(),
+			now(),
+			#topBeautyId#,
+			#ownerId#,
+			#count#,
+			#startTime#,
+			#address#,
+			#status#
+		)
+		<selectKey resultClass="int" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  
+	</insert>
+	<update id="ActiveDAO.updateCount" parameterClass="int">
+		update active set count = count + 1 where id = #activeId#
+	</update>
+	<update id="ActiveDAO.update" parameterClass="ActiveDO"> 
+		update active set version = version + 1, gmt_modified = now()
+		<dynamic> 
+			<isNotNull property="feature">
+				<![CDATA[ , feature = #feature# ]]>
+			</isNotNull>
+			<isNotNull property="options">
+				<![CDATA[ , options = #options# ]]>
+			</isNotNull>
+			<isNotNull property="topBeautyId">
+				<![CDATA[ , top_beauty_id = #topBeautyId# ]]>
+			</isNotNull>
+			<isNotNull property="ownerId">
+				<![CDATA[ , owner_id = #ownerId# ]]>
+			</isNotNull>
+			<isNotNull property="count">
+				<![CDATA[ , count = #count# ]]>
+			</isNotNull>
+			<isNotNull property="startTime">
+				<![CDATA[ , start_time = #startTime# ]]>
+			</isNotNull>
+			<isNotNull property="address">
+				<![CDATA[ , address = #address# ]]>
+			</isNotNull>
+			<isNotNull property="status">
+				<![CDATA[ , status = #status# ]]>
+			</isNotNull>
+		</dynamic> 
+		where id = #id# and version = #version# 
+	</update> 
+	<delete id="ActiveDAO.delete" parameterClass="int"> 
+		update active set is_deleted = 1 where id = #id# 
+	</delete> 
+</sqlMap> 

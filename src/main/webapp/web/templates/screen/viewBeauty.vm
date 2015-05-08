@@ -2,4 +2,5 @@ $page.setTitle("播美人")
 #set($active = "topBeauty")
 #if(!$!isSelf)
 <a href="/messageDetail.htm?toUserId=$!userDTO.id">私信</a>
+<a href="/createActive.act?userId=$userDTO.id" >面对面</a>
 #end

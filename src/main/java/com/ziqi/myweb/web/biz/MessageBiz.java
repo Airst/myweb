@@ -87,4 +87,18 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         messageDTO.setType(MessageConstants.type.USER_MSG);
         save(messageDTO, context);
     }
+
+    public void sendNotification(int toUserId, String content, String url, Context context) {
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent(content);
+        messageDTO.setFromUserId(0);
+        messageDTO.setFromAccount("系统");
+        messageDTO.setToUserId(toUserId);
+        UserDTO toUser = userBiz.queryById(toUserId, context);
+        messageDTO.setToAccount(toUser.getAccount());
+        messageDTO.setStatus(0);
+        messageDTO.setType(MessageConstants.type.SYSTEM_MSG);
+        messageDTO.addFeature("url", url);
+        save(messageDTO, context);
+    }
 }
