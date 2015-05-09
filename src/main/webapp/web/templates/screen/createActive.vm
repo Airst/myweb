@@ -1,0 +1,37 @@
+$page.setTitle("活动发起")
+#set($active = "faceToFace")
+<div class="container">
+    <div class="meeting" style="margin-top: 50px">
+        <div class="left">
+            <div class="head_pic">
+                <a href="/viewBeauty.htm?userId=$userDTO.id" target="_self"></a>
+                <img src="$!userDTO.imagePath" alt="" width="100" height="100">
+            </div>
+            <a href="/home/person/uid/1578494" class="link" target="_self">$!userDTO.account</a>
+        </div>
+        <form action="" method="post">
+            <input type="hidden" name="action" value="confirmActiveAction">
+            <input type="hidden" name="topBeauty" value="$!topBeauty.id">
+            <ul class="list">
+                <li>
+                    <div class="t">邀请播美人：</div>
+                    <div class="con">
+                        <a href="/viewBeauty.htm?userId=$!topBeauty.id" class="item">$!topBeauty.account</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="t">开始日期：</div>
+                    <div class="con"> <input type="date" name="startDate" /></div>
+                </li>
+                <li>
+                    <div class="t">地点：</div>
+                    <div class="con"><input type="text" name="address"></div>
+                </li>
+                <li>
+                    <input type="submit" value="提交">
+                </li>
+            </ul>
+
+        </form>
+    </div>
+</div>
