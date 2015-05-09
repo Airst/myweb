@@ -1,0 +1,14 @@
+<messageDetail>
+	#foreach($messageDTO in $!messageDTOs)
+	<item id="$messageDTO.id">
+		<content>$messageDTO.content</content>
+		<time>$messageDTO.gmtCreate</time>
+		<user id="$messageDTO.fromUserDTO.id">
+			<userimgurl>$messageDTO.fromUserDTO.imagePath</userimgurl>
+			<username>$messageDTO.fromUserDTO.account</username>
+			<gender>$messageDTO.fromUserDTO.gender</gender>
+			<level>$messageDTO.fromUserDTO.level</level>
+		</user>
+	</item>
+	#end
+</messageDetail>

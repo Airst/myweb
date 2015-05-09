@@ -1,0 +1,10 @@
+<bomeiren>
+	#foreach($userDTO in $!userDTOs)
+	<item id="$userDTO.id">
+		<userimgurl>$userDTO.imagePath</userimgurl>
+		<username>$userDTO.account</username>
+		<gender>$userDTO.gender</gender>
+		<level>$userDTO.level</level>
+	</item>
+	#end
+</bomeiren>

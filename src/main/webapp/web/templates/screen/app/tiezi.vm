@@ -3,6 +3,12 @@
 	#foreach($threadDTO in $!threadDTOs)
 	<item id="$threadDTO.id">
 		<title>$!threadDTO.title</title>
+		<user id="$threadDTO.userDTO.id">
+			<userimgurl>$threadDTO.userDTO.imagePath</userimgurl>
+			<username>$threadDTO.userDTO.account</username>
+			<gender>$threadDTO.userDTO.gender</gender>
+			<level>$threadDTO.userDTO.level</level>
+		</user>
 		<imageurls>
 			#foreach($imagePath in $!threadDTO.imagePaths)
 			<url>$!{hostURL}$imagePath</url>
