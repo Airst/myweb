@@ -12,7 +12,12 @@
                         <img src="$messageDTO.fromUserDTO.imagePath" alt="" width="46" height="46">
                     </div>
                     <div class="content_m">
-                        <p><span class="name">$!messageDTO.fromAccount</span></p>
+                        <p>
+                            <span class="name">$!messageDTO.fromAccount</span>
+                            #if($!messageDTO.status == 0)
+                            <span class="name" style="color: #ff0000">(新!)</span>
+                            #end
+                        </p>
 
                         <p class="c">$!messageDTO.content</p>
                     </div>

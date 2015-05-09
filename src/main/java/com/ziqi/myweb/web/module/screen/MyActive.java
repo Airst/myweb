@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,10 +28,14 @@ public class MyActive extends BaseModule {
     public void execute(Context context) {
         try {
             if(!checkLogin("/myActive.htm", context)) return;
+            List<List<ActiveDTO>> activesList = new ArrayList<List<ActiveDTO>>();
+            activesList.add(activeBiz.listActiveAsOwner(getUserId(), context));
+            activesList.add(activeBiz.listActiveAsBeauty(getUserId(), context));
+            activesList.add(activeBiz.listActiveAsActor(getUserId(), context));
 
-            context.put("ownActives", activeBiz.listActiveAsOwner(getUserId(), context));
-            context.put("beautyActives", activeBiz.listActiveAsBeauty(getUserId(), context));
-            context.put("actorActives", activeBiz.listActiveAsActor(getUserId(), context));
+            context.put("activesList", activesList);
+            context.put("activesTitle", Arrays.asList("我发起的", "作为播美人的", "我参加的"));
+
         } catch (Exception e) {
             onException(context, logger, e);
         }
