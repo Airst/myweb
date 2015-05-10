@@ -160,6 +160,7 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         activeDTO.setStartTime(activeDO.getStartTime());
         activeDTO.setAddress(activeDO.getAddress());
         activeDTO.setStatus(activeDO.getStatus());
+        activeDTO.setDescription(activeDO.getDescription());
         return activeDTO;
     }
     @Override
@@ -178,6 +179,7 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         activeDO.setStartTime(activeDTO.getStartTime());
         activeDO.setAddress(activeDTO.getAddress());
         activeDO.setStatus(activeDTO.getStatus());
+        activeDO.setDescription(activeDTO.getDescription());
         return activeDO;
     }
 }

@@ -28,6 +28,10 @@ $page.setTitle("活动发起")
                     <div class="con"><input type="text" name="address"></div>
                 </li>
                 <li>
+                    <div class="t">描述：</div>
+                    <div class="con"><input type="text" name="description"></div>
+                </li>
+                <li>
                     <input type="submit" value="提交">
                 </li>
             </ul>

@@ -70,5 +70,6 @@ public class TableConstants {
 		public static String startTime = "start_time";
 		public static String address = "address";
 		public static String status = "status";
+		public static String description = "description";
 	}
 }

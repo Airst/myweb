@@ -22,6 +22,8 @@ public class ActiveQuery extends BaseQuery {
 
     private Integer status;
 
+    private String description;
+
     public Integer getTopBeautyId() {
         return topBeautyId;
     }
@@ -68,5 +70,13 @@ public class ActiveQuery extends BaseQuery {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

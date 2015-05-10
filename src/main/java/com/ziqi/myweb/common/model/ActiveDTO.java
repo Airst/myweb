@@ -24,6 +24,8 @@ public class ActiveDTO extends BaseDTO {
 
     private Integer status;
 
+    private String description;
+
     private List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 
     public Integer getTopBeautyId() {
@@ -98,4 +100,11 @@ public class ActiveDTO extends BaseDTO {
         this.status = status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

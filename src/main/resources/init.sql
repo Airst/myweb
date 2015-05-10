@@ -104,7 +104,8 @@ create table active(
 	count INTEGER not null,
 	start_time DATETIME not null,
 	address VARCHAR(100) not null,
-	status INTEGER not null
+	status INTEGER not null,
+	description VARCHAR(100)
 );
 
 drop table active_relation;

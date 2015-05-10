@@ -39,10 +39,14 @@ public class ConfirmActiveAction extends BaseModule {
             if(!checkLogin("/topBeauty.htm", context)) return;
 
             String startDate = request.getParameter("startDate");
+            if(StringUtils.isBlank(startDate)) {
+                return;
+            }
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 
             String address = request.getParameter("address");
-            Integer activeId = activeBiz.startActive(getUserId(), Integer.parseInt(topBeautyId), date, address, null);
+            String description = request.getParameter("description");
+            Integer activeId = activeBiz.startActive(getUserId(), Integer.parseInt(topBeautyId), date, address, description, context);
 
             String content = "用户" + getAccount() + "向您发出了面对面活动邀请! " + "点击查看详情";
             String url = "/activeDetail.htm?id=" + activeId;

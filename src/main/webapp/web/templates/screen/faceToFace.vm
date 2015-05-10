@@ -25,6 +25,10 @@ $page.setTitle("面对面")
                 <div class="t">地点：</div>
                 <div class="con">$!activeDTO.address</div>
             </li>
+            <li>
+                <div class="t">描述：</div>
+                <div class="con">$!activeDTO.description</div>
+            </li>
         </ul>
         <div class="right">
             <div class="head_pic">

@@ -38,6 +38,10 @@ $page.setTitle("面对面")
                 <div class="con">$!activeDTO.count</div>
             </li>
             <li>
+                <div class="t">描述：</div>
+                <div class="con">$!activeDTO.description</div>
+            </li>
+            <li>
                 <form action="" method="post">
                     <input type="hidden" name="id" value="$!activeDTO.id">
                     #if($isTopBeauty)

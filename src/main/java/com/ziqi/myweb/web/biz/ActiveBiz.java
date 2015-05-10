@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ActiveBiz extends BaseBiz<ActiveDTO, ActiveDO> {
 
-    public Integer startActive(int userId, int topBeautyId, Date date, String address, Context context) {
+    public Integer startActive(int userId, int topBeautyId, Date date, String address, String description, Context context) {
         ActiveDTO activeDTO = new ActiveDTO();
         activeDTO.setCount(2);
         activeDTO.setOwnerId(userId);
@@ -27,6 +27,7 @@ public class ActiveBiz extends BaseBiz<ActiveDTO, ActiveDO> {
         activeDTO.setAddress(address);
         activeDTO.setStartTime(date);
         activeDTO.setStatus(ActiveConstants.Status.NEW);
+        activeDTO.setDescription(description);
         return result(baseService.saveBasic(activeDTO), context);
     }
 
