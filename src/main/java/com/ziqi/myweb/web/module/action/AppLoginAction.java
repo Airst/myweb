@@ -1,5 +1,8 @@
 package com.ziqi.myweb.web.module.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.model.UserDTO;
@@ -7,6 +10,7 @@ import com.ziqi.myweb.common.query.UserQuery;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import com.ziqi.myweb.web.module.BaseModule;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,8 @@ public class AppLoginAction extends BaseModule {
 
     @Resource
     private UserBiz userBiz;
+    
+    public static Map<Integer, String> registrationMap = new HashMap<Integer, String>();
 
     private static Logger logger = LoggerFactory.getLogger(AppLoginAction.class);
 
@@ -30,14 +36,18 @@ public class AppLoginAction extends BaseModule {
         try {
         	String account = request.getParameter("account");
             String password = request.getParameter("password");
+            String registrationId = request.getParameter("registrationId");
 
             Integer tryUserId = checkLogin(account, password, context);
             if(tryUserId != null) {
                 session.setAttribute(ContextConstants.USER_ID, tryUserId);
                 session.setAttribute(ContextConstants.ACCOUNT, account);
 
-                response.getWriter().write("userid:"+tryUserId);
+                registrationMap.put(tryUserId, registrationId);
+                UserDTO userDTO = userBiz.queryById(tryUserId, context);
+                response.getWriter().write(userDTO.getId() + ":" + userDTO.getImagePath());
                 logger.info("login ok");
+                logger.info(registrationId);
             }
             else {
                 response.getWriter().write("error");
