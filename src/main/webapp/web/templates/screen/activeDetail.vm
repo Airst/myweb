@@ -16,11 +16,13 @@ $page.setTitle("面对面")
                 <div class="t">邀请播美人：</div>
                 <div class="con">
                     <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="item">$!activeDTO.topBeauty.account
-                    #if($agreed)
-                        (已同意)
-                    #else
-                        (待同意)
-                    #end
+                        #if($agreed)
+                            (已同意)
+                        #elseif($rejected)
+                            (已拒绝)
+                        #else
+                            (待同意)
+                        #end
                     </a>
 
                 </div>
@@ -42,12 +44,20 @@ $page.setTitle("面对面")
                 <div class="con">$!activeDTO.description</div>
             </li>
             <li>
-                <form action="" method="post">
+                <form id="myForm" name="myForm" action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="$!activeDTO.id">
                     #if($isTopBeauty)
                         #if($needConfirm)
                             <input type="hidden" name="action" value="agreeActiveAction">
-                            <input type="submit" value="同意">
+                            <input type="hidden" name="agree" value="1">
+                            <input type="file" name="userfile" id="upload" onchange="myForm.submit();"
+                                   style="display: none">
+                            <input type="button" class="btn_b_blue" style="outline:none" onclick="userfile.click()" value="同意">
+                            <input type="button" class="btn_b_blue" style="outline:none" onclick="agree.value='0';myForm.submit();" value="拒绝">
+                            <p class="cue">点击同意并上传照片</p>
+
+                        #elseif($rejected)
+                            <input type="submit" disabled="disabled" value="已拒绝">
                         #else
                             <input type="submit" disabled="disabled" value="已同意">
                         #end
@@ -62,5 +72,17 @@ $page.setTitle("面对面")
                 </form>
             </li>
         </ul>
+        #if($!activeDTO.imagePath)
+            <div class="right">
+                <div class="head_pic" style="width: 150px; height: 150px;">
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                    <img src="$!activeDTO.imagePath" alt="" width="150" height="150" style="border: 0">
+                </div>
+                <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">
+                    $!activeDTO.topBeauty.account
+                    <span style="font-size: 10px">(发起者)</span>
+                </a>
+            </div>
+        #end
     </div>
 </div>

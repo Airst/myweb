@@ -2729,7 +2729,7 @@ a.btn_b_blue {
     border: solid 2px #eaf9f8;
     padding: 12px 20px;
     overflow: auto;
-    width: 730px;
+    width: 760px;
     margin-bottom: 20px;
 }
 
@@ -2745,7 +2745,7 @@ a.btn_b_blue {
 }
 .meeting .right {
     float: right;
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
 
@@ -2781,6 +2781,7 @@ a.btn_b_blue {
     padding: 2px 0;
     line-height: 30px;
     overflow: auto;
+    margin-bottom: 0;
 }
 
 .meeting .list .t {

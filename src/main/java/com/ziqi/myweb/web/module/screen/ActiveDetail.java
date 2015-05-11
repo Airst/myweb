@@ -34,6 +34,7 @@ public class ActiveDetail extends BaseModule {
             ActiveDTO activeDTO = activeBiz.queryById(Integer.parseInt(id), context);
             context.put("activeDTO", activeDTO);
             context.put("agreed", activeDTO.getStatus().equals(ActiveConstants.Status.AGREED));
+            context.put("rejected", activeDTO.getStatus().equals(ActiveConstants.Status.REJECT));
 
             if(activeDTO.getTopBeautyId().equals(getUserId())) {
                 context.put("isTopBeauty", true);

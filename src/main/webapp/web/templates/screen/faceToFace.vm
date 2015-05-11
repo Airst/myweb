@@ -3,40 +3,48 @@ $page.setTitle("面对面")
 <div class="container">
     <div style="margin-top: 50px"></div>
     #foreach($activeDTO in $!activeDTOs)
-    <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
-         onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
-        <div class="left">
-            <div class="head_pic">
-                <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
-                <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+        <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+             onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
+            <div class="left">
+                <div class="head_pic">
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                    <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+                </div>
+                <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">
+                    $!activeDTO.ownerDTO.account
+                    <span style="font-size: 10px">(发起者)</span>
+                </a>
             </div>
-            <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+            <ul class="list">
+                <li>
+                    <div class="t">当前人数：</div>
+                    <div class="con">$!activeDTO.count</div>
+                </li>
+                <li>
+                    <div class="t">开始日期：</div>
+                    <div class="con">$!activeDTO.startTime</div>
+                </li>
+                <li>
+                    <div class="t">地点：</div>
+                    <div class="con">$!activeDTO.address</div>
+                </li>
+                <li>
+                    <div class="t">描述：</div>
+                    <div class="con">$!activeDTO.description</div>
+                </li>
+            </ul>
+            #if($!activeDTO.imagePath)
+                <div class="right">
+                    <div class="head_pic" style="width: 150px; height: 150px;">
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                        <img src="$!activeDTO.imagePath" alt="" width="150" height="150" style="border: 0">
+                    </div>
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">
+                        $!activeDTO.topBeauty.account
+                        <span style="font-size: 10px">(大美照)</span>
+                    </a>
+                </div>
+            #end
         </div>
-        <ul class="list">
-            <li>
-                <div class="t">当前人数：</div>
-                <div class="con">$!activeDTO.count</div>
-            </li>
-            <li>
-                <div class="t">开始日期：</div>
-                <div class="con">$!activeDTO.startTime</div>
-            </li>
-            <li>
-                <div class="t">地点：</div>
-                <div class="con">$!activeDTO.address</div>
-            </li>
-            <li>
-                <div class="t">描述：</div>
-                <div class="con">$!activeDTO.description</div>
-            </li>
-        </ul>
-        <div class="right">
-            <div class="head_pic">
-                <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
-                <img src="$!activeDTO.topBeauty.imagePath" alt="" width="100" height="100">
-            </div>
-            <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">$!activeDTO.topBeauty.account</a>
-        </div>
-    </div>
     #end
 </div>

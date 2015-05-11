@@ -24,6 +24,8 @@ public class ActiveQuery extends BaseQuery {
 
     private String description;
 
+    private String imagePath;
+
     public Integer getTopBeautyId() {
         return topBeautyId;
     }
@@ -79,4 +81,13 @@ public class ActiveQuery extends BaseQuery {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
 }

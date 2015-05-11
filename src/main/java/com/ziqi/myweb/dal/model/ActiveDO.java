@@ -24,6 +24,8 @@ public class ActiveDO extends BaseDO {
 
     private String description;
 
+    private String imagePath;
+
     public Integer getTopBeautyId() {
         return topBeautyId;
     }
@@ -78,5 +80,13 @@ public class ActiveDO extends BaseDO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

@@ -26,6 +26,8 @@ public class ActiveDTO extends BaseDTO {
 
     private String description;
 
+    private String imagePath;
+
     private List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 
     public Integer getTopBeautyId() {
@@ -106,5 +108,13 @@ public class ActiveDTO extends BaseDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

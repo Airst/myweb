@@ -161,6 +161,7 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         activeDTO.setAddress(activeDO.getAddress());
         activeDTO.setStatus(activeDO.getStatus());
         activeDTO.setDescription(activeDO.getDescription());
+        activeDTO.setImagePath(activeDO.getImagePath());
         return activeDTO;
     }
     @Override
@@ -180,6 +181,7 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         activeDO.setAddress(activeDTO.getAddress());
         activeDO.setStatus(activeDTO.getStatus());
         activeDO.setDescription(activeDTO.getDescription());
+        activeDO.setImagePath(activeDTO.getImagePath());
         return activeDO;
     }
 }

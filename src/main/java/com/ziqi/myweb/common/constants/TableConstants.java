@@ -71,5 +71,6 @@ public class TableConstants {
 		public static String address = "address";
 		public static String status = "status";
 		public static String description = "description";
+		public static String imagePath = "image_path";
 	}
 }
