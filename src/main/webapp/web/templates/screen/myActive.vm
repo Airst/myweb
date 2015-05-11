@@ -28,6 +28,8 @@
                                     $!activeDTO.count
                                     #if($!activeDTO.status == 0)
                                         <span style="color: #ff0000">(待同意!)</span>
+                                    #elseif($!activeDTO.status == 2)
+                                        <span style="color: #ff0000">(已拒绝!)</span>
                                     #end
                                 </div>
                             </li>
