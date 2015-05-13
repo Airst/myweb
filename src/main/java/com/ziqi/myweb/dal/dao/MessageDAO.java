@@ -32,6 +32,7 @@ public class MessageDAO extends BaseDAO<MessageDO> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<MessageDO> selectGroup(QueryMap queryMap) throws MyException {
         try {
             return sqlMapClientTemplate.queryForList(namespace + ".selectGroup", queryMap);

@@ -114,6 +114,24 @@ public abstract class BaseService<DTO extends BaseDTO, DO extends BaseDO> {
         return resultDTO;
     }
 
+    public <E extends BaseQuery> ResultDTO<Integer> count(E query) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<Integer>();
+        try {
+            if(query == null) {
+                throw new MyException(ErrorCode.ERR_AC_0001, "query==null");
+            }
+            QueryMap queryMap = QueryToMap(query);
+            resultDTO.setResult(baseDAO.count(queryMap));
+            resultDTO.setStartLimitSize(query.getStart(), query.getLimit(), baseDAO.count(queryMap));
+            resultDTO.setIsSuccess(true);
+        } catch (MyException e) {
+            onMyException(e, "query", resultDTO, query);
+        } catch (Exception e) {
+            onException(e, "query", resultDTO, query);
+        }
+        return resultDTO;
+    }
+
     public ResultDTO<DTO> queryById(int id) {
         ResultDTO<DTO> resultDTO = new ResultDTO<DTO>();
         try {
