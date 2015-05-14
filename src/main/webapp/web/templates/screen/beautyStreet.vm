@@ -5,8 +5,10 @@ $page.setTitle("美人街")
         <div class="search">
             <div class="stay">搜索</div>
             <div class="stay_right">
-                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-                <input type="submit" value="">
+                <form action="" method="post">
+                    <input type="text" name="key" value="$!key">
+                    <input type="submit" value="">
+                </form>
             </div>
             <a href="publish.htm" class="btn_a">发帖子</a>
             <div class="clearfix"> </div>
@@ -74,8 +76,11 @@ $page.setTitle("美人街")
         #end
         <div id="yw0" class="pages">
             <div id="yw0" class="pages">
+                #if(!$!totalPage)
+                    #set($totalPage = 1)
+                #end
                 #if($!pageIndex == 1)
-                    <a class="hidden" href="/p14574">&lt;</a>
+                    <a class="hidden" href="#">&lt;</a>
                 #else
                     #set($lastPage = $!pageIndex - 1)
                     <a href="/thread.htm?threadId=$!threadDTO.id&pageIndex=$!lastPage">&lt;</a>

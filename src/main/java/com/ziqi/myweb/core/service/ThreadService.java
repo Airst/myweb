@@ -116,6 +116,29 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         return threadResult;
     }
 
+    public ResultDTO<List<ThreadDTO>> searchThreads(int pageIndex, int pageSize, String key) {
+        ResultDTO<List<ThreadDTO>> threadResult = new ResultDTO<List<ThreadDTO>>();
+        try {
+            ThreadQuery threadQuery = new ThreadQuery();
+            threadQuery.setPageIndex(pageIndex);
+            threadQuery.setPageSize(pageSize);
+            threadQuery.setTitle(key);
+            threadQuery.setLevel(ThreadConstants.Level.NORMAL);
+            threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
+
+            List<ThreadDO> threadDOs = ((ThreadDAO) baseDAO).search(QueryToMap(threadQuery));
+
+            threadResult.setResult(DOsToDTOs(threadDOs));
+            setImagePaths(threadResult.getResult());
+            threadResult.setIsSuccess(true);
+        } catch (MyException e) {
+            onMyException(e, "searchThreads", threadResult, pageIndex, pageSize, key);
+        } catch (Exception e) {
+            onException(e, "searchThreads", threadResult, pageIndex, pageSize, key);
+        }
+        return threadResult;
+    }
+
     private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
         for (ThreadDTO threadDTO : threadDTOs) {
             String classPath = this.getClass().getResource("").getPath();

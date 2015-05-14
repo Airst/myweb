@@ -24,8 +24,21 @@ import java.util.UUID;
  */
 public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
 
-    public List<ThreadDTO> listThread(int pageIndex, int pageSize,boolean imagePath, boolean content , Context context) {
+    public List<ThreadDTO> listThread(int pageIndex, int pageSize, boolean imagePath, boolean content, Context context) {
         ResultDTO<List<ThreadDTO>> resultDTO = ((ThreadService) baseService).listThreads(pageIndex, pageSize, imagePath, content);
+        if (!resultDTO.isSuccess()) {
+            context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
+            return new ArrayList<ThreadDTO>();
+        }
+
+        context.put("pageIndex", resultDTO.getPageIndex());
+        context.put("totalPage", resultDTO.getTotalPage());
+        context.put("pageSize", resultDTO.getPageSize());
+        return resultDTO.getResult();
+    }
+
+    public List<ThreadDTO> searchThreads(int pageIndex, int pageSize, String key, Context context) {
+        ResultDTO<List<ThreadDTO>> resultDTO = ((ThreadService) baseService).searchThreads(pageIndex, pageSize, key);
         if (!resultDTO.isSuccess()) {
             context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
             return new ArrayList<ThreadDTO>();

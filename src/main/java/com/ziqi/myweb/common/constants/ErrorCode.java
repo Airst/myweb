@@ -21,6 +21,7 @@ public enum ErrorCode {
 
     //ThreadDAO DataAccessException
     ERR_DAE_0030("ERR_DAE_0030", "update thread hit failed"),
+    ERR_DAE_0031("ERR_DAE_0031", "search threads failed"),
 
     //ThreadDAO DataAccessException
     ERR_DAE_0050("ERR_DAE_0050", "update message for read failed"),

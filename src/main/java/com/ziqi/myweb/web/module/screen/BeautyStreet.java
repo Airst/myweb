@@ -30,11 +30,18 @@ public class BeautyStreet extends BaseModule {
             if(StringUtils.isBlank(pageIndex)) {
                 pageIndex = "1";
             }
-            List<ThreadDTO> threadDTOs = threadBiz.listThread(Integer.parseInt(pageIndex), 20, true, false, context);
-            context.put("threadDTOs", threadDTOs);
+            String key = request.getParameter("key");
+            if(StringUtils.isNotBlank(key)) {
+                List<ThreadDTO> threadDTOs = threadBiz.searchThreads(Integer.parseInt(pageIndex), 20, key, context);
+                context.put("threadDTOs", threadDTOs);
+                context.put("key", key);
+            } else {
+                List<ThreadDTO> threadDTOs = threadBiz.listThread(Integer.parseInt(pageIndex), 20, true, false, context);
+                context.put("threadDTOs", threadDTOs);
 
-            List<ThreadDTO> topThreads = threadBiz.listTopThread(1, 5, context);
-            context.put("topThreads", topThreads);
+                List<ThreadDTO> topThreads = threadBiz.listTopThread(1, 5, context);
+                context.put("topThreads", topThreads);
+            }
         } catch (Exception e) {
             onException(context, logger, e);
         }
