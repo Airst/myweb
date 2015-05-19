@@ -58,7 +58,7 @@ public class Thread extends BaseModule {
                 context.put("threadDTO", threadDTO);
                 context.put("author", userBiz.queryById(threadDTO.getAuthorId(), context));
             }
-
+            context.put("id", threadDTO.getId());
             context.put("replyDTOs", replyBiz.listReplyTop(threadDTO.getId(), threadDTO.getId(),
                     pageIndex, true, false, context));
 

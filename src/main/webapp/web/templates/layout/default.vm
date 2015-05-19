@@ -29,9 +29,6 @@
                 <li #active("beautyStreet")><a href="beautyStreet.htm" data-hover="美人街">美人街</a></li>
                 <li #active("faceToFace")><a href="faceToFace.htm" data-hover="面对面">面对面</a></li>
                 <li #active("topBeauty")><a href="topBeauty.htm" data-hover="播美人">播美人</a></li>
-                <li #active("doctors")><a href="doctors.htm" data-hover="医生机构">医生机构</a></li>
-                <li #active("projects")><a href="projects.htm" data-hover="项目宝典">项目宝典</a></li>
-                <li #active("about")><a href="about.htm" data-hover="关于我们">关于我们</a></li>
             </ul>
         </div>
         <!-- end h_menu4 -->
