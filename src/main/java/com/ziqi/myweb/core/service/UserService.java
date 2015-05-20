@@ -1,5 +1,6 @@
 package com.ziqi.myweb.core.service;
 
+import com.ziqi.myweb.common.utils.MD5Utils;
 import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.common.model.UserDTO;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,8 @@ public class UserService extends BaseService<UserDTO, UserDO> {
         userDO.setGmtModified(userDTO.getGmtModified());
         userDO.setVersion(userDTO.getVersion());
         userDO.setAccount(userDTO.getAccount());
-        userDO.setPassword(userDTO.getPassword());
+        //MD5加密
+        userDO.setPassword(MD5Utils.MD5(userDTO.getPassword()));
         userDO.setName(userDTO.getName());
         userDO.setEmail(userDTO.getEmail());
         userDO.setPhone(userDTO.getPhone());

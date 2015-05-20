@@ -117,7 +117,7 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         messageDTO.setToAccount(toUser.getAccount());
         messageDTO.setStatus(0);
         messageDTO.setType(MessageConstants.type.SYSTEM_MSG);
-        messageDTO.addFeature("url", url);
+        messageDTO.addFeature(MessageConstants.feature.URL, url);
         save(messageDTO, context);
     }
 }

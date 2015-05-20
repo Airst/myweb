@@ -2,8 +2,11 @@ package com.ziqi.myweb.web.module.action;
 
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.dataresolver.FormField;
+import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.web.biz.ThreadBiz;
+import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.module.BaseModule;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,9 @@ public class PublishAction extends BaseModule {
     @Resource
     private ThreadBiz threadBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     private Logger logger = LoggerFactory.getLogger(PublishAction.class);
 
     public void execute(@FormField(name = "title", group = "publish") String title,
@@ -33,6 +39,10 @@ public class PublishAction extends BaseModule {
                     "<body>" + data + "</body></html>";
             content = content.replace("<img", "\n<img");
             threadBiz.publishThread(title, content, getFilesRoot(), getUserId(), context);
+
+            //level up
+            userBiz.levelForPublish(getUserId(), context);
+
             response.sendRedirect(getHostUrl() + "beautyStreet.htm");
         } catch (Exception e) {
             onException(context, logger, e);

@@ -4,6 +4,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ErrorCode;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.UserQuery;
+import com.ziqi.myweb.common.utils.MD5Utils;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.constants.ContextConstants;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -53,7 +54,8 @@ public class LoginAction extends BaseModule {
     private Integer checkLogin(String account, String password, Context context) {
         UserQuery query = new UserQuery();
         query.setAccount(account);
-        query.setPassword(password);
+        //MD5 加密
+        query.setPassword(MD5Utils.MD5(password));
         query.setPageSize(1);
         UserDTO userDTO = userBiz.queryOne(query, context);
         if(userDTO == null) {
