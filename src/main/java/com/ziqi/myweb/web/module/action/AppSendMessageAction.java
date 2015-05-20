@@ -92,4 +92,29 @@ public class AppSendMessageAction extends BaseModule {
     	extras.put("level", userDTO.getLevel()+"");
     	return extras;
     }
+    
+    public static void sendMessage(String content, String title, Map<String, String> extras, String toUserId) {
+    	String masterSecret = "0d176a98edc09fe6449830d1";
+        // 应用的appKey,同样在网站上申请
+        String appKey = "39492286f624d296c8edb8d1";
+        // 建立JpushClient类，用来发送消息的对象
+        JPushClient client = new JPushClient(masterSecret, appKey);
+        try {
+        	// client.sendNotificationAll("hello world");
+
+        	// client.sendMessageAll("this is a message");
+        	PushPayload payload = PushPayload
+        			.newBuilder()
+        			.setPlatform(Platform.android())
+        			.setNotification(Notification.android(content, title, extras))
+        			.setAudience(Audience.registrationId(AppLoginAction.registrationMap.get(Integer.parseInt(toUserId))))
+                   .build();
+        			client.sendPush(payload);
+
+        		} catch (APIConnectionException e) {
+        			e.printStackTrace();
+        		} catch (APIRequestException e) {
+        			e.printStackTrace();
+        		}
+    }
 }

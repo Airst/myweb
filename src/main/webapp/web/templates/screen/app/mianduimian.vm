@@ -1,0 +1,21 @@
+<mianduimian>
+	#set ($i=0)
+	#foreach($activeDTO in $!activeDTOs)
+	<item id="$activeDTO.id">
+		<imgurl>$activeDTO.imagePath</imgurl>
+		<title>$activeDTO.description</title>
+		<time>$activeDTO.startTime</time>
+		<place>$activeDTO.address</place>
+		<peo_num>$activeDTO.count</peo_num>
+		<state>$activeDTO.status</state>
+		<isJoin>$isJoin.get($i)</isJoin>
+		<user id="$activeDTO.ownerDTO.id">
+			<userimgurl>$activeDTO.ownerDTO.imagePath</userimgurl>
+			<username>$activeDTO.ownerDTO.account</username>
+			<gender>$activeDTO.ownerDTO.gender</gender>
+			<level>$activeDTO.ownerDTO.level</level>
+		</user>
+	</item>
+	#set ($i=$i+1)
+	#end
+</mianduimian>

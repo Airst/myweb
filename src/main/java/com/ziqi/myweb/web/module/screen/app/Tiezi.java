@@ -1,15 +1,21 @@
 package com.ziqi.myweb.web.module.screen.app;
 
 import java.io.FileInputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import com.alibaba.citrus.turbine.Context;
+import com.ziqi.myweb.common.constants.TableConstants;
+import com.ziqi.myweb.common.constants.ThreadConstants;
 import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.common.model.UserDTO;
 import com.ziqi.myweb.common.query.BaseQuery;
+import com.ziqi.myweb.common.query.ThreadQuery;
 import com.ziqi.myweb.web.biz.ThreadBiz;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -35,17 +41,31 @@ public class Tiezi extends BaseModule {
 
     public void execute(Context context) {
         try {
-            int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
-			List<ThreadDTO> threadDTOs = threadBiz.listThread(pageIndex, 10, true, true, context);
-			context.put("threadDTOs", threadDTOs);
-			List<UserDTO> userDTOs = new ArrayList<UserDTO>();
-			for(ThreadDTO threadDTO : threadDTOs) {
-				userDTOs.add(userBiz.queryById(threadDTO.getAuthorId(), context));
-			}
-			context.put("userDTOs", userDTOs);
-			String hostURL = "http://" + request.getServerName() + ":" + request.getServerPort();
-			logger.info(hostURL);
+        	String lastModified = request.getParameter("lastModified");
+        	int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+        	String hostURL = "http://" + request.getServerName() + ":" + request.getServerPort();
 			context.put("hostURL", hostURL);
+        	if(lastModified != null) {
+        		Date date = new Date();    
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
+                try {   
+                    date = sdf.parse(lastModified);  
+                } catch (Exception e) {   
+                    e.printStackTrace();   
+                }  
+        		List<ThreadDTO> threadDTOs = threadBiz.listUpdateThread(date, pageIndex, 10, context);
+        		if(threadDTOs != null) {
+        			context.put("threadDTOs", threadDTOs);
+        		}
+        		else {
+        			response.getOutputStream().close();
+        		}
+        	}
+        	else {
+				List<ThreadDTO> threadDTOs = threadBiz.listThread(pageIndex, 10, true, true, context);
+				context.put("threadDTOs", threadDTOs);
+				logger.info(hostURL);
+        	}
         } catch (Exception e) {
             onException(context, logger, e);
         }

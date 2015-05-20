@@ -4,6 +4,7 @@
 	<item id="$replyDTO.id">
 		<userid>$replyDTO.authorId</userid>
 		<username>${replyDTO.authorAccount}</username>
+		<userimgurl>$replyDTO.userDTO.imagePath</userimgurl>
 		<content>$replyDTO.content</content>
 		<time>$replyDTO.gmtCreate</time>
 		#foreach($subReplyDTO in $!replyDTO.subReplyDTOs)

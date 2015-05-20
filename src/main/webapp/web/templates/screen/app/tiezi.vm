@@ -15,7 +15,6 @@
 			#end
 		</imageurls>
 		<content><![CDATA[ $!threadDTO.content ]]></content>
-		<username>${userDTOs.get($i).name}，Lv${threadDTO.level}</username>
 		<time>$threadDTO.gmtCreate</time>
 		<pinglun_num>$threadDTO.replyCount</pinglun_num>
 		<liulan_num>$threadDTO.hit</liulan_num>

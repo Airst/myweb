@@ -1,0 +1,11 @@
+<system_message>
+	#set($i=0)
+	#foreach($messageDTO in $!messageDTOs)
+	<item id="$messageDTO.id">
+		<content>$messageDTO.content</content>
+		<time>$messageDTO.gmtCreate</time>
+		<activeId>$activeIds.get($i)</activeId>
+	</item>
+	#set($i=$i+1)
+	#end
+</system_message>

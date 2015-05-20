@@ -39,18 +39,20 @@ public class AppPublishAction extends BaseModule {
         	String account = request.getParameter("account");
         	String title = request.getParameter("title");
         	String data = request.getParameter("content");
-            FileItem[] fileItems = parse.getParameters().getFileItems("userfile");
+        	int filesize = Integer.parseInt(request.getParameter("filesize"));
             String content = "<!DOCTYPE html><html><head>" +
                     "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/></head>" +
                     "<style> img { max-width: 730px; } </style>" +
                     "<body><p>";
-            for(FileItem fileItem : fileItems) {
+            for(int i=1; i<=filesize; ++i) {
+            	FileItem fileItem = parse.getParameters().getFileItem("userfile" + i);
             	String result = userBiz.uploadAppImage(fileItem, account, getFilesRoot());
             	if(result.equals("error"))
-            		break;
+            		continue;
             	content += "<img src=\"" + result + "\" />";
             }
             content += data + "</p></body></html>";
+            content = content.replace("<img", "\n<img");
             threadBiz.publishThread(title, content, getFilesRoot(), Integer.parseInt(userId), context);
             response.getWriter().write("upload ok");
         } catch (Exception e) {

@@ -1,0 +1,21 @@
+<activeDetail id="$activeDTO.id">
+	<imgurl>$!activeDTO.imagePath</imgurl>
+	<title>$activeDTO.description</title>
+	<time>$activeDTO.startTime</time>
+	<place>$activeDTO.address</place>
+	<peo_num>$activeDTO.count</peo_num>
+	<state>$activeDTO.status</state>
+	<isReject>
+		#if($rejected)
+			1
+		#else
+			0
+		#end
+	</isReject>
+	<user id="$activeDTO.ownerDTO.id">
+		<userimgurl>$activeDTO.ownerDTO.imagePath</userimgurl>
+		<username>$activeDTO.ownerDTO.account</username>
+		<gender>$activeDTO.ownerDTO.gender</gender>
+		<level>$activeDTO.ownerDTO.level</level>
+	</user>
+</activeDetail>

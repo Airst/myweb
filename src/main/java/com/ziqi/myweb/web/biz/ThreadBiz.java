@@ -45,6 +45,30 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
         return query(threadQuery, context);
     }
+    
+    private boolean isNeedUpdate(Date lastModified, int pageIndex, int pageSize, Context context) {
+    	ThreadQuery threadQuery = new ThreadQuery();
+    	threadQuery.setFromModified(lastModified);
+    	Date date = new Date();
+    	threadQuery.setToModified(date);
+        threadQuery.setPageIndex(pageIndex);
+        threadQuery.setPageSize(pageSize);
+        threadQuery.setLevel(ThreadConstants.Level.TOP);
+        threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
+        if(queryOne(threadQuery, context) != null) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
+    }
+    
+    public List<ThreadDTO> listUpdateThread(Date lastModified, int pageIndex, int pageSize, Context context) {
+    	if(isNeedUpdate(lastModified, pageIndex, pageSize, context)) {
+	    	return listThread(pageIndex, pageSize, true, true, context);
+    	}
+    	return null;
+    }
 
     public boolean publishThread(String title, String content, String parentPath, Integer userId, Context context) {
 
