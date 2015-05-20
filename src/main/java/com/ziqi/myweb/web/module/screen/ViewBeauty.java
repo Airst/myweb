@@ -52,12 +52,12 @@ public class ViewBeauty extends BaseModule {
             context.put("userDTO", userDTO);
 
             List<ActiveDTO> activeDTOs = new ArrayList<ActiveDTO>();
-            activeDTOs.addAll(activeBiz.listActiveAsOwner(getUserId(), context));
-            activeDTOs.addAll(activeBiz.listActiveAsBeauty(getUserId(), context));
-            activeDTOs.addAll(activeBiz.listActiveAsActor(getUserId(), context));
+            activeDTOs.addAll(activeBiz.listActiveAsOwner(Integer.parseInt(userId), context));
+            activeDTOs.addAll(activeBiz.listActiveAsBeauty(Integer.parseInt(userId), context));
+            activeDTOs.addAll(activeBiz.listActiveAsActor(Integer.parseInt(userId), context));
             context.put("activeDTOs", activeDTOs);
 
-            List<ThreadDTO> threadDTOs = threadBiz.listUserThread(getUserId(), context);
+            List<ThreadDTO> threadDTOs = threadBiz.listUserThread(Integer.parseInt(userId), context);
             context.put("threadDTOs", threadDTOs);
         } catch (Exception e) {
             onException(context, logger, e);

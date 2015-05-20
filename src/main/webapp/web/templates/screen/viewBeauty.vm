@@ -1,6 +1,6 @@
 $page.setTitle("播美人")
 #set($active = "topBeauty")
-<div class="meeting"style="width: 300px; margin: 20px 100px 0 0; float: right">
+<div class="meeting"style="width: 300px; margin: 20px 70px 0 0; float: right">
     <div class="left" style="width: 250px;">
         <div class="head_pic">
             <a href="/viewBeauty.htm?userId=$!userDTO.id" target="_self"></a>
@@ -17,9 +17,7 @@ $page.setTitle("播美人")
 </div>
 <div class="container">
     <div style="margin-top: 50px"></div>
-    #if($!threadDTOs)
-        <h2>ta的帖子</h2>
-    #end
+    <h2 style="width: 760px; background-color: #37ae56; color: #ffffff">ta的帖子</h2>
     <ul class="beauty_list">
         #foreach($threadDTO in $!threadDTOs)
             <li class="top">
@@ -43,9 +41,7 @@ $page.setTitle("播美人")
         #end
     </ul>
     <div style="margin-top: 50px"></div>
-    #if($!activeDTOs)
-        <h2>ta的面对面</h2>
-    #end
+    <h2 style="width: 760px; background-color: #37ae56; color: #ffffff">ta的面对面</h2>
     #foreach($activeDTO in $!activeDTOs)
         <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
              onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
