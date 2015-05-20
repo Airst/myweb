@@ -36,4 +36,13 @@ public class ThreadDAO extends BaseDAO<ThreadDO> {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Integer> selectUser() throws MyException {
+        try {
+            return sqlMapClientTemplate.queryForList(namespace + ".selectUser");
+        } catch (DataAccessException e) {
+            throw new MyException(ErrorCode.ERR_DAE_0032, e);
+        }
+    }
+
 }

@@ -152,9 +152,14 @@
 		limit #start#,#limit#
 	</select>
 	<select id="ThreadDAO.selectById" resultMap="ThreadDOResult" parameterClass="int"> 
-		select * from thread where 
-		is_deleted = 0 and id = #id# limit 1 
-	</select> 
+		select * from thread where
+		is_deleted = 0 and id = #id# limit 1
+	</select>
+
+	<select id="ThreadDAO.selectUser" resultClass="int">
+		select author_id from thread where
+		is_deleted = 0 and level = 0 group by author_id order by count(author_id) desc
+	</select>
 	<select id="ThreadDAO.selectCount" resultClass="int" parameterClass="java.util.HashMap"> 
 		select count(id) from thread where is_deleted = 0 
 		<dynamic prepend="and"> 

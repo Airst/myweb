@@ -139,6 +139,20 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         return threadResult;
     }
 
+    public ResultDTO<List<Integer>> listTopUser() {
+        ResultDTO<List<Integer>> resultDTO = new ResultDTO<List<Integer>>();
+        try {
+            List<Integer> list = ((ThreadDAO) baseDAO).selectUser();
+            resultDTO.setResult(list);
+            resultDTO.setIsSuccess(true);
+        } catch (MyException e) {
+            onMyException(e, "listTopUser", resultDTO);
+        } catch (Exception e) {
+            onException(e, "listTopUser", resultDTO);
+        }
+        return resultDTO;
+    }
+
     private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
         for (ThreadDTO threadDTO : threadDTOs) {
             String classPath = this.getClass().getResource("").getPath();

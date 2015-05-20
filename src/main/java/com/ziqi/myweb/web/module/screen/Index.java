@@ -45,7 +45,7 @@ public class Index extends BaseModule {
             List<ThreadDTO> threadDTOs = threadBiz.listThread(1, 3, true, false, context);
             context.put("threadDTOs", threadDTOs);
 
-            List<UserDTO> userDTOs = userBiz.listTopBeauty(1, context);
+            List<UserDTO> userDTOs = userBiz.listTopUser(context);
             if(userDTOs != null) {
                 int size = 6;
                 if(userDTOs.size() < 6) size = userDTOs.size();

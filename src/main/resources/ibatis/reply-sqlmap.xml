@@ -172,7 +172,7 @@
 	</insert>
 	<update id="ReplyDAO.updateParent" parameterClass="ReplyDO">
 		<isEqual property="replyType" compareValue="0">
-			update thread set reply_count = reply_count + 1, last_reply_date = now() where id = #parentId#;
+			update thread set reply_count = reply_count + 1, last_reply_date = now(), gmt_modified = now() where id = #parentId#;
 		</isEqual>
 	</update>
 	<update id="ReplyDAO.update" parameterClass="ReplyDO"> 
