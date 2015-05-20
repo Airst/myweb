@@ -37,6 +37,14 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         return resultDTO.getResult();
     }
 
+    public List<ThreadDTO> listUserThread(int userId, Context context) {
+        ThreadQuery query = new ThreadQuery();
+        query.setAuthorId(userId);
+        query.setLevel(ThreadConstants.Level.NORMAL);
+        query.addOrderField(TableConstants.Thread.lastReplyDate, true);
+        return query(query, context);
+    }
+
     public List<ThreadDTO> searchThreads(int pageIndex, int pageSize, String key, Context context) {
         ResultDTO<List<ThreadDTO>> resultDTO = ((ThreadService) baseService).searchThreads(pageIndex, pageSize, key);
         if (!resultDTO.isSuccess()) {

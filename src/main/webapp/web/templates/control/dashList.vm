@@ -7,7 +7,7 @@
     <ul class="sort_nav">
         <li #active("profile")>
             <span class="icon"></span>
-            <a href="profile.htm?userId=$!userId">个人资料</a>
+            <a href="profile.htm?userId=$!userId">个人中心</a>
         </li>
         <li #active("notification")>
             <span class="icon"></span>
