@@ -52,8 +52,7 @@ public class UserService extends BaseService<UserDTO, UserDO> {
         userDO.setGmtModified(userDTO.getGmtModified());
         userDO.setVersion(userDTO.getVersion());
         userDO.setAccount(userDTO.getAccount());
-        //MD5加密
-        userDO.setPassword(MD5Utils.MD5(userDTO.getPassword()));
+        userDO.setPassword(userDTO.getPassword());
         userDO.setName(userDTO.getName());
         userDO.setEmail(userDTO.getEmail());
         userDO.setPhone(userDTO.getPhone());

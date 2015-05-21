@@ -5,6 +5,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.dataresolver.FormField;
 import com.alibaba.citrus.turbine.dataresolver.FormGroup;
 import com.ziqi.myweb.common.model.UserDTO;
+import com.ziqi.myweb.common.utils.MD5Utils;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.model.RegisterVO;
 import com.ziqi.myweb.web.module.BaseModule;
@@ -58,7 +59,7 @@ public class RegisterAction extends BaseModule {
         userDTO.setAccount(registerVO.getAccount());
         userDTO.setEmail(registerVO.getEmail());
         userDTO.setName(registerVO.getName());
-        userDTO.setPassword(registerVO.getPassword());
+        userDTO.setPassword(MD5Utils.MD5(registerVO.getPassword()));
         userDTO.setPhone(registerVO.getPhone());
         userDTO.setLevel(0);
         return userDTO;
