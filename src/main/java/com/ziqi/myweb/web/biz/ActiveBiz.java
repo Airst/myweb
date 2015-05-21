@@ -2,7 +2,11 @@ package com.ziqi.myweb.web.biz;
 
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ActiveConstants;
+import com.ziqi.myweb.common.constants.TableConstants;
 import com.ziqi.myweb.common.model.ActiveDTO;
+import com.ziqi.myweb.common.model.ThreadDTO;
+import com.ziqi.myweb.common.query.ActiveQuery;
+import com.ziqi.myweb.common.query.ThreadQuery;
 import com.ziqi.myweb.core.service.ActiveService;
 import com.ziqi.myweb.dal.model.ActiveDO;
 
@@ -42,17 +46,51 @@ public class ActiveBiz extends BaseBiz<ActiveDTO, ActiveDO> {
     public List<ActiveDTO> listActive(Context context) {
         return result(((ActiveService) baseService).listActive(), context);
     }
+    
+    private boolean isNeedUpdate(Date lastModified, Context context) {
+    	ActiveQuery query = new ActiveQuery();
+        query.setStatus(ActiveConstants.Status.AGREED);
+        query.setFromModified(lastModified);
+    	Date date = new Date();
+    	query.setToModified(date);
+    	query.addOrderField(TableConstants.Base.gmtCreate, true);
+        if(queryOne(query, context) != null) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
+    }
+    
+    public List<ActiveDTO> listUpdateActive(Date lastModified, Context context) {
+    	if(isNeedUpdate(lastModified,context)) {
+	    	return listActive(context);
+    	}
+    	return null;
+    }
 
     public List<ActiveDTO> listActiveAsOwner(int userId, Context context) {
         return result(((ActiveService) baseService).listActiveAsOwner(userId), context);
+    }
+    
+    public List<ActiveDTO> listUpdateActiveAsOwner(Date lastModified, int userId, Context context) {
+        return result(((ActiveService) baseService).listUpdateActiveAsOwner(lastModified, userId), context);
     }
 
     public List<ActiveDTO> listActiveAsBeauty(int userId, Context context) {
         return result(((ActiveService) baseService).listActiveAsBeauty(userId), context);
     }
+    
+    public List<ActiveDTO> listUpdateActiveAsBeauty(Date lastModified, int userId, Context context) {
+        return result(((ActiveService) baseService).listUpdateActiveAsBeauty(lastModified, userId), context);
+    }
 
     public List<ActiveDTO> listActiveAsActor(int userId, Context context) {
         return result(((ActiveService) baseService).listActiveAsActor(userId), context);
+    }
+    
+    public List<ActiveDTO> listUpdateActiveAsActor(Date lastModified, int userId, Context context) {
+        return result(((ActiveService) baseService).listUpdateActiveAsActor(lastModified, userId), context);
     }
 
 }

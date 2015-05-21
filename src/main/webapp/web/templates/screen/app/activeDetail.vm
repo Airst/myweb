@@ -17,5 +17,8 @@
 		<username>$activeDTO.ownerDTO.account</username>
 		<gender>$activeDTO.ownerDTO.gender</gender>
 		<level>$activeDTO.ownerDTO.level</level>
+		<name>$activeDTO.ownerDTO.name</name>
+		<phone>$activeDTO.ownerDTO.phone</phone>
+		<email>$activeDTO.ownerDTO.email</email>
 	</user>
 </activeDetail>

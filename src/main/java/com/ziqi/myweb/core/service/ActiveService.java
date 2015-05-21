@@ -106,6 +106,21 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         }
         return resultDTO;
     }
+    
+    public ResultDTO<List<ActiveDTO>> listUpdateActiveAsOwner(Date lastModified, int userId) {
+        ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();
+        try {
+            ActiveQuery query = new ActiveQuery();
+            query.setFromCreate(lastModified);
+            query.setToModified(new Date());
+            query.setOwnerId(userId);
+            query.addOrderField(TableConstants.Base.gmtCreate, true);
+            resultDTO = query(query);
+        } catch (Exception e) {
+            onException(e, "listActiveAsOwner", resultDTO);
+        }
+        return resultDTO;
+    }
 
     public ResultDTO<List<ActiveDTO>> listActiveAsBeauty(int userId) {
         ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();
@@ -119,11 +134,43 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         }
         return resultDTO;
     }
+    
+    public ResultDTO<List<ActiveDTO>> listUpdateActiveAsBeauty(Date lastModified, int userId) {
+        ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();
+        try {
+            ActiveQuery query = new ActiveQuery();
+            query.setFromCreate(lastModified);
+            query.setToModified(new Date());
+            query.setTopBeautyId(userId);
+            query.addOrderField(TableConstants.Base.gmtCreate, true);
+            resultDTO = query(query);
+        } catch (Exception e) {
+            onException(e, "listActiveAsBeauty", resultDTO);
+        }
+        return resultDTO;
+    }
 
     public ResultDTO<List<ActiveDTO>> listActiveAsActor(int userId) {
         ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();
         try {
             ActiveRelationQuery query = new ActiveRelationQuery();
+            query.setUserId(userId);
+            List<ActiveRelationDO> relationDOs = activeRelationDAO.select(QueryToMap(query));
+            List<ActiveDO> activeDOs = ((ActiveDAO) baseDAO).selectByRelations(relationDOs);
+            resultDTO.setResult(DOsToDTOs(activeDOs));
+            resultDTO.setIsSuccess(true);
+        } catch (Exception e) {
+            onException(e, "listActiveAsActor", resultDTO);
+        }
+        return resultDTO;
+    }
+    
+    public ResultDTO<List<ActiveDTO>> listUpdateActiveAsActor(Date lastModified, int userId) {
+        ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();
+        try {
+            ActiveRelationQuery query = new ActiveRelationQuery();
+            query.setFromCreate(lastModified);
+            query.setToModified(new Date());
             query.setUserId(userId);
             List<ActiveRelationDO> relationDOs = activeRelationDAO.select(QueryToMap(query));
             List<ActiveDO> activeDOs = ((ActiveDAO) baseDAO).selectByRelations(relationDOs);

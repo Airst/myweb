@@ -41,30 +41,57 @@ public class Tiezi extends BaseModule {
 
     public void execute(Context context) {
         try {
+        	String userId = request.getParameter("userId");
         	String lastModified = request.getParameter("lastModified");
         	int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
-        	String hostURL = "http://" + request.getServerName() + ":" + request.getServerPort();
-			context.put("hostURL", hostURL);
-        	if(lastModified != null) {
-        		Date date = new Date();    
-                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
-                try {   
-                    date = sdf.parse(lastModified);  
-                } catch (Exception e) {   
-                    e.printStackTrace();   
-                }  
-        		List<ThreadDTO> threadDTOs = threadBiz.listUpdateThread(date, pageIndex, 10, context);
-        		if(threadDTOs != null) {
-        			context.put("threadDTOs", threadDTOs);
-        		}
-        		else {
-        			response.getOutputStream().close();
-        		}
+        	if(userId == null) {
+	        	String hostURL = "http://" + request.getServerName() + ":" + request.getServerPort();
+				context.put("hostURL", hostURL);
+	        	if(lastModified != null) {
+	        		Date date = new Date();    
+	                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
+	                try {   
+	                    date = sdf.parse(lastModified);  
+	                } catch (Exception e) {   
+	                    e.printStackTrace();   
+	                }  
+	        		List<ThreadDTO> threadDTOs = threadBiz.listUpdateThread(date, pageIndex, 10, context);
+	        		if(threadDTOs != null) {
+	        			context.put("threadDTOs", threadDTOs);
+	        		}
+	        		else {
+	        			//do nothing
+	        		}
+	        	}
+	        	else {
+					List<ThreadDTO> threadDTOs = threadBiz.listThread(pageIndex, 10, true, true, context);
+					context.put("threadDTOs", threadDTOs);
+					logger.info(hostURL);
+	        	}
         	}
         	else {
-				List<ThreadDTO> threadDTOs = threadBiz.listThread(pageIndex, 10, true, true, context);
-				context.put("threadDTOs", threadDTOs);
-				logger.info(hostURL);
+        		String hostURL = "http://" + request.getServerName() + ":" + request.getServerPort();
+				context.put("hostURL", hostURL);
+	        	if(lastModified != null) {
+	        		Date date = new Date();    
+	                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
+	                try {   
+	                    date = sdf.parse(lastModified);  
+	                } catch (Exception e) {   
+	                    e.printStackTrace();   
+	                }  
+	        		List<ThreadDTO> threadDTOs = threadBiz.listUpdateThreadByUserId(Integer.parseInt(userId), date, pageIndex, 10, context);
+	        		if(threadDTOs != null) {
+	        			context.put("threadDTOs", threadDTOs);
+	        		}
+	        		else {
+	        			//do nothing
+	        		}
+	        	}
+	        	else {
+	        		List<ThreadDTO> threadDTOs = threadBiz.listThreadByUserId(Integer.parseInt(userId), pageIndex, 10, true, true, context);
+					context.put("threadDTOs", threadDTOs);
+	        	}
         	}
         } catch (Exception e) {
             onException(context, logger, e);

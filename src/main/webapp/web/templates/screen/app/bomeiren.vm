@@ -5,6 +5,9 @@
 		<username>$userDTO.account</username>
 		<gender>$userDTO.gender</gender>
 		<level>$userDTO.level</level>
+		<name>$userDTO.name</name>
+		<phone>$userDTO.phone</phone>
+		<email>$userDTO.email</email>
 	</item>
 	#end
 </bomeiren>

@@ -8,6 +8,9 @@
 			<username>$threadDTO.userDTO.account</username>
 			<gender>$threadDTO.userDTO.gender</gender>
 			<level>$threadDTO.userDTO.level</level>
+			<name>$threadDTO.userDTO.name</name>
+			<phone>$threadDTO.userDTO.phone</phone>
+			<email>$threadDTO.userDTO.email</email>
 		</user>
 		<imageurls>
 			#foreach($imagePath in $!threadDTO.imagePaths)

@@ -103,13 +103,15 @@ public class AppSendMessageAction extends BaseModule {
         	// client.sendNotificationAll("hello world");
 
         	// client.sendMessageAll("this is a message");
-        	PushPayload payload = PushPayload
-        			.newBuilder()
-        			.setPlatform(Platform.android())
-        			.setNotification(Notification.android(content, title, extras))
-        			.setAudience(Audience.registrationId(AppLoginAction.registrationMap.get(Integer.parseInt(toUserId))))
-                   .build();
-        			client.sendPush(payload);
+        	if(AppLoginAction.registrationMap.containsKey(Integer.parseInt(toUserId))) {
+	        	PushPayload payload = PushPayload
+	        			.newBuilder()
+	        			.setPlatform(Platform.android())
+	        			.setNotification(Notification.android(content, title, extras))
+	        			.setAudience(Audience.registrationId(AppLoginAction.registrationMap.get(Integer.parseInt(toUserId))))
+	                   .build();
+	        			client.sendPush(payload);
+        	}
 
         		} catch (APIConnectionException e) {
         			e.printStackTrace();

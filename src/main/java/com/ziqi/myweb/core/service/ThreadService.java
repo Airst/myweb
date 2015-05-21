@@ -115,6 +115,33 @@ public class ThreadService extends BaseService<ThreadDTO, ThreadDO> {
         }
         return threadResult;
     }
+    
+    public ResultDTO<List<ThreadDTO>> listThreadsByUserId(int userId, int pageIndex, int pageSize, boolean imagePath, boolean content) {
+
+        ThreadQuery threadQuery = new ThreadQuery();
+        threadQuery.setAuthorId(userId);
+        threadQuery.setPageIndex(pageIndex);
+        threadQuery.setPageSize(pageSize);
+        threadQuery.setLevel(ThreadConstants.Level.NORMAL);
+        threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
+        ResultDTO<List<ThreadDTO>> threadResult = query(threadQuery);
+
+        if (!threadResult.isSuccess()) {
+            return threadResult;
+        }
+        try {
+            if (imagePath) {
+                setImagePaths(threadResult.getResult());
+            }
+
+            if (content) {
+                setThreadContent(threadResult.getResult());
+            }
+        } catch (Exception e) {
+            logger.error("failed@listThreads, ", e);
+        }
+        return threadResult;
+    }
 
     private void setThreadContent(List<ThreadDTO> threadDTOs) throws Exception {
         for (ThreadDTO threadDTO : threadDTOs) {

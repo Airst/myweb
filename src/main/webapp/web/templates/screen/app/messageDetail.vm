@@ -8,6 +8,9 @@
 			<username>$messageDTO.fromUserDTO.account</username>
 			<gender>$messageDTO.fromUserDTO.gender</gender>
 			<level>$messageDTO.fromUserDTO.level</level>
+			<name>$messageDTO.fromUserDTO.name</name>
+			<phone>$messageDTO.fromUserDTO.phone</phone>
+			<email>$messageDTO.fromUserDTO.email</email>
 		</user>
 	</item>
 	#end

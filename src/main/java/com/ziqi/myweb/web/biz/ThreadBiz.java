@@ -36,6 +36,19 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
         context.put("pageSize", resultDTO.getPageSize());
         return resultDTO.getResult();
     }
+    
+    public List<ThreadDTO> listThreadByUserId(int userId, int pageIndex, int pageSize,boolean imagePath, boolean content , Context context) {
+        ResultDTO<List<ThreadDTO>> resultDTO = ((ThreadService) baseService).listThreadsByUserId(userId, pageIndex, pageSize, imagePath, content);
+        if (!resultDTO.isSuccess()) {
+            context.put(ContextConstants.ERROR_MSG, ErrorCode.ERR_WEB_0001);
+            return new ArrayList<ThreadDTO>();
+        }
+
+        context.put("pageIndex", resultDTO.getPageIndex());
+        context.put("totalPage", resultDTO.getTotalPage());
+        context.put("pageSize", resultDTO.getPageSize());
+        return resultDTO.getResult();
+    }
 
     public List<ThreadDTO> listTopThread(int pageIndex, int pageSize, Context context) {
         ThreadQuery threadQuery = new ThreadQuery();
@@ -53,7 +66,23 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
     	threadQuery.setToModified(date);
         threadQuery.setPageIndex(pageIndex);
         threadQuery.setPageSize(pageSize);
-        threadQuery.setLevel(ThreadConstants.Level.TOP);
+        threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
+        if(queryOne(threadQuery, context) != null) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
+    }
+    
+    private boolean isNeedUpdate(int userId, Date lastModified, int pageIndex, int pageSize, Context context) {
+    	ThreadQuery threadQuery = new ThreadQuery();
+    	threadQuery.setAuthorId(userId);
+    	threadQuery.setFromModified(lastModified);
+    	Date date = new Date();
+    	threadQuery.setToModified(date);
+        threadQuery.setPageIndex(pageIndex);
+        threadQuery.setPageSize(pageSize);
         threadQuery.addOrderField(TableConstants.Thread.lastReplyDate, true);
         if(queryOne(threadQuery, context) != null) {
         	return true;
@@ -66,6 +95,13 @@ public class ThreadBiz extends BaseBiz<ThreadDTO, ThreadDO> {
     public List<ThreadDTO> listUpdateThread(Date lastModified, int pageIndex, int pageSize, Context context) {
     	if(isNeedUpdate(lastModified, pageIndex, pageSize, context)) {
 	    	return listThread(pageIndex, pageSize, true, true, context);
+    	}
+    	return null;
+    }
+    
+    public List<ThreadDTO> listUpdateThreadByUserId(int userId, Date lastModified, int pageIndex, int pageSize, Context context) {
+    	if(isNeedUpdate(userId, lastModified, pageIndex, pageSize, context)) {
+	    	return listThreadByUserId(userId, pageIndex, pageSize, true, true, context);
     	}
     	return null;
     }

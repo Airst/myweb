@@ -45,7 +45,8 @@ public class AppLoginAction extends BaseModule {
 
                 registrationMap.put(tryUserId, registrationId);
                 UserDTO userDTO = userBiz.queryById(tryUserId, context);
-                response.getWriter().write(userDTO.getId() + ":" + userDTO.getImagePath());
+                response.getWriter().write(userDTO.getId() + ":" + userDTO.getImagePath() + ":" + userDTO.getLevel() +
+                		":" + userDTO.getName() + ":" + userDTO.getPhone() + ":" + userDTO.getEmail());
                 logger.info("login ok");
                 logger.info(registrationId);
             }
