@@ -3,7 +3,9 @@ package com.ziqi.myweb.web.module.action;
 import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.constants.ReplyConstants;
 import com.ziqi.myweb.common.model.ReplyDTO;
+import com.ziqi.myweb.common.model.ThreadDTO;
 import com.ziqi.myweb.web.biz.ReplyBiz;
+import com.ziqi.myweb.web.biz.ThreadBiz;
 import com.ziqi.myweb.web.biz.UserBiz;
 import com.ziqi.myweb.web.module.BaseModule;
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +26,12 @@ public class AppReplyAction extends BaseModule {
 
     @Resource
     private ReplyBiz replyBiz;
+
+    @Resource
+    private UserBiz userBiz;
+
+    @Resource
+    private ThreadBiz threadBiz;
 
     private Logger logger = LoggerFactory.getLogger(AppReplyAction.class);
 
@@ -54,11 +62,21 @@ public class AppReplyAction extends BaseModule {
 
                 int replyId = replyBiz.publishReplyTop(content, Integer.parseInt(userId), Integer.parseInt(threadId),
                         Integer.parseInt(parentId), getFilesRoot(), context);
+
+                //被评论，升级
+                ThreadDTO threadDTO = threadBiz.queryById(Integer.parseInt(threadId), context);
+                userBiz.pointForReply(getUserId(), threadDTO.getAuthorId(), context);
+
                 response.getWriter().write("replyId:" + replyId);
             } else if(replyType.equals(REPLY_SUB)) {
                 String content = request.getParameter("comment");
                 replyBiz.publishReplySub(content, Integer.parseInt(userId), Integer.parseInt(threadId),
                         Integer.parseInt(parentId), context);
+
+                //作者回复评论，升级
+                ReplyDTO replyDTO = replyBiz.queryById(Integer.parseInt(parentId), context);
+                ThreadDTO threadDTO = threadBiz.queryById(Integer.parseInt(threadId), context);
+                userBiz.levelForReply(threadDTO.getAuthorId(), replyDTO.getAuthorId(), getUserId(), context);
             }
         } catch (Exception e) {
             onException(context, logger, e);

@@ -1,8 +1,99 @@
 $page.setTitle("首页")
 #set($active = "index")
-<ol style="margin-top: 50px">
-    <li>
-        #set($url = "$mywebLink.setTarget('login.htm')")
-        <a href="$url">$url</a>
-    </li>
-</ol>
+<div class="container">
+    <div style="margin-top: 50px"></div>
+    <h2 style="width: 760px; background-color: #37ae56; color: #ffffff">热门帖子</h2>
+    <ul class="beauty_list">
+        #foreach($threadDTO in $!threadDTOs)
+            <li class="normal" style="overflow: auto">
+                <div class="head_pic head_pic_pop_show">
+                    <a href="/viewBeauty.htm?userId=$threadDTO.authorId" target="_self">
+                        <img src="$threadDTO.userDTO.imagePath" width="46" height="46">
+                    </a>
+                </div>
+                <div class="content" style="height: 47px">
+                    <p class="title">
+                        <a href="thread.htm?threadId=$!threadDTO.id" class="t" target="_self">$!threadDTO.title</a>
+                    </p>
+                </div>
+                <div class="content" style="margin-left: 54px">
+                    <div class="tag_box">
+                        <span class="data">
+                            <span class="font_icon">浏览</span>
+                            <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.hit</a>
+                            <span class="font_icon">回复</span>
+                            <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.replyCount</a>
+                            <span class="font_icon">点赞</span>
+                            <a href="thread.htm?threadId=$!threadDTO.id" target="_self">$!threadDTO.likeCount</a>
+                        </span>
+                        <span class="date">$!threadDTO.lastReplyDate</span>
+                    </div>
+                </div>
+            </li>
+        #end
+    </ul>
+    <div style="margin-top: 50px"></div>
+    <h2 style="width: 760px; background-color: #37ae56; color: #ffffff">活跃用户</h2>
+    <div style="overflow: auto">
+    <div class="meeting">
+    #foreach($userDTO in $!userDTOs)
+        <div class="left" style="margin-left: 15px">
+            <div class="head_pic" style="float: left">
+                <a href="/viewBeauty.htm?userId=$!userDTO.id" target="_self"></a>
+                <img src="$!userDTO.imagePath" alt="" width="100" height="100">
+            </div>
+            <a href="/viewBeauty.htm?userId=$!userDTO.id" class="link" target="_self">
+                $!userDTO.account
+            </a>
+        </div>
+    #end
+    </div>
+    </div>
+    <div style="margin-top: 50px"></div>
+    <h2 style="width: 760px; background-color: #37ae56; color: #ffffff">热门面对面</h2>
+    #foreach($activeDTO in $!activeDTOs)
+        <div class="meeting" onmouseover="this.style.background='#e9f8f7'" onmouseout="this.style.background='#FFF'"
+             onclick="window.open('/activeDetail.htm?id=$activeDTO.id', '_self');">
+            <div class="left">
+                <div class="head_pic">
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
+                    <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
+                </div>
+                <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">
+                    $!activeDTO.ownerDTO.account
+                    <span style="font-size: 10px">(发起者)</span>
+                </a>
+            </div>
+            <ul class="list">
+                <li>
+                    <div class="t">当前人数：</div>
+                    <div class="con">$!activeDTO.count</div>
+                </li>
+                <li>
+                    <div class="t">开始日期：</div>
+                    <div class="con">$!activeDTO.startTime</div>
+                </li>
+                <li>
+                    <div class="t">地点：</div>
+                    <div class="con">$!activeDTO.address</div>
+                </li>
+                <li>
+                    <div class="t">描述：</div>
+                    <div class="con">$!activeDTO.description</div>
+                </li>
+            </ul>
+            #if($!activeDTO.imagePath)
+                <div class="right">
+                    <div class="head_pic" style="width: 150px; height: 150px;">
+                        <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" target="_self"></a>
+                        <img src="$!activeDTO.imagePath" alt="" width="150" height="150" style="border: 0">
+                    </div>
+                    <a href="/viewBeauty.htm?userId=$!activeDTO.topBeauty.id" class="link" target="_self">
+                        $!activeDTO.topBeauty.account
+                        <span style="font-size: 10px">(大美照)</span>
+                    </a>
+                </div>
+            #end
+        </div>
+    #end
+</div>

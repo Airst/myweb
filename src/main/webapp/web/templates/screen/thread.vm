@@ -91,7 +91,7 @@ $page.setTitle("$threadDTO.title")
                     <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="pic" target="_self">
                         <img src="$threadDTO.userDTO.imagePath" width="64" height="64">
                     </a>
-                    <a href="http://www.soyoung.com/u654" class="name" target="_self">$!author.account</a>
+                    <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="name" target="_self">$!threadDTO.authorAccount</a>
                 </div>
                 <div class="content">
                     <!-- 点评的内容 -->
@@ -102,7 +102,6 @@ $page.setTitle("$threadDTO.title")
                     <div class="status">
                         <div class="msg">
                             <span class="font_icon">浏览</span><a href="javascript:void(0)">$!threadDTO.hit</a>
-                            <span class="font_icon">点赞</span><a href="javascript:void(0)">$!threadDTO.likeCount</a>
                         </div>
                         <div class="date">
                             <span class="floor">1楼</span> <span class="time">$!threadDTO.gmtCreate</span>
@@ -140,7 +139,9 @@ $page.setTitle("$threadDTO.title")
                             #foreach($subReplyDTO in $!replyDTO.subReplyDTOs)
                             <li>
                                 <div class="pic head_pic_pop_show">
-                                    <a href="/viewBeauty.htm?userId=$subReplyDTO.authorId" target="_self"><span class="font_icon">R</span></a>
+                                    <a href="/viewBeauty.htm?userId=$subReplyDTO.authorId" target="_self">
+                                        <img src="$subReplyDTO.userDTO.imagePath" width="36" height="36">
+                                    </a>
                                 </div>
                                 <div class="t">
                                     <a target="_self" href="$subReplyDTO.userDTO.imagePath">$!subReplyDTO.authorAccount</a>:$subReplyDTO.contentPath
@@ -177,18 +178,18 @@ $page.setTitle("$threadDTO.title")
                     <a class="hidden" href="/p14574">&lt;</a>
                 #else
                     #set($lastPage = $!pageIndex - 1)
-                    <a href="/thread.htm?threadId=$!threadDTO.id&pageIndex=$!lastPage">&lt;</a>
+                    <a href="/thread.htm?threadId=$!id&pageIndex=$!lastPage">&lt;</a>
                 #end
                 #foreach($i in [1..$!totalPage])
                     #if($i == $!pageIndex)
-                        <a class="on" href="/thread.htm?threadId=$!threadDTO.id&pageIndex=$!i">$i</a>
+                        <a class="on" href="/thread.htm?threadId=$!id&pageIndex=$!i">$i</a>
                     #else
-                        <a href="/thread.htm?threadId=$!threadDTO.id&pageIndex=$!i">$i</a>
+                        <a href="/thread.htm?threadId=$!id&pageIndex=$!i">$i</a>
                     #end
                 #end
                 #if($!pageIndex < $!totalPage)
                     #set($nextPage = $!pageIndex + 1)
-                    <a href="/thread.htm?threadId=$!threadDTO.id&pageIndex=$!nextPage">&gt;</a>
+                    <a href="/thread.htm?threadId=$!id&pageIndex=$!nextPage">&gt;</a>
                 #end
             </div>
         </div>

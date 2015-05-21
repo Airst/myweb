@@ -1,5 +1,6 @@
 package com.ziqi.myweb.core.service;
 
+import com.ziqi.myweb.common.utils.MD5Utils;
 import com.ziqi.myweb.dal.model.UserDO;
 import com.ziqi.myweb.common.model.UserDTO;
 import org.slf4j.LoggerFactory;

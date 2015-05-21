@@ -5,9 +5,29 @@
 #end
 <div class="sidebar_l">
     <ul class="sort_nav">
-        <li #active("profile")><span class="icon"></span><a href="profile.htm?userId=$!userId">个人资料</a></li>
-        <li #active("notification")><span class="icon"></span><a href="notification.htm">系统通知</a></li>
-        <li #active("message")><span class="icon"></span><a href="message.htm">私信</a></li>
-        <li #active("myActive")><span class="icon"></span><a href="myActive.htm">我的面对面</a></li>
+        <li #active("profile")>
+            <span class="icon"></span>
+            <a href="profile.htm?userId=$!userId">个人中心</a>
+        </li>
+        <li #active("notification")>
+            <span class="icon"></span>
+            <a href="notification.htm">系统通知
+                #if($!unreadNotifications)
+                    <span style="color: #ff0000">($!unreadNotifications)</span>
+                #end
+            </a>
+        </li>
+        <li #active("message")>
+            <span class="icon"></span>
+            <a href="message.htm">私信
+                #if($!unreadMessages)
+                    <span style="color: #ff0000">($!unreadMessages)</span>
+                #end
+            </a>
+        </li>
+        <li #active("myActive")>
+            <span class="icon"></span>
+            <a href="myActive.htm">我的面对面</a>
+        </li>
     </ul>
 </div>

@@ -13,7 +13,12 @@
                 </a>
             #else
                 <a href="profile.htm?userId=$!userId">
-                    <li>$!account</li>
+                    <li>
+                        $!account
+                        #if($!unread)
+                            <span style="color: #ff0000">($unread!)</span>
+                        #end
+                    </li>
                 </a>
                 <a href="logout.act?action=logoutAction">
                     <li>注销</li>

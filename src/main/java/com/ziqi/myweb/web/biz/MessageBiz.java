@@ -36,6 +36,15 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         return result(((MessageService) baseService).listMessages(query), context);
     }
 
+    public Integer unreadMessages(int userId, Context context) {
+        MessageQuery query = new MessageQuery();
+        query.setToUserId(userId);
+        query.setType(MessageConstants.type.USER_MSG);
+        query.setStatus(MessageConstants.status.NEW);
+        //仅type，toUserId和分页参数有效
+        return result(baseService.count(query), context);
+    }
+
     public List<MessageDTO> listChatMessages(int myUserId, int userId, int pageIndex, Context context) {
         List<MessageDTO> messageDTOs = new ArrayList<MessageDTO>();
         MessageQuery query = new MessageQuery();
@@ -74,6 +83,16 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         return query(query, context);
     }
 
+
+    public Integer unreadNotifications(int userId, Context context) {
+        MessageQuery query = new MessageQuery();
+        query.setToUserId(userId);
+        query.setType(MessageConstants.type.SYSTEM_MSG);
+        query.setStatus(MessageConstants.status.NEW);
+        //仅type，toUserId和分页参数有效
+        return result(baseService.count(query), context);
+    }
+
     public void sendMessage(int toUserId, int fromUserId, String content, Context context) {
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setContent(content);
@@ -98,7 +117,7 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         messageDTO.setToAccount(toUser.getAccount());
         messageDTO.setStatus(0);
         messageDTO.setType(MessageConstants.type.SYSTEM_MSG);
-        messageDTO.addFeature("url", url);
+        messageDTO.addFeature(MessageConstants.feature.URL, url);
         save(messageDTO, context);
     }
 }

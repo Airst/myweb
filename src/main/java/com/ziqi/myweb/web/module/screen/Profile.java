@@ -25,17 +25,10 @@ public class Profile extends BaseModule {
 
     public void execute(Context context) {
         try {
-            String userId = request.getParameter("userId");
-            if(StringUtils.isBlank(userId)) {
-                response.sendRedirect(getHostUrl() + "/index.htm");
-                return;
-            }
+            if(!checkLogin("/profile.htm", context)) return;
 
-            UserDTO userDTO = userBiz.queryById(Integer.parseInt(userId), context);
+            UserDTO userDTO = userBiz.queryById(getUserId(), context);
             context.put("userDTO", userDTO);
-            if(userDTO.getId().equals(getUserId())) {
-                context.put("isSelf", true);
-            }
         } catch (Exception e) {
             onException(context, logger, e);
         }

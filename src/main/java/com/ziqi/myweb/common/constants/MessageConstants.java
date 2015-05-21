@@ -17,4 +17,8 @@ public class MessageConstants {
         public static Integer NEW = 0;
         public static Integer READ = 1;
     }
+
+    public static class feature {
+        public static String URL = "url";
+    }
 }

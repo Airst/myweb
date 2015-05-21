@@ -7,7 +7,7 @@ $page.setTitle("面对面")
                 <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" target="_self"></a>
                 <img src="$!activeDTO.ownerDTO.imagePath" alt="" width="100" height="100">
             </div>
-            <a href="/home/person/uid/1578494" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
+            <a href="/viewBeauty.htm?userId=$!activeDTO.ownerDTO.id" class="link" target="_self">$!activeDTO.ownerDTO.account</a>
         </div>
         <ul class="list">
             <li>

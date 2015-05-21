@@ -1,5 +1,22 @@
 $page.setTitle("面对面")
 #set($active = "faceToFace")
+<div class="column_center">
+    <div class="container">
+        <div class="search">
+            <div class="stay">搜索</div>
+            <div class="stay_right">
+                <form name="myForm" action="" method="post">
+                    <input type="text" name="key" value="$!key">
+                    <input type="hidden" name="option" value="0">
+                    <input type="button" style="background-color: #10ae33" onclick="option.value = '1'; myForm.submit();">
+                    <input type="button" style="margin-left: 34px" onclick="option.value = '0'; myForm.submit();">
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
 <div class="container">
     <div style="margin-top: 50px"></div>
     #foreach($activeDTO in $!activeDTOs)
