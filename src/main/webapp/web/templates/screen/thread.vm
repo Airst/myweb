@@ -91,7 +91,7 @@ $page.setTitle("$threadDTO.title")
                     <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="pic" target="_self">
                         <img src="$threadDTO.userDTO.imagePath" width="64" height="64">
                     </a>
-                    <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="name" target="_self">$!author.account</a>
+                    <a href="/viewBeauty.htm?userId=$threadDTO.authorId" class="name" target="_self">$!threadDTO.authorAccount</a>
                 </div>
                 <div class="content">
                     <!-- 点评的内容 -->

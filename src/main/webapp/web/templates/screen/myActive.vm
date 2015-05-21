@@ -6,7 +6,7 @@
         <div style="width: 730px;float: left;margin-left: 50px;">
             #foreach($actives in $!activesList)
                 #set($index = $velocityCount - 1)
-                <h5> $activesTitle.get($index) </h5>
+                <h5 style="width: 760px; background-color: #37ae56; color: #ffffff"> $activesTitle.get($index) </h5>
                 #foreach($activeDTO in $!actives)
                     <div class="meeting" onmouseover="this.style.background='#e9f8f7'"
                          onmouseout="this.style.background='#FFF'"

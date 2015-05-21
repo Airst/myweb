@@ -410,7 +410,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     font: 500 13px/13px 'Lato', sans-serif;
 }
 
-.search input[type="submit"] {
+.search input[type="submit"], .search input[type="button"] {
     background: url('../images/search.png') no-repeat 6px 5px #df1f26;
     padding: 4px 17px;
     border: none;
