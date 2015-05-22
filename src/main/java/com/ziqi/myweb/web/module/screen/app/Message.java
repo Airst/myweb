@@ -4,11 +4,14 @@ import com.alibaba.citrus.turbine.Context;
 import com.ziqi.myweb.common.model.MessageDTO;
 import com.ziqi.myweb.web.biz.MessageBiz;
 import com.ziqi.myweb.web.module.BaseModule;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +38,12 @@ public class Message extends BaseModule {
             }
             List<MessageDTO> messageDTOs = messageBiz.listMessages(Integer.parseInt(userId), pageIndex, context);
             context.put("messageDTOs", messageDTOs);
+            List<Integer> unreads = new ArrayList<Integer>();
+            for(MessageDTO messageDTO : messageDTOs) {
+            	Integer unread = messageBiz.unreadMessages(messageDTO.getFromUserId(),  messageDTO.getToUserId(), context);
+            	unreads.add(unread);
+            }
+            context.put("unreads", unreads);
         } catch (Exception e) {
             onException(context, logger, e);
         }

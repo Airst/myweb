@@ -47,6 +47,10 @@ public class ActiveBiz extends BaseBiz<ActiveDTO, ActiveDO> {
         return result(((ActiveService) baseService).listActive(), context);
     }
     
+    public List<Integer> listUserIds(int activeId, Context context) {
+    	return result(((ActiveService) baseService).listUserIds(activeId), context);
+    }
+    
     private boolean isNeedUpdate(Date lastModified, Context context) {
     	ActiveQuery query = new ActiveQuery();
         query.setStatus(ActiveConstants.Status.AGREED);

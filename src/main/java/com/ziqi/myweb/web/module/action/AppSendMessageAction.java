@@ -1,6 +1,8 @@
 package com.ziqi.myweb.web.module.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.jpush.api.JPushClient;
@@ -53,7 +55,9 @@ public class AppSendMessageAction extends BaseModule {
 
             messageBiz.sendMessage(Integer.parseInt(toUserId), Integer.parseInt(fromUserId), content, context);
             //response.sendRedirect(getHostUrl() + "/messageDetail.htm?toUserId=" + toUserId);
-         // 这是在极光网站上申请的密钥
+            Map<String, String> extras = userDTOToMap(fromUserDTO);
+            sendMessage(content, fromUserDTO.getAccount(), extras, toUserId);
+         /*// 这是在极光网站上申请的密钥
             String masterSecret = "0d176a98edc09fe6449830d1";
             // 应用的appKey,同样在网站上申请
             String appKey = "39492286f624d296c8edb8d1";
@@ -65,19 +69,21 @@ public class AppSendMessageAction extends BaseModule {
 
             	// client.sendMessageAll("this is a message");
             	Map<String, String> extras = userDTOToMap(fromUserDTO);
-            	PushPayload payload = PushPayload
-            			.newBuilder()
-            			.setPlatform(Platform.android())
-            			.setNotification(Notification.android(content, fromUserDTO.getAccount(), extras))
-            			.setAudience(Audience.registrationId(AppLoginAction.registrationMap.get(Integer.parseInt(toUserId))))
-                       .build();
-            			client.sendPush(payload);
+            	if(AppLoginAction.registrationMap.containsKey(Integer.parseInt(toUserId))) {
+	            	PushPayload payload = PushPayload
+	            			.newBuilder()
+	            			.setPlatform(Platform.android())
+	            			.setNotification(Notification.android(content, fromUserDTO.getAccount(), extras))
+	            			.setAudience(Audience.registrationId(AppLoginAction.registrationMap.get(Integer.parseInt(toUserId))))
+	                       .build();
+	            			client.sendPush(payload);
+            	}
 
             		} catch (APIConnectionException e) {
             			e.printStackTrace();
             		} catch (APIRequestException e) {
             			e.printStackTrace();
-            		}
+            		}*/
 
         } catch(Exception e) {
             onException(context, logger, e);
@@ -112,11 +118,36 @@ public class AppSendMessageAction extends BaseModule {
 	                   .build();
 	        			client.sendPush(payload);
         	}
+        	else {
+        		PushParam pushParam = new PushParam(content, title, extras, toUserId);
+        		unreadPush.add(pushParam);
+        	}
 
         		} catch (APIConnectionException e) {
         			e.printStackTrace();
         		} catch (APIRequestException e) {
         			e.printStackTrace();
         		}
+    }
+    
+    public static void sendMessage(PushParam pushParam) {
+    	sendMessage(pushParam.content, pushParam.title, pushParam.extras, pushParam.toUserId);
+    }
+    
+    public static List<PushParam> unreadPush = new ArrayList<PushParam>();
+    
+    public static class PushParam {
+    	String content;
+    	String title;
+    	Map<String, String> extras;
+    	String toUserId;
+		public PushParam(String content, String title,
+				Map<String, String> extras, String toUserId) {
+			super();
+			this.content = content;
+			this.title = title;
+			this.extras = extras;
+			this.toUserId = toUserId;
+		} 
     }
 }

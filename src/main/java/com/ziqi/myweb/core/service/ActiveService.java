@@ -80,6 +80,26 @@ public class ActiveService extends BaseService<ActiveDTO, ActiveDO> {
         }
         return resultDTO;
     }
+    
+    public ResultDTO<List<Integer>> listUserIds(int activeId) {
+    	ResultDTO<List<Integer>> resultDTO = new ResultDTO<List<Integer>>();
+        try {
+            ActiveRelationQuery query = new ActiveRelationQuery();
+            query.setActiveId(activeId);
+            List<ActiveRelationDO> relationDOs = activeRelationDAO.select(QueryToMap(query));
+            List<Integer> userIds = new ArrayList<Integer>();
+            for(ActiveRelationDO i : relationDOs) {
+            	userIds.add(i.getUserId());
+            }
+            resultDTO.setResult(userIds);
+            resultDTO.setIsSuccess(true);
+        } catch (MyException e) {
+            onMyException(e, "listUserIds", resultDTO, activeId);
+        } catch (Exception e) {
+            onException(e, "listUserIds", resultDTO, activeId);
+        }
+        return resultDTO;
+    }
 
     public ResultDTO<List<ActiveDTO>> listActive() {
         ResultDTO<List<ActiveDTO>> resultDTO = new ResultDTO<List<ActiveDTO>>();

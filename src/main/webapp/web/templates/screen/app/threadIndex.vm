@@ -1,0 +1,27 @@
+#set ($i=0)
+<tiezi>
+	#foreach($threadDTO in $!threadDTOs)
+	<item id="$threadDTO.id">
+		<title>$!threadDTO.title</title>
+		<user id="$threadDTO.userDTO.id">
+			<userimgurl>$threadDTO.userDTO.imagePath</userimgurl>
+			<username>$threadDTO.userDTO.account</username>
+			<gender>$threadDTO.userDTO.gender</gender>
+			<level>$threadDTO.userDTO.level</level>
+			<name>$threadDTO.userDTO.name</name>
+			<phone>$threadDTO.userDTO.phone</phone>
+			<email>$threadDTO.userDTO.email</email>
+		</user>
+		<imageurls>
+			#foreach($imagePath in $!threadDTO.imagePaths)
+			<url>$!{hostURL}$imagePath</url>
+			#end
+		</imageurls>
+		<content><![CDATA[ $!threadDTO.content ]]></content>
+		<time>$threadDTO.gmtCreate</time>
+		<pinglun_num>$threadDTO.replyCount</pinglun_num>
+		<liulan_num>$threadDTO.hit</liulan_num>
+	</item>
+	#set ($i=$i+1)
+	#end
+</tiezi>

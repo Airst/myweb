@@ -44,6 +44,16 @@ public class MessageBiz extends BaseBiz<MessageDTO, MessageDO> {
         //仅type，toUserId和分页参数有效
         return result(baseService.count(query), context);
     }
+    
+    public Integer unreadMessages(int fromUserId, int toUserId, Context context) {
+    	MessageQuery query = new MessageQuery();
+    	query.setFromUserId(fromUserId);
+        query.setToUserId(toUserId);
+        query.setType(MessageConstants.type.USER_MSG);
+        query.setStatus(MessageConstants.status.NEW);
+        //仅type，toUserId和分页参数有效
+        return result(baseService.count(query), context);
+    }
 
     public List<MessageDTO> listChatMessages(int myUserId, int userId, int pageIndex, Context context) {
         List<MessageDTO> messageDTOs = new ArrayList<MessageDTO>();
